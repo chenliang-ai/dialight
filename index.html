@@ -1,0 +1,2307 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Dialight · Chen Liang</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Mono:wght@400..700&family=Atkinson+Hyperlegible+Next:ital,wght@0,400..700;1,400..700&family=Newsreader:ital,opsz,wght@0,6..72,400..600;1,6..72,400..600&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+/* ------------------------------------------------------------------
+   颜色全部取自产品原型的 :root（项目对接/2. 透亮原型）。原型里的规定：
+   暖色、先拉开深浅、不用红色吓人；底色一律很浅，字一律很深；
+   紫只在「选中了」时用，上面压深色的字；分级靠深浅分开，不靠红绿。
+   这一页没有另加颜色，只多用了配套材料里的 --deep 做大号橙色字。
+   ------------------------------------------------------------------ */
+:root{
+  color-scheme: light;
+  --ink:#161514; --sub:#5E4E4C; --faint:#7A6463;
+  --bg:#FDF5F1; --card:#FFFAF7; --soft:#FDF1E3; --line:#EFE3D9; --line2:#E0D0C3;
+  --brand:#FB9E4B; --brand2:#F08C2E; --deep:#C4621A; --brown:#A85E16;
+  --lilac:#B292ED; --lilac-bg:#EDE4FA; --lilac-ink:#5C4396;
+  --a-bg:#F2E9E2; --b-bg:#FDECD7; --c-bg:#FCE4DA; --d-bg:#F0E9E4;
+
+  --f-display:"Newsreader", Georgia, serif;
+  --f-body:"Atkinson Hyperlegible Next", system-ui, sans-serif;
+  --f-label:"Atkinson Hyperlegible Next", system-ui, sans-serif;
+  --f-mono:"Atkinson Hyperlegible Mono", ui-monospace, Menlo, monospace;
+  --body-size:19px;
+  --display-track:-0.022em;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:400 var(--body-size)/1.6 var(--f-body);-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+a{color:inherit;text-decoration-color:var(--brand2);text-decoration-thickness:2px;text-underline-offset:4px}
+a:hover{text-decoration-color:var(--ink)}
+:focus-visible{outline:3px solid var(--lilac);outline-offset:3px;border-radius:4px}
+p{margin:0 0 1em}
+.mono{font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+.wrap{max-width:1080px;margin:0 auto;padding:0 40px}
+@media (min-width:1240px){ .wrap{max-width:1180px;padding:0 56px} }
+
+/* 顶栏 */
+.top{display:flex;justify-content:space-between;align-items:baseline;gap:24px;padding:26px 0 0;font:500 15px/1.3 var(--f-label)}
+.top a{text-decoration:none}
+.top a:hover{text-decoration:underline;text-decoration-color:var(--brand2);text-decoration-thickness:2px}
+.top .crumb span{color:var(--faint);margin:0 8px}
+
+/* 两栏：正文 + 来源栏 */
+.cols{display:grid;grid-template-columns:minmax(0,640px) minmax(0,250px);column-gap:64px;align-items:start}
+.cols > .full{grid-column:1 / -1}
+.notes{font:400 14.5px/1.5 var(--f-label);color:var(--sub)}
+.note{border-top:2px solid var(--ink);padding:10px 0 0;margin:0 0 26px}
+.note b{display:block;color:var(--ink);font-weight:600;margin-bottom:2px}
+.kind{display:inline-block;font:600 11.5px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--ink);background:var(--a-bg);border-radius:4px;padding:5px 7px;margin:0 0 8px}
+.todo{display:inline-block;font:500 12px/1 "PingFang SC",var(--f-label);color:var(--sub);border:1.5px dashed var(--faint);border-radius:999px;padding:4px 9px;margin-left:6px;vertical-align:middle;white-space:nowrap}
+@media (max-width:980px){ .cols{grid-template-columns:minmax(0,1fr)} .notes{margin-top:18px} }
+
+/* ---------- 首屏 ---------- */
+.hero{padding:84px 0 8px}
+.eyebrow{font:600 14px/1.3 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--brown);margin:0 0 22px;display:flex;gap:10px;align-items:center}
+.eyebrow i{width:10px;height:10px;border-radius:50%;background:var(--brand2);display:block}
+h1{font:500 clamp(42px,6.2vw,88px)/1.0 var(--f-display);letter-spacing:var(--display-track);margin:0 0 34px;max-width:13em;font-optical-sizing:auto}
+h1 em{font-style:normal;color:var(--deep)}
+.lede{font-size:clamp(20px,1.75vw,24px);line-height:1.5;max-width:31em;margin:0}
+.meta{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0 28px;margin:52px 0 0;padding:0;border-top:2px solid var(--ink)}
+.meta div{padding:12px 0 0}
+.meta dt{font:600 12px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin:0 0 4px}
+.meta dd{margin:0;font:500 16px/1.4 var(--f-label)}
+@media (max-width:760px){ .meta{grid-template-columns:1fr 1fr;row-gap:14px} .hero{padding-top:52px} }
+
+
+/* 九十顿饭 */
+.month{margin:64px 0 0}
+.month-grid{display:grid;grid-template-columns:76px repeat(30,minmax(0,1fr));gap:5px;align-items:center}
+.month-grid .rl{font:500 12.5px/1 var(--f-mono);color:var(--sub)}
+.cell{aspect-ratio:1;border-radius:3px;background:var(--line2)}
+.cell.visit{background:var(--brand2)}
+.cell.today{background:var(--card);box-shadow:inset 0 0 0 2.5px var(--ink)}
+.month-grid .dn{font:500 11.5px/1 var(--f-mono);color:var(--faint);text-align:center;padding-top:5px}
+.keys{display:flex;flex-wrap:wrap;gap:8px 30px;margin:18px 0 0;font:400 15px/1.4 var(--f-label);color:var(--sub)}
+.keys span{display:flex;align-items:center;gap:9px}
+.keys i{width:15px;height:15px;border-radius:3px;display:block;flex:none}
+.k-visit{background:var(--brand2)} .k-today{background:var(--card);box-shadow:inset 0 0 0 2.5px var(--ink)} .k-rest{background:var(--line2)}
+@media (max-width:760px){ .month-grid{grid-template-columns:22px repeat(30,minmax(0,1fr));gap:2px} .month-grid .rl{font-size:0} .month-grid .rl::first-letter{font-size:11px} .month-grid .dn{font-size:9px} }
+
+/* ---------- 影片 ---------- */
+.film{margin:0;padding:56px 0 0}
+.film video{display:block;width:100%;aspect-ratio:16/9;border-radius:22px;background:#2A1F1D;border:8px solid var(--card);box-shadow:0 0 0 1.5px var(--line2)}
+.film figcaption{display:flex;flex-wrap:wrap;justify-content:space-between;gap:8px 24px;margin-top:14px;font:400 16px/1.5 var(--f-label);color:var(--sub)}
+.film figcaption p{margin:0}
+.film figcaption b{color:var(--ink);font-weight:600}
+.film h2{font:500 clamp(26px,2.5vw,34px)/1.16 var(--f-display);letter-spacing:var(--display-track);margin:6px 0 0}
+.film .label,.label{font:600 12.5px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin:0}
+@media (max-width:980px){ .film figcaption{grid-template-columns:1fr} .film video{border-width:5px;border-radius:14px} }
+
+/* ---------- 这一天怎么读 ---------- */
+.day{padding:104px 0 0}
+.day h2,.stop h2{font:500 clamp(32px,3.6vw,50px)/1.08 var(--f-display);letter-spacing:var(--display-track);margin:0 0 20px;max-width:15em}
+.line{list-style:none;margin:44px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));position:relative}
+.line::before{content:"";position:absolute;left:8px;right:8px;top:8px;height:2px;background:var(--ink)}
+.line li{padding:0 14px 0 0;position:relative}
+.line a{display:block;text-decoration:none;padding-top:30px;border-radius:6px}
+.line a::before{content:"";position:absolute;left:0;top:0;width:18px;height:18px;border-radius:50%;background:var(--bg);box-shadow:inset 0 0 0 2.5px var(--ink)}
+.line li.built a::before{background:var(--brand2);box-shadow:inset 0 0 0 2.5px var(--ink)}
+.line time{display:block;font:500 26px/1 var(--f-mono);letter-spacing:-.01em}
+.line .dp{display:block;font:600 12px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--brown);margin:8px 0 4px}
+.line .q{display:block;font:400 15.5px/1.38 var(--f-label);color:var(--sub)}
+.line a:hover .q{color:var(--ink)}
+@media (max-width:860px){
+  .line{grid-template-columns:1fr;row-gap:22px}
+  .line::before{left:8px;right:auto;top:8px;bottom:8px;width:2px;height:auto}
+  .line a{padding:0 0 0 38px}
+}
+
+/* ---------- 每一站的抬头 ---------- */
+.stop{padding:120px 0 0}
+.when{display:flex;align-items:baseline;gap:16px;margin:0 0 20px;padding-top:16px;border-top:2px solid var(--ink)}
+.when time{font:500 clamp(38px,4.2vw,56px)/1 var(--f-mono);letter-spacing:-.02em}
+.when span{font:600 13px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--brown)}
+.answer{font-size:clamp(21px,1.9vw,26px);line-height:1.4;font-weight:600;margin:0 0 22px;max-width:27em}
+
+/* ---------- 07:10 带标注的化验单 ---------- */
+.read{display:grid;grid-template-columns:minmax(0,1.06fr) minmax(0,.94fr);gap:48px;margin-top:44px;align-items:start}
+@media (max-width:900px){ .read{grid-template-columns:1fr;gap:28px} }
+.paper{background:var(--card);border-radius:6px;box-shadow:0 0 0 1.5px var(--line2), 9px 9px 0 0 var(--line);padding:26px 26px 20px;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+.paper-head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;padding-bottom:14px;border-bottom:2px solid var(--ink)}
+.paper-head strong{display:block;font:600 21px/1.2 var(--f-label)}
+.paper-head small{display:block;font:400 13px/1.4 var(--f-label);color:var(--sub);margin-top:3px}
+.paper-date{font-size:14px;white-space:nowrap;display:flex;align-items:center;gap:9px;border-radius:5px;padding:5px 7px;margin:-5px -7px}
+.paper table{width:100%;border-collapse:collapse;font-size:15.5px}
+.paper th{font:600 11.5px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);text-align:left;padding:14px 6px 8px}
+.paper td{padding:10px 6px;border-top:1px solid var(--line);vertical-align:middle}
+.paper td:first-child,.paper th:first-child{padding-left:8px;font-family:var(--f-label);font-size:16px}
+.paper .num{text-align:right;font-weight:600;font-size:17px}
+.paper .flag{width:26px;font-weight:700}
+.paper .ref{color:var(--sub);font-size:14px}
+.paper .mk{width:34px;text-align:right;padding-right:8px}
+.paper tr,.paper-date,.paper-foot{transition:background-color .15s}
+.paper-foot{font:400 13px/1.4 var(--f-label);color:var(--sub);padding:14px 8px 4px;border-top:2px solid var(--ink);margin-top:2px;display:flex;justify-content:space-between;align-items:center;border-radius:0 0 5px 5px}
+.mark{display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;background:var(--ink);color:var(--card);font:600 13px/1 var(--f-mono);flex:none}
+.smudge{display:inline-block;filter:blur(3.2px);opacity:.55;background:var(--d-bg);padding:0 12px;border-radius:40%;transform:rotate(-4deg);user-select:none}
+@media (max-width:600px){
+  .paper{padding:18px 14px 14px;box-shadow:0 0 0 1.5px var(--line2), 5px 5px 0 0 var(--line)}
+  .paper-head{flex-direction:column;align-items:flex-start;gap:10px}
+  .paper-date{margin:0 0 0 -7px}
+  .paper .ref,.paper th:nth-child(5){display:none}
+  .paper td,.paper th{padding-left:4px;padding-right:4px}
+}
+.is-on{background:var(--lilac-bg)}
+.is-on .mark, li.is-on .mark{background:var(--lilac);color:var(--ink)}
+
+.anno{list-style:none;margin:0;padding:0;font:400 16.5px/1.48 var(--f-label)}
+.anno li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:14px;padding:13px 12px;margin:0 -12px;border-radius:10px;cursor:default;transition:background-color .15s}
+.anno li + li{border-top:1px solid var(--line)}
+.anno li.is-on + li, .anno li.is-on{border-top-color:transparent}
+.anno b{display:block;font-weight:600;margin-bottom:2px}
+.anno span{color:var(--sub)}
+.anno li.is-on span{color:var(--ink)}
+
+/* ---------- 08:05 分级图 ---------- */
+.plot{margin-top:44px}
+.plot-bar{display:flex;flex-wrap:wrap;gap:10px 10px;align-items:center;margin:0 0 18px}
+.chip{font:500 15px/1 var(--f-label);color:var(--ink);background:var(--card);border:1.5px solid var(--line2);border-radius:999px;padding:10px 15px;cursor:pointer}
+.chip:hover{border-color:var(--ink)}
+.chip[aria-pressed="true"]{background:var(--lilac);border-color:var(--lilac);font-weight:600}
+.chip .n{font-family:var(--f-mono);color:var(--sub);margin-left:6px;font-size:13px}
+.chip[aria-pressed="true"] .n{color:var(--ink)}
+.plot-card{background:var(--card);border-radius:22px;box-shadow:0 0 0 1.5px var(--line2);padding:22px 22px 16px;position:relative}
+.plot-title{font:600 17px/1.35 var(--f-label);margin:0 0 4px}
+.plot-sub{font:400 14.5px/1.4 var(--f-label);color:var(--sub);margin:0 0 12px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 26px;font:400 14.5px/1.4 var(--f-label);color:var(--sub);margin:0 0 6px}
+.legend span{display:flex;align-items:center;gap:8px}
+.legend svg{flex:none}
+#chart{display:block;width:100%;height:auto;touch-action:pan-y}
+#chart text{font-family:var(--f-label)}
+#chart .tick{font:500 12.5px var(--f-mono);fill:var(--faint)}
+#chart .axis-t{font:500 13.5px var(--f-label);fill:var(--sub)}
+#chart .zone-l{font:600 34px var(--f-display);fill:var(--ink)}
+#chart .zone-s{font:500 13.5px var(--f-label);fill:var(--sub)}
+#chart .ray-l{font:500 12px var(--f-mono);fill:var(--sub)}
+#chart .dl{font:500 13px var(--f-label);fill:var(--ink)}
+#chart .pt{transition:opacity .2s}
+#chart .pt.dim{opacity:.13}
+.tip{position:absolute;pointer-events:none;background:var(--ink);color:var(--card);border-radius:10px;padding:11px 13px 12px;font:400 13.5px/1.45 var(--f-label);width:max-content;max-width:270px;z-index:5;opacity:0;transition:opacity .12s}
+.tip.show{opacity:1}
+.tip strong{display:block;font:600 16px/1.25 var(--f-label);margin-bottom:5px}
+.tip .v{font-family:var(--f-mono);font-weight:600}
+.tip .why{display:block;margin-top:6px;padding-top:6px;border-top:1px solid rgba(255,250,247,.28)}
+.picked{margin:16px 0 0;background:var(--lilac-bg);border-radius:14px;padding:14px 18px;font:400 15.5px/1.5 var(--f-label);color:var(--ink);min-height:54px}
+.picked.empty{background:transparent;box-shadow:inset 0 0 0 1.5px var(--line2);color:var(--sub)}
+.picked b{font-weight:600}
+details.tbl{margin:14px 0 0;font:400 15px/1.5 var(--f-label)}
+details.tbl summary{cursor:pointer;color:var(--sub);padding:6px 0;width:max-content}
+details.tbl summary:hover{color:var(--ink)}
+.tbl-scroll{max-height:340px;overflow:auto;margin-top:8px;border-radius:12px;box-shadow:0 0 0 1.5px var(--line2);background:var(--card)}
+details.tbl table{width:100%;border-collapse:collapse;font-size:14.5px}
+details.tbl th{position:sticky;top:0;background:var(--a-bg);text-align:left;font:600 11.5px/1.2 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;padding:10px 12px}
+details.tbl td{padding:8px 12px;border-top:1px solid var(--line)}
+details.tbl td.r, details.tbl th.r{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
+
+/* ---------- 12:00 质检单 ---------- */
+.gate{margin-top:44px}
+.gate-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,410px);gap:44px;align-items:start}
+@media (max-width:940px){ .gate-grid{grid-template-columns:1fr;gap:28px} }
+.rcard{background:var(--card);border-radius:22px;box-shadow:0 0 0 1.5px var(--line2);padding:24px 28px 24px}
+.rcard h3{font:600 25px/1.2 var(--f-label);margin:8px 0 18px}
+.rcard dl{margin:0;display:grid;grid-template-columns:112px minmax(0,1fr);gap:12px 16px;font:400 17px/1.5 var(--f-label)}
+.rcard dt{font:600 12px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding-top:5px}
+.rcard dd{margin:0}
+.rcard ol{margin:0;padding-left:1.25em}
+.rcard mark{background:var(--b-bg);color:inherit;padding:1px 4px;border-radius:3px;box-shadow:inset 0 -2.5px 0 var(--deep)}
+.nums{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.nums span{font:500 14.5px/1 var(--f-mono);background:var(--a-bg);border-radius:8px;padding:9px 11px}
+.nums span.hit{background:var(--b-bg);box-shadow:inset 0 -2.5px 0 var(--deep)}
+@media (max-width:560px){ .rcard{padding:20px 18px} .rcard dl{grid-template-columns:1fr;gap:2px 0} .rcard dd{margin-bottom:10px} }
+.slip{background:var(--card);padding:22px 24px 26px;box-shadow:0 0 0 1.5px var(--line2);border-top:3px dashed var(--ink);border-bottom:3px dashed var(--ink)}
+.slip-h{font:600 12.5px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px}
+.slip ul{list-style:none;margin:10px 0 0;padding:0}
+.slip li{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:4px 12px;padding:13px 0;border-top:1px dashed var(--line2);align-items:start}
+.slip .q{font:600 16.5px/1.35 var(--f-label)}
+.slip .st{font:600 12px/1.6 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
+.slip .m{grid-column:2 / -1;font:400 15px/1.45 var(--f-label);color:var(--sub)}
+.slip li.hit .m{color:var(--ink)}
+.slip svg{margin-top:4px}
+.stamp-row{display:flex;gap:18px;align-items:center;margin-top:20px;padding-top:18px;border-top:2px solid var(--ink)}
+.stamp{flex:none;font:700 21px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;padding:11px 15px 10px;border:3px solid var(--ink);border-radius:6px;transform:rotate(-3deg)}
+.stamp.fix{color:var(--brown);border-color:var(--brown)}
+.stamp.block{background:var(--ink);color:var(--card)}
+.stamp-row p{margin:0;font:400 15.5px/1.45 var(--f-label)}
+
+/* ---------- 17:30 同一天画两遍 ---------- */
+.twice{margin-top:44px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px}
+@media (max-width:860px){ .twice{grid-template-columns:1fr;gap:44px} }
+.tw{border-top:2px solid var(--ink);padding-top:14px}
+.tw-h{margin:0 0 6px;display:flex;align-items:baseline;gap:12px;flex-wrap:wrap}
+.tw-h b{font:500 34px/1 var(--f-mono);letter-spacing:-.02em}
+.tw-h span{font:600 12.5px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--brown)}
+.tw-sub{font:400 15px/1.45 var(--f-label);color:var(--sub);margin:0 0 10px}
+.meal{display:grid;grid-template-columns:88px minmax(0,1fr);gap:0 12px;padding:11px 0;border-top:1px solid var(--line2);margin:0}
+.meal dt{font:600 12px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding-top:5px}
+.meal dd{margin:0;font:400 16.5px/1.5 var(--f-label)}
+.meal dd span{display:block}
+.meal dd span.chg{font-weight:600;display:flex;align-items:center;gap:8px;margin-left:-19px}
+.hbars{margin-top:14px;border-top:1px solid var(--line2);padding-top:12px}
+.hb{display:grid;grid-template-columns:86px minmax(0,1fr);gap:2px 12px;align-items:center;padding:6px 0}
+.hb .nm{font:500 14.5px/1.2 var(--f-label)}
+.hb .v{grid-column:2;font:500 13px/1.2 var(--f-mono);color:var(--sub)}
+.hb .t{height:13px;background:var(--b-bg);border-radius:3px 0 0 3px;position:relative;box-shadow:inset -3px 0 0 0 var(--ink)}
+.hb .t i{position:absolute;left:0;top:0;bottom:0;background:var(--brand2);border-radius:3px 0 0 3px}
+.hb.moved .v{color:var(--ink);font-weight:600}
+
+/* ---------- 21:00 月历和一页纸 ---------- */
+.eve{margin-top:44px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,420px);gap:56px;align-items:start}
+@media (max-width:940px){ .eve{grid-template-columns:1fr;gap:36px} }
+.count{font:500 clamp(60px,7vw,96px)/0.95 var(--f-mono);letter-spacing:-.04em;margin:0}
+.count small{font:400 17px/1.4 var(--f-label);letter-spacing:0;color:var(--sub);display:block;margin-top:10px}
+.eve .month-grid{margin-top:28px;grid-template-columns:repeat(30,minmax(0,1fr));gap:4px}
+.cell.rec{background:var(--brand2)}
+.k-rec{background:var(--brand2)}
+.a4{background:var(--card);aspect-ratio:210/297;box-shadow:0 0 0 1.5px var(--line2), 9px 9px 0 0 var(--line);padding:26px 28px 20px;font:400 12.5px/1.42 var(--f-label);display:flex;flex-direction:column;gap:9px}
+.a4 .who{font:600 14px/1.3 var(--f-label)}
+.a4 .meta-l{color:var(--sub);margin-top:1px}
+.a4 .meta-l b{color:var(--ink);font-weight:600;background:var(--b-bg);padding:1px 4px;border-radius:3px;box-shadow:inset 0 -2px 0 var(--deep)}
+.a4 h4{font:600 13.5px/1.3 var(--f-label);margin:0;padding-top:9px;border-top:1.5px solid var(--ink)}
+.a4 h5{font:600 10px/1.3 var(--f-mono);letter-spacing:.07em;text-transform:uppercase;color:var(--faint);margin:0}
+.a4 .kv{display:grid;grid-template-columns:86px minmax(0,1fr);gap:3px 10px;margin:0}
+.a4 .kv dt{font-weight:600} .a4 .kv dd{margin:0;color:var(--sub)}
+.a4 table{width:100%;border-collapse:collapse;font-family:var(--f-mono);font-size:11.5px;font-variant-numeric:tabular-nums}
+.a4 th{font:600 9.5px/1.2 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint);text-align:right;padding:0 0 4px}
+.a4 th:first-child,.a4 td:first-child{text-align:left}
+.a4 td{text-align:right;padding:4px 0;border-top:1px solid var(--line)}
+.a4 .blank{display:grid;grid-template-columns:1fr 1.4fr 1fr;gap:10px;font-size:11.5px;white-space:nowrap}
+.a4 .blank div,.a4 .line-f{border-bottom:1px solid var(--line2);padding:8px 0 3px;display:flex;justify-content:space-between;color:var(--sub)}
+.a4 .tall{flex:1;min-height:26px;align-items:flex-start}
+
+/* ---------- 说的和不说的 ---------- */
+.say{width:100%;border-collapse:collapse;margin-top:44px}
+.say th{text-align:left;font:600 12px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding:0 24px 10px 0;border-bottom:2px solid var(--ink)}
+.say td{padding:15px 24px 15px 0;border-bottom:1px solid var(--line2);vertical-align:top;width:36%}
+.say td:last-child{width:28%;padding-right:0;font:400 14.5px/1.45 var(--f-label);color:var(--sub);padding-top:24px}
+.bub{display:inline-block;font:500 16.5px/1.4 var(--f-label);padding:10px 14px;border-radius:14px 14px 14px 4px;background:var(--card);box-shadow:0 0 0 1.5px var(--line2)}
+.bub.no{background:transparent;box-shadow:none;outline:1.5px dashed var(--faint);outline-offset:-1.5px;color:var(--sub)}
+@media (max-width:820px){
+  .say thead{display:none} .say tr{display:block;padding:16px 0;border-top:1px solid var(--line2)}
+  .say td,.say td:last-child{display:block;width:auto;padding:5px 0;border:0}
+}
+.limits{margin:56px 0 0}
+.sub-h{font:600 12.5px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);margin:0 0 4px}
+.limits ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+.limits li{padding:14px 0 14px 26px;border-top:1px solid var(--line2);font:400 16.5px/1.45 var(--f-label);position:relative}
+.limits li::before{content:"";position:absolute;left:2px;top:21px;width:10px;height:10px;border-radius:50%;box-shadow:inset 0 0 0 2px var(--ink)}
+@media (max-width:820px){ .limits ul{grid-template-columns:1fr} }
+
+/* ---------- 四个日期排成一条 ---------- */
+.strip{margin-top:44px;display:grid;grid-template-columns:1fr 1fr 1.72fr 1fr 1fr;gap:20px;align-items:start}
+.strip figure{margin:0}
+.strip img{display:block;width:100%;height:auto;border-radius:14px;box-shadow:0 0 0 1.5px var(--line2);background:var(--card)}
+.strip figcaption{margin-top:12px;font:400 14.5px/1.4 var(--f-label);color:var(--sub)}
+.strip time{display:block;font:500 20px/1.1 var(--f-mono);color:var(--ink);margin-bottom:5px}
+.strip b{display:block;color:var(--ink);font-weight:600}
+@media (max-width:900px){ .strip{grid-template-columns:1fr 1fr} .strip .wide{grid-column:1 / -1} }
+
+.gone{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:0 48px}
+.gone li{padding:15px 0;border-top:1px solid var(--line2);font:400 16px/1.45 var(--f-label);color:var(--sub)}
+.gone s{display:block;color:var(--ink);font-weight:500;font-size:17px;text-decoration-thickness:2px;text-decoration-color:var(--deep);margin-bottom:3px}
+@media (max-width:820px){ .gone{grid-template-columns:1fr} }
+
+/* ---------- 其余板块 ---------- */
+.also{list-style:none;margin:44px 0 0;padding:0;border-top:2px solid var(--ink)}
+.also li{display:grid;grid-template-columns:84px 200px minmax(0,1fr);gap:26px;align-items:center;padding:16px 0;border-bottom:1px solid var(--line2)}
+.also img,.also .ph{width:84px;height:84px;border-radius:12px;display:block}
+.also img{object-fit:cover;object-position:top;box-shadow:0 0 0 1.5px var(--line2)}
+.also .ph{outline:1.5px dashed var(--faint);outline-offset:-1.5px;display:grid;place-items:center;font:500 11px/1.3 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--faint);text-align:center}
+.also b{font:500 23px/1.2 var(--f-display);letter-spacing:var(--display-track)}
+.also span{font:400 16.5px/1.45 var(--f-label);color:var(--sub)}
+@media (max-width:760px){ .also li{grid-template-columns:64px minmax(0,1fr);gap:8px 16px} .also img,.also .ph{width:64px;height:64px} .also li > span{grid-column:1 / -1} }
+
+/* ---------- 来源账本 ---------- */
+.ledger{width:100%;border-collapse:collapse;margin-top:44px;font:400 15.5px/1.45 var(--f-label)}
+.ledger th{text-align:left;font:600 12px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding:0 18px 10px 0;border-bottom:2px solid var(--ink)}
+.ledger td{padding:12px 18px 12px 0;border-bottom:1px solid var(--line2);vertical-align:top}
+.ledger td:first-child{font:600 15px/1.45 var(--f-mono);font-variant-numeric:tabular-nums;width:27%}
+.ledger td:nth-child(2){color:var(--sub);white-space:nowrap}
+.ledger td:last-child{padding-right:0;white-space:nowrap;font:600 12px/1.9 var(--f-mono);letter-spacing:.05em;text-transform:uppercase}
+.st::before{content:"";display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:8px}
+.st.ok::before{background:var(--ink)}
+.st.open::before{box-shadow:inset 0 0 0 2px var(--ink)}
+.st.part::before{box-shadow:inset 0 0 0 2px var(--ink);background:linear-gradient(90deg,var(--ink) 50%,transparent 50%)}
+.st.no::before{border:2px dashed var(--ink);width:6px;height:6px}
+@media (max-width:820px){
+  .ledger thead{display:none} .ledger tr{display:block;padding:12px 0;border-top:1px solid var(--line2)}
+  .ledger td,.ledger td:first-child,.ledger td:last-child{display:block;width:auto;padding:2px 0;border:0;white-space:normal}
+}
+
+footer{margin:110px 0 0;padding:26px 0 60px;border-top:2px solid var(--ink);display:flex;justify-content:space-between;gap:24px;font:400 15px/1.4 var(--f-label);color:var(--sub)}
+
+/* ---------- v5：首屏三屏示意 ---------- */
+.trio{position:relative;margin:48px 0 0;display:grid;grid-template-columns:1fr 1.18fr 1fr;align-items:end;gap:0;max-width:880px;padding:0 0 0}
+.trio .ph{border-radius:30px;overflow:hidden;background:var(--card);box-shadow:0 0 0 1.5px var(--line2), 0 22px 40px -24px rgba(94,78,76,.45);border:6px solid var(--card)}
+.trio .ph img{display:block;width:100%;height:auto}
+.trio .side{transform:scale(.9);transform-origin:bottom center;opacity:.97}
+.trio .l{margin-right:-34px;z-index:1} .trio .r{margin-left:-34px;z-index:1}
+.trio .mid{z-index:2}
+.trio .ll{position:absolute;width:118px;height:auto;right:-6px;top:-52px;z-index:3;filter:drop-shadow(0 10px 14px rgba(94,78,76,.25))}
+.trio figcaption{grid-column:1 / -1;display:grid;grid-template-columns:1fr 1.18fr 1fr;gap:18px;margin-top:18px;font:400 14.5px/1.4 var(--f-label);color:var(--sub);text-align:center}
+.trio figcaption b{display:block;font:500 20px/1.2 var(--f-display);color:var(--ink);margin-bottom:2px}
+@media (min-width:1100px){
+  .hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);column-gap:56px;align-items:start}
+  .hero > *{grid-column:1}
+  .hero .trio{grid-column:2;grid-row:1 / span 3;margin-top:8px}
+  .hero .meta,.hero .tldr,.hero .corner,.hero .jump{grid-column:1 / -1}
+  .hero h1{font-size:clamp(42px,4.9vw,72px)}
+}
+@media (max-width:600px){ .trio .ph{border-radius:18px;border-width:3px} .trio .l{margin-right:-18px} .trio .r{margin-left:-18px} .trio .ll{width:70px;top:-34px} .trio figcaption{font-size:12.5px;gap:8px} .trio figcaption b{font-size:16px} }
+.corner{margin:18px 0 0;font:400 13.5px/1.4 var(--f-label);color:var(--faint)}
+.facts{list-style:none;margin:34px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;max-width:980px}
+.facts li{border-top:2px solid var(--ink);padding-top:12px;font:400 15.5px/1.45 var(--f-label);color:var(--sub)}
+.facts b{display:block;font:500 46px/1 var(--f-mono);letter-spacing:-.03em;color:var(--ink);margin-bottom:8px}
+@media (max-width:760px){ .facts{grid-template-columns:1fr;gap:14px} }
+.team{list-style:none;margin:26px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.team li{border-top:1px solid var(--line2);padding-top:10px;font:400 14px/1.4 var(--f-label);color:var(--sub)}
+.team b{display:block;font:600 16px/1.3 var(--f-label);color:var(--ink)}
+@media (max-width:900px){ .team{grid-template-columns:1fr 1fr} }
+
+/* ---------- v6：理念、三屏、听到的 ---------- */
+.heard{margin:40px 0 0;max-width:1000px}
+.heard ol{list-style:none;margin:12px 0 0;padding:0;counter-reset:h}
+.heard li{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;padding:16px 0;border-top:1px solid var(--line2);font:400 16.5px/1.5 var(--f-label)}
+.heard q{font:500 21px/1.3 var(--f-display);letter-spacing:var(--display-track);quotes:"\201C" "\201D"}
+.heard li span{color:var(--sub)}
+.heard li span::before{content:"→ ";color:var(--deep);font-weight:600}
+@media (max-width:760px){ .heard li{grid-template-columns:1fr;gap:6px} }
+.trial{margin:30px 0 0;padding:16px 20px;border-radius:14px;background:var(--b-bg);max-width:1000px;font:400 17px/1.5 var(--f-label)}
+.ideas-top{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,.9fr);gap:40px;align-items:center;max-width:1100px}
+@media (max-width:900px){ .ideas-top{grid-template-columns:1fr;gap:20px} }
+.who{display:flex;align-items:center;gap:10px;font:400 14px/1.35 var(--f-label);color:var(--sub)}
+.who div{flex:1;background:var(--card);border-radius:14px;box-shadow:0 0 0 1.5px var(--line2);padding:12px 12px;text-align:center}
+.who div.me{background:var(--brand);box-shadow:none;color:var(--ink)}
+.who b{display:block;font:600 15.5px/1.3 var(--f-label);color:var(--ink)}
+.who i{font-style:normal;font:500 20px/1 var(--f-mono);color:var(--faint)}
+.principles{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:36px}
+@media (max-width:860px){ .principles{grid-template-columns:1fr} }
+.principles article{background:var(--card);border-radius:22px;box-shadow:0 0 0 1.5px var(--line2);padding:22px 24px 20px}
+.principles h3{font:500 25px/1.2 var(--f-display);letter-spacing:var(--display-track);margin:18px 0 8px}
+.principles p{font:400 16px/1.5 var(--f-label);color:var(--sub);margin:0}
+.vis{min-height:150px;border-radius:14px;background:var(--bg);padding:16px;display:flex;align-items:center}
+.swatches{gap:8px;align-items:stretch}
+.swatches span{flex:1;display:flex;flex-direction:column;font:600 12.5px/1.25 var(--f-label);color:var(--ink)}
+.swatches i{display:block;height:74px;border-radius:10px;background:var(--c);box-shadow:inset 0 0 0 1.5px rgba(22,21,20,.08);margin-bottom:8px}
+.swatches em{font:400 11.5px/1.3 var(--f-label);font-style:normal;color:var(--sub)}
+.type{gap:22px}
+.type .big{font:500 92px/0.9 var(--f-display);margin:0;letter-spacing:-.03em}
+.type ul{list-style:none;margin:0;padding:0;font:600 17px/1.25 var(--f-label);display:grid;gap:7px}
+.type li{background:var(--card);border-radius:10px;padding:7px 11px;box-shadow:0 0 0 1.5px var(--line2)}
+.grades{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-content:center}
+.grades span{border-radius:12px;padding:12px 14px;font:500 15px/1.2 var(--f-label);display:flex;align-items:center;gap:10px}
+.grades b{font:600 26px/1 var(--f-display)}
+.ga{background:var(--a-bg)} .gb{background:var(--b-bg)} .gc{background:var(--c-bg)} .gd{background:var(--d-bg);box-shadow:inset 0 0 0 1.5px var(--line2)}
+.ll5{gap:6px;justify-content:space-between}
+.ll5 figure{margin:0;flex:1;text-align:center}
+.ll5 img{width:100%;height:84px;object-fit:contain}
+.ll5 figcaption{font:500 11.5px/1.2 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--sub);margin-top:6px}
+.flow3{display:grid;grid-template-columns:1fr auto 1fr auto 1fr;gap:18px;align-items:start;margin-top:40px;max-width:980px}
+.flow3 figure{margin:0}
+.flow3 img{display:block;width:100%;height:auto;border-radius:24px;border:5px solid var(--card);box-shadow:0 0 0 1.5px var(--line2)}
+.flow3 figcaption{margin-top:12px;font:400 15px/1.45 var(--f-label);color:var(--sub)}
+.flow3 figcaption b{display:block;color:var(--ink);font-weight:600}
+.flow3 > i{font-style:normal;font:500 26px/1 var(--f-mono);color:var(--faint);align-self:center;margin-top:-60px}
+@media (max-width:700px){ .flow3{grid-template-columns:1fr 1fr 1fr;gap:10px} .flow3 > i{display:none} .flow3 img{border-radius:14px;border-width:3px} .flow3 figcaption{font-size:12.5px} }
+
+/* ---------- v4：概要和跳转 ---------- */
+.tldr{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:28px;margin:36px 0 0;font:400 16.5px/1.5 var(--f-label)}
+.tldr > div{background:var(--card);border-radius:16px;box-shadow:0 0 0 1.5px var(--line2);padding:18px 20px}
+.tldr .label{margin-bottom:8px;color:var(--brown)}
+.tldr p:last-child{margin:0}
+.jump{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 0}
+.jump a{font:500 15px/1 var(--f-label);text-decoration:none;padding:10px 15px;border-radius:999px;box-shadow:inset 0 0 0 1.5px var(--line2);background:var(--card)}
+.jump a:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+@media (max-width:860px){ .tldr{grid-template-columns:1fr;gap:12px} }
+
+/* ---------- v4：每节的通用样式 ---------- */
+.sec{padding:112px 0 0}
+.sec h2{font:500 clamp(30px,3.4vw,46px)/1.1 var(--f-display);letter-spacing:var(--display-track);margin:10px 0 22px;max-width:19em}
+.sec > .label{padding-top:16px;border-top:2px solid var(--ink)}
+.intro{max-width:36em;color:var(--sub)}
+.small{font:400 14.5px/1.5 var(--f-label);color:var(--sub);margin-top:18px}
+.why-cols{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:980px}
+.why-cols p{margin:0}
+@media (max-width:820px){ .why-cols{grid-template-columns:1fr;gap:16px} }
+
+/* 三层 */
+.stack{list-style:none;margin:36px 0 0;padding:0;display:grid;gap:10px;max-width:980px}
+.stack li{display:grid;grid-template-columns:96px 220px minmax(0,1fr);gap:20px;align-items:baseline;padding:22px 26px;border-radius:16px;font:400 16.5px/1.5 var(--f-label)}
+.stack .rule{background:var(--card);box-shadow:inset 0 0 0 2px var(--ink)}
+.stack .model{background:var(--b-bg);margin:0 34px}
+.stack .tag{font:600 12px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--brown)}
+.stack b{font:500 23px/1.2 var(--f-display);letter-spacing:var(--display-track)}
+.stack span:last-child{color:var(--sub)}
+@media (max-width:820px){ .stack li{grid-template-columns:1fr;gap:4px;padding:18px 20px} .stack .model{margin:0 14px} }
+
+/* 一天：五站 */
+#day .line{margin-top:34px}
+.stop2{padding:96px 0 0}
+.stop2 .q3{font:500 clamp(28px,3vw,40px)/1.12 var(--f-display);letter-spacing:var(--display-track);margin:0 0 12px;max-width:18em}
+.stop2 .answer{margin-bottom:0}
+.stop2 .read,.stop2 .plot,.stop2 .gate,.stop2 .twice,.stop2 .eve{margin-top:30px}
+@media (min-width:1240px){ #day,.stop2{padding-right:max(0px, calc(800px - 50vw))} }
+
+/* ---------- 额度条：贯穿全页 ---------- */
+.rail{position:fixed;right:30px;top:50%;transform:translateY(-50%);width:204px;z-index:20;font-family:var(--f-label);opacity:0;pointer-events:none;transition:opacity .35s}
+.rail.on{opacity:1}
+.rail-h{font:600 12px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;margin:0 0 3px}
+.rail-state{font:400 13.5px/1.35 var(--f-label);color:var(--sub);margin:0 0 16px;min-height:2.7em}
+.bars{display:grid;grid-template-columns:repeat(4,1fr);gap:8px}
+.bar{display:flex;flex-direction:column;align-items:center;text-align:center}
+.cap{font:600 12px/1.15 var(--f-mono);height:30px;display:flex;flex-direction:column;justify-content:flex-end;opacity:0;transition:opacity .4s}
+.cap small{display:block;font:500 10.5px/1.1 var(--f-mono);color:var(--sub);letter-spacing:.03em}
+.rail[data-s="1"] .cap,.rail[data-s="2"] .cap,.rail[data-s="3"] .cap,.rail[data-s="4"] .cap{opacity:1}
+.track{width:16px;height:min(34vh,250px);margin-top:6px;border-radius:4px 4px 3px 3px;background:transparent;box-shadow:inset 0 0 0 1.5px var(--line2);position:relative;overflow:hidden;transition:background-color .4s, box-shadow .4s}
+.rail:not([data-s="0"]) .track{background:var(--b-bg);box-shadow:inset 0 2.5px 0 0 var(--ink)}
+.track i{position:absolute;left:0;right:0;bottom:0;height:calc(var(--pct,0) * 1%);background:var(--brand2);border-radius:4px 4px 0 0;transition:height .8s cubic-bezier(.2,.7,.2,1)}
+.bar b{font:600 14px/1.1 var(--f-mono);margin-top:9px;font-variant-numeric:tabular-nums}
+.bar span{font:500 11.5px/1.25 var(--f-label);color:var(--sub);margin-top:3px}
+@media (max-width:1239px){
+  .rail{left:0;right:0;top:auto;bottom:0;transform:none;width:auto;background:var(--card);box-shadow:0 -1.5px 0 0 var(--line2);padding:10px 20px 12px;display:grid;grid-template-columns:auto minmax(0,1fr);gap:4px 18px;align-items:center}
+  .rail-h{margin:0;white-space:nowrap} .rail-state{display:none}
+  .bars{gap:12px}
+  .bar{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-areas:"name val" "track track";gap:3px 8px;align-items:baseline;text-align:left}
+  .cap{display:none}
+  .track{grid-area:track;width:100%;height:9px;margin:0;border-radius:4px}
+  .rail:not([data-s="0"]) .track{box-shadow:inset -2.5px 0 0 0 var(--ink)}
+  .track i{right:auto;top:0;height:auto;width:calc(var(--pct,0) * 1%);border-radius:4px 0 0 4px;transition:width .8s cubic-bezier(.2,.7,.2,1)}
+  .bar b{grid-area:val;margin:0;font-size:12.5px;text-align:right} .bar span{grid-area:name;margin:0}
+}
+.bar span em{font-style:normal}
+@media (max-width:560px){ .rail{grid-template-columns:1fr;padding:10px 14px 12px} .rail-h{display:none} .bars{gap:10px} .bar span{font-size:11px} .bar span em{display:none} .bar b{font-size:11.5px} }
+
+/* 折叠 */
+details.more{margin-top:22px;border-top:1px solid var(--line2)}
+details.more.wide{margin-top:28px}
+details.more summary{list-style:none;cursor:pointer;padding:14px 0 0;font:600 15.5px/1.4 var(--f-label);display:flex;align-items:center;gap:10px;width:max-content;max-width:100%}
+details.more summary::-webkit-details-marker{display:none}
+details.more summary::before{content:"+";display:inline-grid;place-items:center;width:24px;height:24px;border-radius:50%;box-shadow:inset 0 0 0 1.5px var(--ink);font:500 17px/1 var(--f-mono)}
+details.more[open] summary::before{content:"−"}
+details.more summary:hover{color:var(--deep)}
+.more-in{padding:16px 0 4px;max-width:46em;font:400 16.5px/1.55 var(--f-label)}
+details.more.wide .more-in{max-width:none}
+.more-in .say,.more-in .ledger{margin-top:8px}
+
+/* 三个决定 */
+.calls{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;counter-reset:c}
+.calls li{counter-increment:c;border-top:2px solid var(--ink);padding-top:14px;font:400 16px/1.5 var(--f-label);color:var(--sub)}
+.calls li::before{content:counter(c,decimal-leading-zero);display:block;font:500 14px/1 var(--f-mono);color:var(--brown);margin-bottom:12px}
+.calls b{display:block;font:500 23px/1.2 var(--f-display);letter-spacing:var(--display-track);color:var(--ink);margin-bottom:10px}
+@media (max-width:860px){ .calls{grid-template-columns:1fr} }
+
+/* 饮食以外 */
+.tiles{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 22px}
+.tiles li{display:grid;grid-template-columns:72px minmax(0,1fr);gap:4px 16px;align-content:start;font:400 15.5px/1.45 var(--f-label);color:var(--sub)}
+.tiles img,.tiles .ph{grid-row:1 / span 2;width:72px;height:72px;border-radius:12px;display:block}
+.tiles img{object-fit:cover;object-position:top;box-shadow:0 0 0 1.5px var(--line2)}
+.tiles .ph{outline:1.5px dashed var(--faint);outline-offset:-1.5px;display:grid;place-items:center;font:500 10.5px/1.3 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--faint);text-align:center}
+.tiles b{font:500 21px/1.2 var(--f-display);color:var(--ink)}
+.tiles li:nth-child(-n+2) b{color:var(--deep)}
+@media (max-width:900px){ .tiles{grid-template-columns:1fr 1fr} }
+@media (max-width:600px){ .tiles{grid-template-columns:1fr} }
+#versions .strip{margin-top:28px}
+.role .intro{color:var(--ink);font-size:clamp(19px,1.6vw,22px);max-width:34em}
+
+@media print{ .rail{display:none} }
+@media (prefers-reduced-motion:reduce){ *{transition:none!important;scroll-behavior:auto!important} }
+
+/* ---------- v7：暂停动效 ---------- */
+.top-r{display:flex;gap:22px;align-items:baseline}
+.still-btn{font:500 14px/1 var(--f-label);background:var(--card);border:1.5px solid var(--line2);border-radius:999px;padding:8px 14px;color:var(--ink);cursor:pointer}
+.still-btn[aria-pressed="true"]{background:var(--lilac-bg);border-color:var(--lilac);color:var(--lilac-ink)}
+html.still *,html.still *::before,html.still *::after{transition:none!important;animation:none!important;scroll-behavior:auto!important}
+@media (prefers-reduced-motion:reduce){ *,*::before,*::after{transition:none!important;animation:none!important} html{scroll-behavior:auto} }
+h1 em{font-style:italic;color:var(--deep)}
+
+@media (max-width:600px){ .top{font-size:13.5px;gap:12px} .top-r{gap:12px} .still-btn{font-size:12px;padding:6px 10px} }
+/* ---------- v7：整页换世界 ---------- */
+body{transition:background-color .7s ease}
+body.w0,body.w1{background-color:#F4F4F4;--w-acc:#0F6E56;--w-soft:#E1F5EE;--w-font:"Helvetica Neue",Arial,sans-serif}
+body.w2{background-color:#F7F5EE;background-image:linear-gradient(#E6E2D6 1px,transparent 1px),linear-gradient(90deg,#E6E2D6 1px,transparent 1px);background-size:26px 26px;--w-acc:#5F5E5A;--w-soft:#ECE9DF;--w-font:"Caveat",cursive}
+body.w3,body.w4{--w-acc:#C4621A;--w-soft:#FDECD7;--w-font:var(--f-display)}
+.b-grid{display:grid;grid-template-columns:minmax(0,380px) minmax(0,1fr);gap:72px;margin-top:40px}
+.b-stage{position:sticky;top:64px;align-self:start;height:calc(100vh - 96px);display:flex;flex-direction:column;gap:18px}
+.b-track{position:relative;display:grid;grid-template-columns:repeat(5,1fr);font:600 12px/1 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--faint);padding-top:16px}
+.b-track::before{content:"";position:absolute;left:10%;right:10%;top:5px;height:2px;background:var(--line2)}
+.b-fill{position:absolute;left:10%;top:5px;height:2px;width:0;background:var(--w-acc,var(--deep));transition:width .6s ease,background-color .6s}
+.b-track span{position:relative;text-align:center}
+.b-track span::before{content:"";position:absolute;left:50%;top:-16px;width:12px;height:12px;margin-left:-6px;border-radius:50%;background:var(--bg);border:2px solid var(--line2);transition:all .4s;z-index:1}
+.b-track span.on{color:var(--ink)}
+.b-track span.on::before{background:var(--w-acc,var(--deep));border-color:var(--w-acc,var(--deep))}
+.b-phone{position:relative;flex:1;min-height:0;aspect-ratio:468/680;max-height:600px;margin:0 auto;width:auto;border-radius:34px;border:8px solid #fff;background:#fff;box-shadow:0 0 0 1.5px rgba(0,0,0,.09),0 26px 44px -26px rgba(60,50,40,.5);overflow:visible}
+.b-phone img[data-i]{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:26px;opacity:0;transition:opacity .55s ease}
+.b-phone img.paper{inset:auto;left:-9%;top:22%;width:118%;height:auto;object-fit:contain;background:#FBFAF5;border-radius:6px;padding:10px;box-shadow:0 18px 36px -18px rgba(60,50,40,.55),0 0 0 1px rgba(0,0,0,.06);transform:rotate(-2.5deg);z-index:2}
+.b-phone img.on{opacity:1}
+.b-ll{position:absolute;width:92px;height:auto;left:-58px;bottom:24px;opacity:0;transform:translateY(16px) scale(.9);transition:all .6s ease;filter:drop-shadow(0 8px 12px rgba(94,78,76,.25))}
+body.w3 .b-ll,body.w4 .b-ll{opacity:1;transform:none}
+.b-steps{list-style:none;margin:0;padding:0}
+.b-steps li{min-height:74vh;padding:14vh 0 0;max-width:30em}
+.b-steps li:first-child{padding-top:4vh}
+.b-steps li:last-child{min-height:60vh}
+.b-img{display:none}
+.b-when{font:600 13px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--w-acc,var(--deep));margin:0 0 14px;display:flex;gap:12px}
+.b-when time{color:var(--faint)}
+.b-steps h3{font:500 clamp(34px,3.6vw,52px)/1.05 var(--w-font,var(--f-display));letter-spacing:-.015em;margin:0 0 18px;color:var(--ink);transition:color .5s}
+body.w2 .b-steps h3{font-weight:600;font-size:clamp(42px,4.4vw,62px)}
+.b-steps p{font-size:20px;line-height:1.55;color:var(--sub)}
+.b-turn{display:block;margin-top:40px;padding:20px 22px;border:1.5px dashed var(--w-acc,var(--deep));border-radius:14px;text-decoration:none;font:400 16.5px/1.5 var(--f-label);color:var(--sub);background:rgba(255,255,255,.6)}
+.b-turn b{display:block;font:600 17px/1.3 var(--f-label);color:var(--ink);margin-bottom:4px}
+.b-turn:hover{background:#fff}
+@media (max-width:900px){
+  .b-grid{grid-template-columns:1fr;gap:0}
+  .b-stage{display:none}
+  .b-steps li{min-height:0;padding:44px 0 0}
+  .b-img{display:block;width:min(100%,300px);height:auto;border-radius:20px;border:5px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.08);margin:0 0 18px}
+  .b-steps li[data-w="2"] .b-img{width:100%}
+}
+
+/* ---------- v7：转变 ---------- */
+.turn-cols{display:grid;grid-template-columns:1fr 1fr;gap:40px;max-width:1040px;margin-top:8px}
+.turn-cols p{font-size:20px;line-height:1.6}
+.shift{display:grid;grid-template-columns:1fr auto 1fr;gap:24px;align-items:center;margin:40px 0 0;max-width:900px}
+.shift>div{border-radius:18px;padding:20px 24px}
+.shift .was{background:var(--a-bg);color:var(--faint)}
+.shift .was li{text-decoration:line-through;text-decoration-color:var(--line2);text-decoration-thickness:2px}
+.shift .now{background:var(--b-bg);box-shadow:inset 0 0 0 2px var(--brand)}
+.shift ul{margin:10px 0 0;padding-left:20px;font:500 18px/1.6 var(--f-label)}
+.shift>i{font:500 30px/1 var(--f-display);color:var(--deep);font-style:normal}
+.sub3{margin:64px 0 18px}
+.changes{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:26px}
+.changes article{background:var(--card);border-radius:22px;padding:22px 22px 8px;box-shadow:0 0 0 1.5px var(--line)}
+.changes h3{font:500 25px/1.15 var(--f-display);margin:20px 0 10px}
+.changes p{font-size:16.5px;line-height:1.55;color:var(--sub)}
+.changes .vis{min-height:190px;border-radius:14px;background:var(--soft);padding:16px;display:flex;gap:14px;align-items:center}
+.vis-fridge img{width:110px;height:110px;border-radius:12px;object-fit:cover;flex:none}
+.k3{list-style:none;margin:0;padding:0;font:400 13.5px/1.35 var(--f-label);color:var(--sub);display:grid;gap:8px}
+.k3 li{display:flex;gap:8px;align-items:baseline}
+.k3 b{font:600 12px/1 var(--f-mono);background:#fff;border-radius:5px;padding:4px 6px;color:var(--ink);flex:none}
+.k3 li:first-child{color:var(--ink);font-weight:600}
+.k3 li:first-child b{background:var(--brand);color:#fff}
+.vis-prot{flex-direction:column;align-items:stretch!important;justify-content:center}
+.vis-prot small{font:400 13.5px/1.3 var(--f-label);color:var(--sub)}
+.pb{height:16px;border-radius:999px;background:#fff;margin:6px 0 4px;position:relative;overflow:hidden}
+.pb i{display:block;height:100%;background:var(--line2);border-radius:999px}
+.pb.good i{background:var(--brand2)}
+.vis-less{justify-content:center}
+.vis-less span{font:500 26px/1 var(--f-display);color:var(--deep)}
+.mini{width:84px;height:150px;border-radius:14px;background:#fff;padding:10px 8px;display:flex;flex-direction:column;gap:6px;box-shadow:0 0 0 1.5px var(--line2)}
+.mini i{display:block;height:16px;border-radius:5px;background:var(--line)}
+.mini.after i.t{height:10px;width:60%;background:var(--ink)}
+.mini.after i.s{height:18px;border-radius:999px;background:var(--line)}
+.mini.after i.c{height:46px;margin-top:auto;background:var(--brand)}
+@media (max-width:980px){ .changes{grid-template-columns:1fr} .turn-cols{grid-template-columns:1fr;gap:0} .shift{grid-template-columns:1fr} .shift>i{transform:rotate(90deg);justify-self:center} }
+
+/* ---------- v7：一天的场景卡 ---------- */
+.scenes{list-style:none;margin:36px 0 10px;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.scenes a{display:block;text-decoration:none}
+.scene{position:relative;aspect-ratio:3/4;border-radius:18px;background:linear-gradient(160deg,var(--b-bg),var(--a-bg));border:2px dashed var(--line2);overflow:hidden}
+.scene .sll{position:absolute;width:46%;left:10%;top:14%;opacity:.55}
+.scene .todo{position:absolute;left:8px;right:8px;top:8px;white-space:normal;font-size:11px;line-height:1.3;background:rgba(255,255,255,.75);border-radius:8px}
+.scene .ui{position:absolute;right:8%;bottom:7%;width:44%;height:auto;border-radius:10px;border:3px solid #fff;box-shadow:0 10px 20px -10px rgba(60,40,30,.5)}
+.ui-a4{aspect-ratio:3/4;background:#fff;padding:8px;display:flex;flex-direction:column;gap:5px;font:600 9px/1 var(--f-label)}
+.ui-a4 i{display:block;height:6px;border-radius:3px;background:var(--line)}
+.tchip{display:inline-flex;gap:8px;margin:12px 0 4px;font:600 12px/1 var(--f-mono);letter-spacing:.04em;text-transform:uppercase;color:var(--faint);background:var(--card);border-radius:999px;padding:7px 10px;box-shadow:0 0 0 1.5px var(--line)}
+.tchip time{color:var(--deep)}
+.scenes .q{display:block;font:500 18px/1.25 var(--f-display)}
+.scenes a:hover .q{text-decoration:underline;text-decoration-color:var(--brand2)}
+@media (max-width:900px){ .scenes{grid-template-columns:repeat(5,72%);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:8px} .scenes li{scroll-snap-align:start} }
+
+/* ---------- v7：现在、我做了什么 ---------- */
+.now-grid{display:grid;grid-template-columns:minmax(0,.8fr) 1fr 1fr;gap:26px;margin-top:28px;align-items:stretch}
+.facts2 p{margin:0 0 18px;border-top:2px solid var(--ink);padding-top:10px;font:400 15.5px/1.4 var(--f-label);color:var(--sub)}
+.facts2 b{display:block;font:500 46px/1 var(--f-mono);color:var(--ink);margin-bottom:6px}
+.quote{margin:0;background:var(--card);border-radius:22px;padding:24px;box-shadow:0 0 0 1.5px var(--line);display:flex;flex-direction:column;justify-content:space-between}
+.quote p{font:400 24px/1.35 var(--f-display);margin:0 0 18px}
+.quote cite{font:400 14px/1.3 var(--f-label);color:var(--faint);font-style:normal}
+.mine{display:grid;grid-template-columns:1.25fr 1fr;gap:26px;margin:32px 0 0}
+.mine article{background:var(--card);border-radius:22px;padding:22px 24px;box-shadow:0 0 0 1.5px var(--line)}
+.mine article>p:not(.label){font-size:16.5px;line-height:1.55;color:var(--sub);margin-top:10px}
+.dtable table{width:100%;border-collapse:collapse;font:400 14.5px/1.45 var(--f-label);margin-top:6px}
+.dtable th{text-align:left;font:600 11.5px/1.2 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint);padding:0 10px 8px 0;border-bottom:2px solid var(--ink)}
+.dtable td{padding:10px 10px 10px 0;border-bottom:1px solid var(--line);vertical-align:top}
+.dtable td:first-child{font-weight:600;width:42%}
+.lg{display:flex;align-items:center;gap:14px;margin-top:12px}
+.lg figure{margin:0;flex:1;background:#fff;border-radius:14px;padding:12px;text-align:center}
+.lg img{width:100%;max-width:150px;height:auto}
+.lg figcaption{font:600 11.5px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin-top:6px}
+.lg>i{font:500 24px/1 var(--f-display);color:var(--deep);font-style:normal}
+@media (max-width:980px){ .now-grid,.mine{grid-template-columns:1fr} }
+
+/* ================= v8 ================= */
+/* 首屏：MANA 式 */
+.hero2{position:relative;background:var(--hw,#FDDDB8);transition:background-color .7s ease;padding:40px 0 34px;margin-top:22px;overflow:hidden}
+.hero2[data-w="0"]{--hw:#FDDDB8;--hd:#F08C2E}
+.hero2[data-w="1"]{--hw:#FBD9CF;--hd:#D9785A}
+.hero2[data-w="2"]{--hw:#F8E3A6;--hd:#C99A1E}
+.hero2[data-w="3"]{--hw:#EADFD3;--hd:#A85E16}
+.h2in{max-width:1180px;margin:0 auto;padding:0 56px;display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:24px;align-items:center;min-height:min(78vh,720px)}
+.h2copy h1{font:500 clamp(54px,7.4vw,112px)/.95 var(--f-display);letter-spacing:-.03em;margin:0 0 26px}
+.h2copy h1 em{font-style:italic;color:var(--ink)}
+.h2copy .lede{font-size:clamp(19px,1.6vw,22px);max-width:26em}
+.wline{position:relative;min-height:2.6em;margin:26px 0 0;font:500 19px/1.3 var(--f-label)}
+.wline span,.wname span{position:absolute;left:0;opacity:0;transform:translateY(8px);transition:all .45s ease}
+.wline span.on,.wname span.on{opacity:1;transform:none}
+.world{position:relative;height:min(70vh,620px);min-height:460px}
+.doodle{position:absolute;inset:0;width:100%;height:100%}
+.doodle *{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.doodle .sun circle{fill:var(--hd);stroke:none;transition:fill .7s}
+.doodle .rays{stroke:var(--hd);transition:stroke .7s;animation:spin 30s linear infinite;transform-origin:470px 110px}
+.doodle .rays path{stroke:var(--hd)}
+.doodle .dots circle{fill:var(--ink);stroke:none}
+.doodle .star{fill:#fff}
+@keyframes spin{to{transform:rotate(360deg)}}
+.wset{position:absolute;inset:0;pointer-events:none}
+.wset>*{opacity:0;transition:opacity .5s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.wset.on>*{opacity:1}
+.bigll{position:absolute;left:28%;top:16%;height:68%;width:auto;transform:translateY(30px) scale(.92);filter:drop-shadow(0 18px 24px rgba(94,60,40,.25));z-index:3}
+.wset.on .bigll{transform:none;animation:bob 4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-10px)}}
+.stk{position:absolute;background:#fff;border-radius:18px;padding:6px;box-shadow:0 0 0 2.5px var(--ink),0 18px 30px -18px rgba(60,40,30,.45);overflow:hidden;z-index:2}
+.stk img{display:block;width:100%;height:100%;object-fit:cover;object-position:top;border-radius:12px}
+.stk.s1{width:30%;aspect-ratio:3/5;left:2%;top:12%;transform:rotate(-14deg) translateX(-30px)}
+.stk.s2{width:26%;aspect-ratio:1;right:2%;top:46%;transform:rotate(11deg) translateX(30px)}
+.wset.on .s1{transform:rotate(-8deg)} .wset.on .s2{transform:rotate(7deg)}
+.a4m{display:flex;flex-direction:column;gap:8px;padding:16px!important;font:600 13px/1 var(--f-label)}
+.a4m i{display:block;height:9px;border-radius:5px;background:var(--line)}
+.ptag{position:absolute;right:6%;top:20%;background:var(--ink);color:#fff;font:600 15px/1 var(--f-mono);padding:10px 14px;border-radius:999px;transform:rotate(6deg);z-index:4}
+.wctl{position:absolute;left:0;right:0;bottom:0;display:flex;justify-content:center;align-items:center;gap:22px;z-index:5}
+.arr{width:58px;height:58px;border-radius:50%;border:none;background:#fff;font:500 24px/1 var(--f-label);cursor:pointer;box-shadow:0 0 0 2.5px var(--ink)}
+.arr:hover{background:var(--ink);color:#fff}
+.wname{position:relative;margin:0;min-width:190px;height:58px;border-radius:999px;background:var(--ink);color:#fff;font:500 22px/58px var(--f-display);text-align:center}
+.wname span{left:0;right:0}
+.jump{margin:26px 0 0}
+@media (max-width:900px){
+  .h2in{grid-template-columns:1fr;padding:0 20px;min-height:0}
+  .world{height:440px;min-height:0}
+  .bigll{left:24%;height:62%}
+}
+/* 缘起：冷色的「手算的一天」 */
+.why2{--cool:#E9EEEC;--cool-ink:#3F4F4A}
+.band{background:var(--cool);border-radius:28px;padding:44px 48px 40px;margin-top:8px}
+.bigq{margin:14px 0 0}
+.bigq p{font:400 clamp(28px,3.1vw,44px)/1.22 var(--f-display);letter-spacing:-.015em;margin:0 0 20px;max-width:24em;color:var(--cool-ink)}
+.bigq p::before{content:"“";color:#0F6E56;margin-left:-.45em}
+.bigq cite{font:400 15px/1.4 var(--f-label);color:var(--faint);font-style:normal}
+.facts4{list-style:none;margin:30px 0 0;padding:0;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.facts4 li{border-top:2px solid var(--ink);padding-top:10px;font:400 15px/1.4 var(--f-label);color:var(--sub)}
+.facts4 b{display:block;font:500 50px/1 var(--f-mono);color:var(--ink);margin-bottom:6px}
+.dayh{margin-top:76px}
+.byhand{list-style:none;margin:30px 0 14px;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.byhand li{background:var(--cool);border-radius:22px;padding:16px 16px 20px}
+.draw{background:#F7F9F8;border-radius:14px;aspect-ratio:16/14;display:grid;place-items:center}
+.draw svg{width:78%;height:auto}
+.draw svg *{fill:none;stroke:#5C6B66;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.draw svg .hi{stroke:#0F6E56}
+.draw svg .glass{fill:rgba(255,255,255,.7)}
+.tchip.c{background:#F7F9F8;box-shadow:0 0 0 1.5px #D3DBD8}
+.tchip.c time{color:#0F6E56}
+.ask{font:400 13.5px/1.4 var(--f-label);color:var(--faint);margin:10px 0 8px}
+.ask span{display:block;font:600 11px/1.2 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;margin-bottom:3px}
+.heard1{font:400 19px/1.3 var(--f-display);color:var(--cool-ink);margin:0}
+@media (max-width:980px){ .facts4{grid-template-columns:1fr 1fr} .byhand{grid-template-columns:repeat(5,78%);overflow-x:auto;scroll-snap-type:x mandatory} .byhand li{scroll-snap-align:start} .band{padding:28px 22px} }
+/* 竞品 */
+.comp-grid{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:40px;margin-top:34px;align-items:start}
+.pmap{position:relative;margin:0;aspect-ratio:1;background:var(--card);border-radius:24px;box-shadow:0 0 0 1.5px var(--line)}
+.pmap::before,.pmap::after{content:"";position:absolute;background:var(--line2)}
+.pmap::before{left:8%;right:8%;top:50%;height:1.5px}
+.pmap::after{top:8%;bottom:8%;left:50%;width:1.5px}
+.pmap ul{list-style:none;margin:0;padding:0;position:absolute;inset:8%}
+.pmap li{position:absolute;left:calc(var(--x)*100%);bottom:calc(var(--y)*100%);transform:translate(-50%,50%);display:flex;align-items:center;gap:6px;white-space:nowrap;font:400 12.5px/1.2 var(--f-label);color:var(--sub);z-index:1}
+.pmap li i{width:11px;height:11px;border-radius:50%;background:var(--line2);flex:none}
+.pmap li.dead{color:var(--faint)} .pmap li.dead i{background:transparent;box-shadow:inset 0 0 0 1.5px var(--faint)}
+.pmap li.me{font:600 16px/1 var(--f-label);color:var(--ink)}
+.pmap li.me i{width:22px;height:22px;background:var(--brand);box-shadow:0 0 0 6px rgba(251,158,75,.25)}
+.pmap li:nth-child(n+2){max-width:9em;white-space:normal}
+.ax{position:absolute;font:600 11px/1.2 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+.ax-l{left:3%;top:51.5%} .ax-r{right:3%;top:51.5%} .ax-t{top:2.5%;left:51.5%} .ax-b{bottom:2.5%;left:51.5%}
+.gap{position:absolute;right:5%;top:9%;font:400 13px/1 var(--f-display);font-style:italic;color:var(--deep);border:1.5px dashed var(--brand);border-radius:999px;padding:6px 10px}
+.matrix-w{overflow-x:auto}
+.matrix{border-collapse:collapse;width:100%;font:400 14px/1.3 var(--f-label)}
+.matrix th{font:600 11.5px/1.2 var(--f-label);color:var(--sub);vertical-align:bottom;padding:0 4px 10px;text-align:center;width:9%}
+.matrix th span{display:block}
+.matrix th.me{color:var(--ink);font-size:13px}
+.matrix td{border-top:1px solid var(--line);padding:11px 4px;text-align:center}
+.matrix td:first-child{text-align:left;font-weight:500;color:var(--ink);width:30%}
+.matrix td.me,.matrix th.me{background:var(--b-bg)}
+.d{display:inline-block;width:14px;height:14px;border-radius:50%;vertical-align:-2px}
+.d.f{background:var(--ink)} .d.h{background:linear-gradient(90deg,var(--ink) 50%,var(--line2) 50%)} .d.e{box-shadow:inset 0 0 0 1.5px var(--line2)}
+.matrix td.me .d.f{background:var(--brand2)}
+.why3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:40px}
+.why3 article{border-top:2px solid var(--ink);padding-top:14px}
+.why3 b{display:block;font:500 40px/1 var(--f-mono);letter-spacing:-.02em;margin-bottom:10px}
+.why3 h3{font:500 22px/1.2 var(--f-display);margin:0 0 6px}
+.why3 p{font-size:16px;line-height:1.5;color:var(--sub);margin:0}
+.edge{margin:34px 0 0;font:400 clamp(22px,2vw,28px)/1.35 var(--f-display);max-width:32em;padding:22px 26px;border-radius:20px;background:var(--b-bg)}
+@media (max-width:980px){ .comp-grid,.why3{grid-template-columns:1fr} }
+/* 版本：诊所更冷 */
+body.w0,body.w1{background-color:#E6EDEA}
+.b-track{grid-template-columns:repeat(4,1fr)}
+.b-track::before{left:12.5%;right:12.5%}
+.b-fill{left:12.5%}
+.sk-ph{position:absolute;inset:0;border-radius:26px;background:#FBFAF5;background-image:linear-gradient(#E6E2D6 1px,transparent 1px),linear-gradient(90deg,#E6E2D6 1px,transparent 1px);background-size:22px 22px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:26px;text-align:center;opacity:0;transition:opacity .55s}
+.sk-ph.on{opacity:1}
+.sk-ph p{font:600 26px/1.25 "Caveat",cursive;color:#5F5E5A;margin:0}
+.b-img.sk-ph{position:relative;opacity:1;height:220px;width:min(100%,300px)}
+.b-steps .b-img.sk-ph{display:none}
+@media (max-width:900px){ .b-steps .b-img.sk-ph{display:flex} }
+/* 安全 */
+.safe-grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:30px;margin-top:34px}
+.safe-grid>div{background:var(--card);border-radius:24px;padding:24px;box-shadow:0 0 0 1.5px var(--line)}
+.panel-h{font:500 24px/1.2 var(--f-display);margin:0 0 18px;display:flex;gap:12px;align-items:center}
+.panel-h b{width:32px;height:32px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font:600 15px/1 var(--f-mono)}
+.node{border-radius:14px;padding:12px 16px;font:600 16px/1.3 var(--f-label);text-align:center}
+.node.prompt{background:var(--b-bg);max-width:280px;margin:0 auto}
+.node.dark{background:var(--ink);color:#fff;font-weight:500;margin:14px auto 0;max-width:360px}
+.vline{width:2px;height:20px;background:var(--line2);margin:0 auto}
+.gates{border-radius:16px;padding:14px 16px;box-shadow:0 0 0 1.5px var(--line2);background:#fff}
+.gates>p{margin:0 0 10px;font:400 14px/1.3 var(--f-label);color:var(--sub)} .gates>p b{font:600 18px/1 var(--f-label);color:var(--ink);margin-right:10px}
+.gates ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:8px 16px;font:400 13.5px/1.35 var(--f-label);color:var(--sub)}
+.gates li b{display:block;color:var(--ink);font-size:14.5px}
+.fork{display:grid;grid-template-columns:repeat(3,1fr);height:22px}
+.fork i{border-left:2px solid var(--line2);margin-left:50%}
+.out{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;font:400 13.5px/1.4 var(--f-label);color:var(--sub)}
+.out>div{border-radius:14px;padding:12px}
+.out b{display:block;font:600 16px/1.2 var(--f-label);color:var(--ink);margin-bottom:4px}
+.o1{background:var(--a-bg)} .o2{background:var(--b-bg)} .o3{background:var(--c-bg)} .o3 b{color:var(--brown)}
+.funnel .sub{font-size:15px;color:var(--sub);margin:-8px 0 16px}
+.funnel ol{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+.funnel li{width:var(--w);margin-left:auto;border-radius:14px;padding:12px 14px;background:color-mix(in srgb,var(--brand) calc(var(--w)*.35 - 12%),var(--soft));display:flex;gap:12px;align-items:baseline;font:400 13.5px/1.3 var(--f-label);color:var(--sub)}
+.funnel li b{font:600 20px/1 var(--f-mono);color:var(--ink);min-width:4.2em}
+.funnel li.last{background:var(--ink);color:#fff} .funnel li.last b{color:#fff}
+.lines{display:grid;grid-template-columns:1.6fr 1fr;gap:22px;margin-top:22px}
+.lines>div{border-radius:20px;padding:18px 22px;box-shadow:0 0 0 1.5px var(--line2)}
+.lines ol{margin:8px 0 0;padding-left:20px;font-size:16.5px;line-height:1.6}
+.lines p:not(.label){font-size:16.5px;margin:8px 0 0}
+@media (max-width:980px){ .safe-grid,.lines{grid-template-columns:1fr} .gates ol,.out{grid-template-columns:1fr} .fork{display:none} .out{margin-top:12px} .funnel li{width:100%} }
+@media (max-width:600px){ .pmap li{font-size:10px} .pmap li:nth-child(n+2){max-width:6.5em} .pmap li.me{font-size:13px} .ax{font-size:9px} .gap{display:none} }
+/* 我做了什么 */
+.role .meta{margin:20px 0 26px}
+
+/* v9：标题两层 */
+.h2copy h1 .h1on{display:block;margin-top:.22em;font:italic 400 .4em/1.1 var(--f-display);letter-spacing:-.01em;color:var(--hd);transition:color .7s ease;padding-left:1.1em;position:relative}
+.h2copy h1 .h1on::before{content:"";position:absolute;left:0;top:.58em;width:.8em;height:2px;background:currentColor;border-radius:2px}
+/* v9：影片按钮和弹窗 */
+.filmbtn{display:inline-flex;align-items:center;gap:12px;margin:18px 0 26px;padding:8px 18px 8px 8px;border:0;border-radius:999px;background:var(--card);box-shadow:inset 0 0 0 1.5px var(--line2);font:400 15.5px/1.2 var(--f-label);color:var(--sub);cursor:pointer}
+.filmbtn b{color:var(--ink);font-weight:600;margin-right:4px}
+.filmbtn:hover{box-shadow:inset 0 0 0 1.5px var(--ink)}
+.filmbtn .pl{width:38px;height:38px;border-radius:50%;background:var(--ink);position:relative;flex:none}
+.filmbtn .pl::after{content:"";position:absolute;left:15px;top:12px;border-left:12px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent}
+.filmdlg{width:min(960px,92vw);padding:0;border:0;border-radius:22px;background:#2A1F1D;color:#F3E6DC;overflow:hidden}
+.filmdlg::backdrop{background:rgba(42,31,29,.72)}
+.filmdlg video{display:block;width:100%;aspect-ratio:16/9;background:#000}
+.filmdlg p{margin:0;padding:14px 20px 18px;font:400 15px/1.5 var(--f-label)}
+.filmdlg .x{position:absolute;right:10px;top:10px;z-index:2;width:40px;height:40px;border-radius:50%;border:0;background:rgba(255,255,255,.9);font:400 24px/1 var(--f-label);cursor:pointer}
+/* v9：顶栏当前章节 */
+.secbar{position:fixed;top:12px;left:50%;transform:translate(-50%,-80px);z-index:40;transition:transform .35s ease;font-family:var(--f-label)}
+.secbar.on{transform:translate(-50%,0)}
+.secbar>button{display:flex;align-items:center;gap:10px;padding:9px 16px;border:0;border-radius:999px;background:var(--card);box-shadow:0 0 0 1.5px var(--line2),0 6px 18px rgba(60,40,30,.08);font:500 15px/1 var(--f-label);color:var(--ink);cursor:pointer;white-space:nowrap}
+.secbar .sn{font:600 12px/1 var(--f-mono);color:var(--faint);letter-spacing:.04em}
+.secbar .cv{font-size:11px;color:var(--faint)}
+.secbar ol{list-style:none;margin:8px 0 0;padding:6px;background:var(--card);border-radius:18px;box-shadow:0 0 0 1.5px var(--line2),0 10px 24px rgba(60,40,30,.1);counter-reset:s}
+.secbar li{counter-increment:s}
+.secbar li a{display:flex;gap:12px;padding:10px 14px;border-radius:12px;text-decoration:none;font:500 15px/1.2 var(--f-label)}
+.secbar li a::before{content:counter(s);font:600 12px/1.25 var(--f-mono);color:var(--faint)}
+.secbar li a:hover,.secbar li a[aria-current]{background:var(--bg)}
+html.still .secbar,html.still .h2copy h1 .h1on{transition:none}
+@media (prefers-reduced-motion:reduce){ .secbar{transition:none} }
+
+/* v10：标题两行 + 贴纸 */
+.h2copy h1 .l{display:block;white-space:nowrap}
+.h2copy h1{font-size:clamp(46px,6.1vw,92px);line-height:.98;position:relative}
+.h2copy h1 .h1on{display:none}
+.onsticker{display:inline-block;margin:.28em 0 0 .1em;padding:.32em .7em .36em;font:italic 500 .3em/1 var(--f-display);letter-spacing:0;color:#fff;background:var(--hd);border-radius:999px;transform:rotate(-4deg);box-shadow:0 3px 0 rgba(60,40,30,.12);transition:background-color .7s ease}
+html.still .onsticker{transition:none}
+/* v10：朋友原话插画 */
+.qscene{padding:36px 40px 26px}
+.qs{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:24px;align-items:center;margin-top:10px}
+.bub{position:relative;margin:0;background:#fff;border-radius:26px;padding:26px 28px 22px;box-shadow:0 0 0 1.5px var(--line2)}
+.bub::after{content:"";position:absolute;right:-16px;bottom:40px;border-left:18px solid #fff;border-top:12px solid transparent;border-bottom:12px solid transparent;filter:drop-shadow(1.5px 0 0 var(--line2))}
+.bub p{font:400 clamp(22px,2.1vw,30px)/1.25 var(--f-display);letter-spacing:-.01em;margin:0 0 14px;color:var(--cool-ink)}
+.bub cite{font:400 14.5px/1.4 var(--f-label);font-style:normal;color:var(--sub)}
+.qart{width:100%;height:auto}
+.qart .ln{fill:none;stroke:var(--cool-ink);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.qart .hi{fill:none;stroke:#0F6E56;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.qart circle.hi{fill:#0F6E56;stroke:none}
+.qart .dash{fill:none;stroke:#0F6E56;stroke-width:2.5;stroke-dasharray:3 9;stroke-linecap:round}
+.qart .hand{font:600 30px "Caveat",cursive;fill:#0F6E56}
+.qart .hand.sm{font-size:24px;fill:var(--cool-ink)}
+@media (max-width:860px){ .qs{grid-template-columns:1fr} .bub::after{right:auto;left:40px;bottom:-16px;border-left:12px solid transparent;border-right:12px solid transparent;border-top:18px solid #fff;border-bottom:0;filter:drop-shadow(0 1.5px 0 var(--line2))} .qscene{padding:26px 20px 18px} }
+/* v10：竞品 logo 地图 */
+.lmap{margin-top:26px;border-radius:24px;background:var(--card);box-shadow:0 0 0 1.5px var(--line);overflow:hidden}
+.lh,.lr{display:grid;grid-template-columns:120px minmax(0,1fr) minmax(0,1.1fr)}
+.lh{font:600 12.5px/1.3 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+.lh b{padding:18px 20px 10px;font-weight:600}
+.lr{border-top:1.5px solid var(--line)}
+.rl{padding:22px 20px;font:600 12.5px/1.3 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint)}
+.lr ul{list-style:none;margin:0;padding:18px 16px;display:flex;flex-wrap:wrap;gap:14px 10px;align-content:flex-start}
+.lr ul+ul{border-left:1.5px dashed var(--line2)}
+.lr li{width:92px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:3px}
+.lr li img{width:46px;height:46px;object-fit:cover;border-radius:12px;box-shadow:0 0 0 1px rgba(0,0,0,.06);margin-bottom:4px;background:#fff}
+.lr li b{font:600 13px/1.2 var(--f-label)}
+.lr li small{font:400 11.5px/1.25 var(--f-label);color:var(--faint)}
+.lr li.dead{opacity:.55}
+.lr li.dead img{filter:grayscale(1)}
+.lr ul.mine{background:var(--a-bg,#FDECD7)}
+.lr li.me{width:150px}
+.lr li.me img{width:64px;height:72px;object-fit:contain;box-shadow:none;background:none;border-radius:0}
+.lr li.me b{font:500 22px/1.1 var(--f-display)}
+.lr li.me small{color:var(--deep);font-weight:600;font-size:12.5px}
+@media (max-width:860px){ .lh{display:none} .lr{grid-template-columns:1fr} .lr ul+ul{border-left:0;border-top:1.5px dashed var(--line2)} .rl{padding:16px 16px 0} .lr ul+ul::before{content:"Built for patients";width:100%;font:600 11px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint)} .lr ul:first-of-type::before{content:"Built for hospitals";width:100%;font:600 11px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint)} .lr li{width:78px} }
+/* v10：版本三站 */
+.b-track{grid-template-columns:repeat(3,1fr)}
+.b-track::before{left:16.67%;right:16.67%}
+.b-fill{left:16.67%}
+.pair{display:flex;gap:14px;margin:0 0 20px}
+.pair figure{margin:0;flex:1;max-width:170px}
+.pair img{display:block;width:100%;height:auto;border-radius:16px;border:4px solid #fff;box-shadow:0 0 0 1px rgba(0,0,0,.08)}
+.pair figcaption{font:600 11.5px/1 var(--f-mono);letter-spacing:.04em;color:var(--faint);margin-top:8px;text-transform:uppercase}
+@media (min-width:901px){ .pair{display:none} }
+.sk3{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.sk3 li b{display:block;font:600 14px/1.25 var(--f-label);margin-top:8px}
+.skf{aspect-ratio:3/4;border-radius:12px;background:#FBFAF5;background-image:linear-gradient(#E6E2D6 1px,transparent 1px),linear-gradient(90deg,#E6E2D6 1px,transparent 1px);background-size:16px 16px;box-shadow:0 0 0 1.5px #E0DCCF;display:flex;flex-direction:column;justify-content:center;align-items:center;gap:8px;padding:10px;text-align:center}
+.skf p{font:600 18px/1.15 "Caveat",cursive;color:#5F5E5A;margin:0}
+.skf .todo{font-size:11px}
+@media (max-width:560px){ .sk3{grid-template-columns:1fr 1fr} }
+/* v10：学到的，一块三张 */
+.swap{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px;margin-top:30px}
+.swap article{background:var(--card);border-radius:24px;padding:18px 18px 6px;box-shadow:0 0 0 1.5px var(--line)}
+.swap .was{margin:0 0 12px;font:500 14.5px/1.3 var(--f-label);color:var(--faint)}
+.swap .was s{text-decoration-thickness:1.5px;text-decoration-color:var(--deep)}
+.swap .was::after{content:"↓";display:inline-block;margin-left:8px;color:var(--deep)}
+.swap .vis{min-height:210px;border-radius:16px;background:var(--soft);padding:16px;display:flex;gap:14px;align-items:center}
+.swap .vis-fridge img{width:120px;height:120px}
+.swap h3{font:500 25px/1.15 var(--f-display);margin:18px 0 6px}
+.swap p:not(.was){font-size:16px;line-height:1.5;color:var(--sub)}
+@media (max-width:980px){ .swap{grid-template-columns:1fr} }
+
+/* v10：设计舞台 */
+.stage{position:relative;margin:28px 0 0;min-height:520px;border-radius:30px;background:#FDE6CC;overflow:hidden;padding:0}
+.bigword{position:absolute;left:50%;top:44%;transform:translate(-50%,-50%);margin:0;font:600 clamp(160px,24vw,340px)/1 var(--f-display);letter-spacing:.04em;color:#FBD3A8;white-space:nowrap;user-select:none}
+.namekey{position:absolute;left:28px;top:24px;margin:0;font:500 14px/1.3 var(--f-label);color:var(--brown)}
+.namekey b{font:600 18px/1 var(--f-display);color:var(--ink);margin:0 4px 0 10px}
+.namekey b:first-child{margin-left:0}
+.lls{position:absolute;left:0;right:0;bottom:92px;display:flex;justify-content:center;align-items:flex-end;gap:clamp(6px,2vw,28px)}
+.lls img{height:clamp(90px,13vw,180px);width:auto}
+.lls img:nth-child(3){height:clamp(110px,16vw,220px)}
+.stk-q{position:absolute;right:6%;top:15%;transform:rotate(3deg)}
+.stk-q span{display:block;background:#fff;border-radius:16px;padding:14px 20px;font:700 clamp(17px,1.7vw,24px)/1.1 var(--f-label);box-shadow:0 0 0 1.5px var(--line2),0 6px 0 rgba(60,40,30,.06)}
+.stk-q span::before{content:"Aa";display:block;font:500 13px/1 var(--f-display);color:var(--faint);margin-bottom:6px}
+.gstk{list-style:none;margin:0;padding:0;position:absolute;left:5%;top:20%;display:grid;gap:8px;transform:rotate(-3deg)}
+.gstk li{display:flex;align-items:center;gap:10px;background:#fff;border-radius:12px;padding:7px 14px 7px 8px;font:500 14px/1 var(--f-label);box-shadow:0 0 0 1.5px var(--line2)}
+.gstk b{display:grid;place-items:center;width:28px;height:28px;border-radius:8px;font:600 17px/1 var(--f-display)}
+.gstk .ga b{background:#FDECD7}.gstk .gb b{background:#FBE3C4}.gstk .gc b{background:#F8D3C4}.gstk .gd b{background:#ECE6E0}
+.strip{list-style:none;margin:0;padding:0;position:absolute;left:0;right:0;bottom:0;display:grid;grid-template-columns:repeat(5,1fr);height:72px}
+.strip li{background:var(--c);color:var(--t,#fff);font:600 12px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;display:flex;align-items:flex-end;padding:0 0 14px 16px}
+.three{list-style:none;margin:22px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:24px}
+.three li{font:400 16px/1.5 var(--f-label);color:var(--sub)}
+.three b{display:block;font:500 22px/1.2 var(--f-display);color:var(--ink);margin-bottom:6px}
+@media (max-width:860px){ .stage{min-height:460px} .gstk{left:16px;top:58px;transform:none;gap:6px} .gstk li{font-size:12px;padding:5px 10px 5px 6px} .gstk b{width:22px;height:22px;font-size:14px} .stk-q{right:14px;top:64px} .stk-q span{padding:10px 12px} .lls{bottom:84px} .strip{height:64px} .strip li{font-size:9.5px;padding:0 0 10px 8px} .three{grid-template-columns:1fr;gap:14px} .namekey{left:16px;top:18px} }
+/* v10：团队 */
+.credits{margin-top:56px;padding-top:28px;border-top:1.5px solid var(--line2)}
+.team2{list-style:none;margin:18px 0 0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:24px}
+.team2 li{display:flex;flex-direction:column}
+.team2 img{width:96px;height:96px;border-radius:50%;object-fit:cover;margin-bottom:14px;box-shadow:0 0 0 1.5px var(--line2)}
+.team2 b{font:500 20px/1.2 var(--f-display)}
+.team2 span{font:400 15px/1.45 var(--f-label);color:var(--sub);margin-top:4px}
+.team2 small{font:600 11.5px/1.3 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin-top:8px}
+.team2 li.me img{box-shadow:0 0 0 3px var(--brand)}
+@media (max-width:860px){ .team2{grid-template-columns:1fr 1fr;gap:26px 18px} .team2 img{width:80px;height:80px} }
+
+@media (max-width:860px){ .stk-q{display:none} .lls img:first-child,.lls img:last-child{display:none} .lls img{height:96px} .lls img:nth-child(3){height:118px} .strip li{font-size:8.5px;letter-spacing:0;padding:0 0 10px 6px} .gstk{top:60px} .stage{min-height:420px} }
+
+.stage .strip{gap:0!important;margin:0!important;align-items:stretch;bottom:0;top:auto}.stage .strip li{height:auto;margin:0}
+
+/* v11：版心加宽，接近 Eight Sleep */
+.wrap,.h2in{max-width:1440px;padding-left:clamp(20px,4vw,64px);padding-right:clamp(20px,4vw,64px)}
+@media (min-width:1240px){ .wrap{max-width:1440px;padding:0 clamp(20px,4vw,64px)} #day,.stop2{padding-right:210px} }
+
+/* v12：缘起 = 朋友妈妈 → 1 对 90 → 三个难点 */
+.why3b{margin-top:8px}
+.momline{font:400 18px/1.5 var(--f-label);color:var(--sub);margin:0 0 16px}
+.why3b .dip{display:grid;grid-template-columns:1fr 1fr;border-radius:28px;overflow:hidden}
+.why3b .dip>div{padding:34px 40px 32px;display:flex;flex-direction:column;gap:18px;min-height:330px}
+.why3b .dip .h{background:var(--cool);color:var(--cool-ink)}
+.why3b .dip .m{background:#FDE6CC;color:var(--ink)}
+.why3b .tag{font:600 12.5px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase}
+.why3b .h .tag{color:#0F6E56}.why3b .m .tag{color:var(--deep)}
+.why3b .dip svg{height:130px;width:auto;align-self:flex-start}
+.why3b .dip p{font:400 clamp(24px,2.2vw,34px)/1.22 var(--f-display);letter-spacing:-.015em;margin:auto 0 0}
+.why3b svg .ln{fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.why3b svg .hi{fill:none;stroke:#0F6E56;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.why3b svg .hio{fill:none;stroke:var(--deep);stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.why3b .hand{font:600 26px "Caveat",cursive;fill:var(--deep)}
+.v90{display:grid;grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);gap:20px;margin-top:20px}
+.v90>div{border-radius:24px;padding:26px 30px;display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:center}
+.v90 .one{background:var(--cool);color:var(--cool-ink)}
+.v90 .ninety{background:#FDE6CC}
+.v90 b{font:500 clamp(64px,7vw,104px)/1 var(--f-display);letter-spacing:-.03em;grid-row:span 2}
+.v90 .ninety b{color:var(--brand2)}
+.v90 svg{width:56px;height:auto}
+.v90 span{font:400 16px/1.4 var(--f-label);color:var(--sub);grid-column:2}
+.meals{display:grid;grid-template-columns:repeat(30,1fr);gap:4px;max-width:420px}
+.meals i{aspect-ratio:1;border-radius:50%;background:var(--brand)}
+.sub90{margin:34px 0 14px}
+.sum3{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px}
+.sum3 li{background:var(--card);border-radius:22px;padding:20px 22px 22px;box-shadow:0 0 0 1.5px var(--line);color:var(--ink)}
+.sum3 svg{width:110px;height:auto;display:block;margin-bottom:10px}
+.sum3 b{display:block;font:500 22px/1.2 var(--f-display);margin-bottom:8px}
+.sum3 span{font:400 15.5px/1.5 var(--f-label);color:var(--sub)}
+@media (max-width:860px){ .why3b .dip,.v90,.sum3{grid-template-columns:1fr} .why3b .dip>div{min-height:0;padding:24px 22px} .v90>div{padding:20px} .meals{gap:3px} }
+
+/* v13：三个难点只留图和标题 */
+.sum3 li{padding:18px 18px 20px}
+.sum3 .sv{height:130px;border-radius:16px;background:var(--soft);margin-bottom:14px;display:flex;align-items:center;justify-content:center;padding:12px}
+.sum3 b{margin:0}
+.tug{flex-wrap:wrap;gap:6px;align-content:center}
+.tug span{font:600 13.5px/1 var(--f-label);padding:8px 11px;border-radius:999px;background:#fff;box-shadow:0 0 0 1.5px var(--line2);color:var(--sub)}
+.tug .up{background:var(--brand);color:#fff;box-shadow:none}
+.std{gap:14px;flex-wrap:wrap}
+.std p{margin:0;text-align:center}
+.std small{display:block;font:600 11px/1 var(--f-mono);letter-spacing:.05em;color:var(--faint);margin-bottom:6px}
+.std s,.std em{font:500 30px/1 var(--f-display);font-style:normal}
+.std s{color:var(--faint);text-decoration-thickness:2px}
+.std em{color:var(--deep)}
+.std i{font-style:normal;color:var(--deep);font-size:22px}
+.std>span{width:100%;text-align:center;font:400 12.5px/1 var(--f-label);color:var(--faint)}
+.mon{display:grid!important;grid-template-columns:repeat(6,1fr);gap:8px}
+.mon i{width:30px;height:40px;border-radius:4px;background:#fff;box-shadow:0 0 0 1.5px var(--line2);position:relative}
+.mon i::before{content:"";position:absolute;left:6px;right:6px;top:8px;height:2px;background:var(--line2);box-shadow:0 6px 0 var(--line2),0 12px 0 var(--line2)}
+.mon i::after{content:"↻";position:absolute;right:-6px;bottom:-6px;width:16px;height:16px;border-radius:50%;background:var(--brand);color:#fff;font:700 11px/16px var(--f-label);text-align:center}
+
+/* v14：A day by hand = 五个人站在一条地平线上 */
+.ppl{color:var(--pc,var(--cool-ink))}
+.ppl .ln{fill:none;stroke:currentColor;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.ppl .fill{fill:var(--pf,#fff)}.ppl .hair{fill:var(--pc,var(--cool-ink))}
+.ppl .acc{fill:none;stroke:var(--pa,#0F6E56);stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round}
+.hstage{background:var(--cool);border-radius:28px;padding:30px 24px 22px;overflow-x:auto;margin-top:22px}
+.hrow{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(190px,1fr));gap:18px;min-width:1000px;align-items:end;position:relative}
+.hrow::after{content:"";position:absolute;left:0;right:0;bottom:92px;height:2.4px;background:var(--cool-ink);opacity:.5}
+.hrow .p{display:flex;flex-direction:column;align-items:center;text-align:center}
+.hrow .bubble{position:relative;margin:0 0 16px;background:#fff;border-radius:18px;padding:14px 16px;font:400 19px/1.28 var(--f-display);color:var(--ink);box-shadow:0 0 0 1.5px #D5DDD9;text-align:left}
+.hrow .bubble::after{content:"";position:absolute;left:50%;bottom:-10px;margin-left:-8px;border:9px solid transparent;border-top-color:#fff;border-bottom:0}
+.hrow .p:nth-child(2) .bubble,.hrow .p:nth-child(4) .bubble{margin-bottom:56px}
+.hrow svg{width:96px;height:auto}
+.hrow .meta{height:80px;margin-top:12px;display:flex;flex-direction:column;gap:6px;align-items:center}
+.hrow .t{font:600 12px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:#0F6E56}
+.hrow .q{font:400 13.5px/1.35 var(--f-label);color:var(--faint)}
+
+/* v15：竞品图里透亮这格标亮 */
+.lr ul.mine{background:#FFF1DE;box-shadow:inset 0 0 0 2.5px var(--brand);border-radius:0 0 22px 0}
+.lr li.me img{filter:drop-shadow(0 6px 14px rgba(251,158,75,.45))}
+
+/* v16：一个月一张图 */
+.month{margin:0;border-radius:30px;overflow:hidden;background:linear-gradient(90deg,#DCE6E1 0%,#DCE6E1 38%,#FDE3C6 58%,#FDE3C6 100%)}
+.mscroll{overflow-x:auto}
+.mart{display:block;width:100%;min-width:760px;height:auto;padding:18px 18px 0;box-sizing:border-box}
+.mart .cl,.mart .wm{fill:none;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.mart .cl{stroke:var(--cool-ink)}
+.mart .wm{stroke:var(--ink)}
+.mart .gdot{fill:#0F6E56;stroke:none}
+.mart .dash{fill:none;stroke:#0F6E56;stroke-width:2.5;stroke-dasharray:3 9;stroke-linecap:round}
+.mart .dhead{fill:none;stroke:#0F6E56;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+.mart .plates circle{fill:var(--brand);stroke:none}
+.mart .callout{stroke:var(--deep);stroke-dasharray:2 6}
+.mart .rib rect{stroke:var(--deep)}
+.mart text{stroke:none}
+.mart .num{font:500 64px/1 var(--f-display);fill:var(--cool-ink)}
+.mart .num.o{fill:var(--brand2)}
+.mart .lab{font:600 13px var(--f-mono);letter-spacing:.06em;text-transform:uppercase;fill:var(--cool-ink)}
+.mart .wm .lab{fill:var(--deep)}
+.mart .hand{font:600 28px "Caveat",cursive}
+.mart .hand.g{fill:#0F6E56}.mart .hand.o{fill:var(--deep)}
+.mq{display:grid;grid-template-columns:1fr 1fr;gap:40px;padding:10px 44px 36px}
+.mq p{margin:0;font:400 clamp(22px,2vw,30px)/1.25 var(--f-display);letter-spacing:-.015em}
+.mq .h{color:var(--cool-ink)}
+@media (max-width:860px){ .mq{grid-template-columns:1fr;gap:14px;padding:6px 22px 26px} .month{background:linear-gradient(180deg,#DCE6E1 0%,#DCE6E1 45%,#FDE3C6 75%)} }
+
+/* v16：整页连续变色，去掉多余的框 */
+body{transition:none}
+.why2 .band,.hstage{background:transparent}
+.hstage{padding-left:0;padding-right:0}
+.sum3 li,.swap article{background:transparent;box-shadow:none;padding:0}
+.sum3 .sv{background:rgba(255,255,255,.55)}
+.swap .vis{background:rgba(255,255,255,.6)}
+.lmap{background:rgba(255,255,255,.55)}
+
+.mq .mob{display:none}
+@media (max-width:860px){ .mscroll{display:none} .mq .mob{display:block;min-width:0;padding:6px 0 0;margin-bottom:-6px} .mq{padding-top:14px} }
+
+/* v18：一天的结尾放一句内测用户原话 */
+.dayend{margin:72px 0 0;padding:40px 0 0;border-top:1.5px solid var(--line2);max-width:30em}
+.dayend blockquote{margin:0}
+.dayend p{font:400 clamp(28px,2.8vw,40px)/1.2 var(--f-display);letter-spacing:-.015em;margin:0 0 14px}
+.dayend figcaption{font:400 15px/1.4 var(--f-label);color:var(--sub)}
+
+/* v19：同一家人，暖色版 */
+.warmrow{list-style:none;margin:30px 0 0;padding:0 0 0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px;max-width:820px;position:relative;--pc:#7A4A1E;--pa:#F08C2E;--pf:#FFF7EE}
+.warmrow::after{content:"";position:absolute;left:0;right:0;bottom:40px;height:2.4px;background:#E7C9A8}
+.warmrow a{display:flex;flex-direction:column;align-items:center;gap:10px;text-decoration:none;color:var(--sub)}
+.warmrow svg{height:95px;width:auto;transition:transform .25s}
+.warmrow a:hover svg{transform:translateY(-4px)}
+.warmrow span{font:500 13px/1.2 var(--f-label);display:flex;flex-direction:column;align-items:center;gap:3px;height:30px}
+.warmrow time{font:600 12px/1 var(--f-mono);letter-spacing:.04em;color:var(--deep)}
+@media (max-width:600px){ .warmrow{gap:4px} .warmrow svg{height:68px} .warmrow span{font-size:11px} }
+
+/* v21：我们听到的，铺满整行 */
+.heard{max-width:none}
+.heard li{grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:48px;padding:20px 0;align-items:baseline}
+.heard q{font-size:clamp(22px,2vw,28px)}
+.heard li span{font-size:17px}
+
+/* v22：所有折叠块铺满整行，文字分栏 */
+details.more .more-in{max-width:none;column-width:22em;column-gap:56px}
+details.more .more-in>p{break-inside:avoid;margin:0 0 14px}
+details.more.wide .more-in{columns:auto}
+details.more .limits{margin-top:8px}
+
+/* v22：三个难点，照 Function 的卡片 */
+.fh{text-align:center;font:400 clamp(30px,3vw,44px)/1.1 var(--f-display);letter-spacing:-.02em;margin:64px 0 26px}
+.fh em{font-style:italic;color:var(--deep)}
+.fn3{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:22px}
+.fn3>li{background:linear-gradient(180deg,rgba(255,255,255,.72),rgba(255,255,255,.45));border-radius:26px;padding:34px 26px 30px;text-align:center;display:flex;flex-direction:column;align-items:center;box-shadow:0 0 0 1px rgba(63,79,74,.06)}
+.fn3 .no{font:500 22px/1 var(--f-display);color:var(--deep);margin-bottom:12px}
+.fn3 h4{font:400 clamp(24px,2.1vw,32px)/1.12 var(--f-display);letter-spacing:-.015em;margin:0 0 10px}
+.fn3 p{font:400 15.5px/1.45 var(--f-label);color:var(--sub);margin:0 0 26px}
+.fv{width:100%;max-width:330px;margin-top:auto}
+.tug2 ul{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.tug2 li{display:grid;grid-template-columns:86px 1fr;align-items:center;gap:10px;text-align:right;font:500 13px/1 var(--f-label);color:var(--sub)}
+.tug2 li i{display:block;height:14px;border-radius:7px;background:linear-gradient(90deg,#E9E3DC 0,#E9E3DC 100%);position:relative}
+.tug2 li i::after{content:"";position:absolute;top:0;bottom:0;right:50%;width:calc(var(--w)/2);border-radius:7px 0 0 7px;background:linear-gradient(90deg,#B9C6C1,#7F948C)}
+.tug2 li.up i::after{left:50%;right:auto;border-radius:0 7px 7px 0;background:linear-gradient(90deg,#F7B57A,#E07B34)}
+.tug2 li.up span{color:var(--deep);font-weight:600}
+.tug2 .tax{position:static;display:flex;justify-content:space-between;margin:8px 0 0 96px;font:600 10.5px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.tug2 .tax em{font-style:normal}
+.rng{display:grid;gap:12px}
+.rng .rtrack{position:relative;height:40px;border-radius:12px;background:#EEE8E1}
+.rng .rbar{position:absolute;top:4px;bottom:4px;left:calc(var(--a) + 4px);width:calc(var(--b) - var(--a) - 8px);border-radius:9px;display:flex;align-items:center;justify-content:center}
+.rng .rbar em{font:600 12.5px/1 var(--f-mono);font-style:normal;white-space:nowrap}
+.rng .old{background:#fff;box-shadow:0 0 0 1.5px #D8CEC4;color:var(--faint)}
+.rng .old em{text-decoration:line-through}
+.rng .new{background:linear-gradient(90deg,#F7B57A,#E07B34);color:#fff;box-shadow:0 4px 12px rgba(224,123,52,.25)}
+.rng .ticks{display:flex;justify-content:space-between;font:500 11px/1 var(--f-mono);color:var(--faint);padding:0 2px}
+.mons ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,1fr);gap:7px}
+.mons>ul:first-child li{background:#fff;border-radius:12px;padding:10px 0 9px;box-shadow:0 0 0 1.5px #E3DAD1;display:flex;flex-direction:column;gap:6px}
+.mons small{font:600 10.5px/1 var(--f-label);letter-spacing:.06em;color:var(--faint)}
+.mons b{font:400 24px/1 var(--f-label);color:var(--sub)}
+.mons>ul:first-child li.on{background:linear-gradient(180deg,#F2A060,#E07B34);box-shadow:0 6px 14px rgba(224,123,52,.3)}
+.mons>ul:first-child li.on small,.mons>ul:first-child li.on b{color:#fff}
+.mons li.fade{opacity:.4}
+.mons .tags{margin-top:8px}
+.mons .tags li{font:600 10.5px/1 var(--f-mono);color:var(--faint);border-radius:8px;padding:7px 0;box-shadow:0 0 0 1.2px #E3DAD1;background:rgba(255,255,255,.6)}
+.mons .tags li.on{color:var(--deep);box-shadow:0 0 0 1.5px var(--brand)}
+@media (max-width:860px){ .fn3{grid-template-columns:1fr} }
+.rng .yr{position:absolute;top:50%;transform:translateY(-50%);left:14px;font:600 11px/1 var(--f-mono);font-style:normal;letter-spacing:.04em;color:var(--faint)}.rng .yr.r{left:auto;right:14px;color:var(--deep)}
+
+/* v23：统一各节开头：居中衬线大标题 + 一个橙色斜体词，去掉粗线和小标签 */
+.sec > .label{display:none}
+.sec{padding-top:128px}
+.sec > h2,.sec h2.fh{text-align:center;margin-left:auto;margin-right:auto;max-width:22em}
+.sec > .intro{text-align:center;margin-left:auto;margin-right:auto}
+.sec h2 em{font-style:italic;color:var(--deep)}
+.fh.big{font:400 clamp(36px,4.2vw,60px)/1.06 var(--f-display);letter-spacing:-.025em;margin:0 auto 14px}
+.fsub{text-align:center;max-width:34em;margin:0 auto 34px;font:400 18px/1.5 var(--f-label);color:var(--sub)}
+.dayh{margin-top:140px}
+.fsrc{text-align:center;margin:26px auto 0;max-width:40em;font:400 15px/1.5 var(--f-label);color:var(--faint)}
+.why3b .fh.big{margin-top:0}.why3b .fh:not(.big){margin-top:120px}.fh.big.dayh{margin-top:150px}
+/* 屏 1：横幅图通栏 */
+.month{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);border-radius:0}
+.month .mscroll,.month .mq{max-width:1440px;margin-left:auto;margin-right:auto}
+/* 屏 4：深色色带 */
+.statement{margin-left:calc(50% - 50vw);margin-right:calc(50% - 50vw);background:#2F3F3A;color:#F3EEE8;padding:110px 24px 100px;text-align:center}
+.statement .fh{color:#F3EEE8;max-width:18em}
+.statement .fh em{color:#F7B57A}
+.statement .fsub{color:#C9D3CF;margin-bottom:0}
+.comp .lmap{margin-top:40px}
+
+/* v23：三个动图 */
+.fv{width:100%;max-width:330px;margin-top:auto}
+.fa-food{font:400 26px/1 var(--f-display);margin:0 0 14px;transition:opacity .3s}
+.fa-bars{list-style:none;margin:0;padding:0;display:grid;gap:9px}
+.fa-bars li{display:grid;grid-template-columns:78px 1fr 52px;gap:10px;align-items:center;text-align:right;font:500 12.5px/1 var(--f-label);color:var(--sub)}
+.fa-bars i{display:block;height:12px;border-radius:6px;background:#E9E3DC;overflow:hidden}
+.fa-bars b{display:block;height:100%;width:0;border-radius:6px;background:#AEBDB7;transition:width .8s cubic-bezier(.3,.7,.2,1),background-color .5s}
+.fa-bars li.hi b{background:linear-gradient(90deg,#F7B57A,#E07B34)}
+.fa-bars li.pro b{background:linear-gradient(90deg,#CDB7F3,#9C7BE0)}
+.fa-bars em{font:600 11px/1 var(--f-mono);font-style:normal;text-align:left;color:var(--faint)}
+.fa-bars li.hi em{color:var(--deep)}
+.fa-say{margin:14px 0 0;font:500 14px/1.35 var(--f-label);color:var(--ink);min-height:2.7em;transition:opacity .3s}
+.fb-yr{font:600 12px/1 var(--f-mono);letter-spacing:.06em;color:var(--faint);margin:0 0 10px}
+.fb-yr b{color:var(--deep);font-weight:600}
+.fb-track{position:relative;height:46px;border-radius:14px;background:#EEE8E1}
+.fb-band{position:absolute;top:5px;bottom:5px;left:60%;width:20%;border-radius:10px;background:rgba(224,123,52,.16);box-shadow:inset 0 0 0 1.5px #E9A673;transition:left .9s cubic-bezier(.3,.7,.2,1),width .9s cubic-bezier(.3,.7,.2,1)}
+.fb-dot{position:absolute;top:50%;left:40%;width:18px;height:18px;margin:-9px 0 0 -9px;border-radius:50%;background:#7F948C;box-shadow:0 0 0 4px #fff;transition:background-color .5s}
+.fb-dot em{position:absolute;bottom:22px;left:50%;transform:translateX(-50%);font:600 11px/1 var(--f-mono);font-style:normal;color:var(--sub)}
+.fa-in .fb-dot{background:#E07B34}
+.fb-ticks{display:flex;justify-content:space-between;margin-top:8px;font:500 11px/1 var(--f-mono);color:var(--faint)}
+.fb-say{margin:14px 0 0;font:500 14px/1.35 var(--f-label);color:var(--sub)}
+.fb-say b{color:var(--ink)}
+.fa-in .fb-say b{color:var(--deep)}
+.fc-win{overflow:hidden;-webkit-mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent);mask-image:linear-gradient(90deg,transparent,#000 18%,#000 82%,transparent)}
+.fc-strip{list-style:none;margin:0;padding:6px 0;display:flex;gap:8px;transition:transform .8s cubic-bezier(.3,.7,.2,1)}
+.fc-strip li{flex:0 0 58px;background:#fff;border-radius:12px;padding:9px 0 8px;box-shadow:0 0 0 1.5px #E3DAD1;display:flex;flex-direction:column;align-items:center;gap:5px;transition:all .5s}
+.fc-strip small{font:600 10.5px/1 var(--f-label);letter-spacing:.06em;color:var(--faint)}
+.fc-strip b{font:400 22px/1 var(--f-label);color:var(--sub)}
+.fc-strip li.on{background:linear-gradient(180deg,#F2A060,#E07B34);box-shadow:0 6px 14px rgba(224,123,52,.3)}
+.fc-strip li.on small,.fc-strip li.on b{color:#fff}
+.fc-lim{list-style:none;margin:14px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.fc-lim li{background:rgba(255,255,255,.75);border-radius:12px;padding:10px 4px;display:flex;flex-direction:column;gap:6px;box-shadow:0 0 0 1px #E8E0D8}
+.fc-lim span{font:500 11px/1 var(--f-label);color:var(--faint)}
+.fc-lim b{font:500 19px/1 var(--f-mono);color:var(--ink);transition:color .4s}
+.fc-lim b.chg{color:var(--deep)}
+.fc-say{margin:10px 0 0;font:400 11.5px/1.35 var(--f-label);color:var(--faint)}
+
+/* v24：首屏到版本区，一套风格 */
+body,body.w0,body.w1,body.w2,body.w3,body.w4{background-color:var(--bg)!important;background-image:none!important}
+.why2{--card-f:#F6ECE1}
+.sec{padding-top:150px}
+.fh.big{font:400 clamp(34px,3.9vw,56px)/1.08 var(--f-display);letter-spacing:-.025em;margin:0 auto 14px;text-align:center;max-width:20em}
+.fh.big em{font-style:italic;color:var(--deep)}
+.fh.big.ch{margin-top:150px}
+.fsub{margin-bottom:40px}
+.wcard{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:18px}
+.wcard>div{background:#F6ECE1;border-radius:26px;padding:36px 36px 34px;display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto 1fr;gap:4px 22px;align-items:start}
+.wcard b{grid-row:span 2;font:400 clamp(72px,7vw,112px)/.9 var(--f-display);letter-spacing:-.04em}
+.wc-l b{color:#8A9B95}
+.wc-r b{color:var(--brand2)}
+.wcard p{margin:8px 0 18px;font:500 16px/1.4 var(--f-label);color:var(--sub)}
+.cal{display:grid;grid-template-columns:repeat(7,18px);gap:6px}
+.cal i{width:18px;height:18px;border-radius:5px;background:#EADFD3}
+.cal i.v{background:#8A9B95;box-shadow:0 0 0 3px #fff}
+.m90{display:grid;grid-template-columns:repeat(30,1fr);gap:5px;max-width:520px}
+.m90 i{aspect-ratio:1;border-radius:50%;background:var(--brand);opacity:.18;transform:scale(.7);transition:opacity .4s,transform .4s;transition-delay:calc(var(--d)*18ms)}
+.wcard.go .m90 i,html.still .m90 i{opacity:1;transform:none}
+.qline{margin:30px auto 0;max-width:44em;text-align:center}
+.qline p{margin:0 0 8px;font:400 italic 20px/1.45 var(--f-display);color:var(--sub)}
+.qline cite{font:500 14px/1 var(--f-label);font-style:normal;color:var(--faint)}
+.fn3>li{background:#F6ECE1;box-shadow:none}
+.day5{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:16px}
+.day5 li{background:#F6ECE1;border-radius:22px;padding:22px 20px 20px;display:flex;flex-direction:column}
+.day5 .tm{align-self:flex-start;font:600 12.5px/1 var(--f-mono);letter-spacing:.04em;color:#7F948C;background:#fff;border-radius:999px;padding:7px 11px}
+.day5 .said{font:400 21px/1.25 var(--f-display);letter-spacing:-.01em;margin:16px 0 10px}
+.day5 .who{font:600 12px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin:0 0 18px}
+.day5 .asked{margin:auto 0 0;padding-top:14px;border-top:1px solid #E6D8CA;font:400 13.5px/1.4 var(--f-label);color:var(--sub)}
+.day5 .asked span{display:block;font:600 11px/1 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.lmap{background:#F6ECE1;box-shadow:none;border-radius:26px}
+.lr{border-top-color:#E6D8CA}
+.lr ul+ul{border-left-color:#E0CDBB}
+.lr li img{background:#fff}
+.lr ul.mine{background:#FFF7EC}
+.comp .small,.why2 .more{text-align:left}
+@media (max-width:980px){ .day5{grid-template-columns:repeat(5,78%);overflow-x:auto;scroll-snap-type:x mandatory;padding-bottom:6px} .day5 li{scroll-snap-align:start} }
+@media (max-width:860px){ .wcard{grid-template-columns:1fr} .wcard>div{padding:26px 22px} .cal{grid-template-columns:repeat(7,14px)} .cal i{width:14px;height:14px} .m90{gap:3px} }
+
+/* v25：后半页同一套风格 */
+.turn,#day,.stop2,#also,.safe,#ideas,.role,#notes{--card:#F6ECE1;--line2:#E6D8CA}
+.swap article{background:#F6ECE1;border-radius:26px;padding:30px 24px 24px;text-align:center;display:flex;flex-direction:column;align-items:center}
+.swap .was{order:-1}
+.swap .vis{background:rgba(255,255,255,.65);width:100%;justify-content:center}
+.swap h3{font:400 clamp(22px,1.9vw,28px)/1.15 var(--f-display);margin:20px 0 6px}
+.when{border-top:0;padding-top:0}
+.when time{font:400 clamp(44px,4.6vw,64px)/1 var(--f-display);letter-spacing:-.02em;color:var(--ink)}
+.when span{color:var(--deep)}
+.stop2{padding-top:120px}
+.stop2 .q3{font-weight:400}
+.tiles{gap:18px}
+.tiles li{background:#F6ECE1;border-radius:22px;padding:20px;grid-template-columns:72px minmax(0,1fr)}
+.tiles img{box-shadow:none}
+.tiles li:nth-child(-n+2) b{color:var(--ink)}
+.stage{background:#F6ECE1}
+.bigword{color:#EEDCC8}
+.role .meta{border:0}
+.role .intro{text-align:center;margin-left:auto;margin-right:auto}
+.credits{border-top:0;text-align:center}
+.team2 li{align-items:center;text-align:center}
+#notes .fh.big{font-size:clamp(28px,2.8vw,40px)}
+
+/* v26：一个月只用一张卡 */
+.mcard{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:48px;background:#F6ECE1;border-radius:28px;padding:44px 48px;align-items:center}
+.mc-t blockquote{margin:0 0 30px}
+.mc-t blockquote p{margin:0 0 10px;font:400 clamp(20px,1.7vw,24px)/1.4 var(--f-display);letter-spacing:-.01em;color:var(--ink)}
+.mc-t cite{font:500 14px/1 var(--f-label);font-style:normal;color:var(--faint)}
+.mc-n{display:flex;gap:40px;border-top:1px solid #E6D8CA;padding-top:24px}
+.mc-n p{margin:0;font:500 15px/1.35 var(--f-label);color:var(--sub);max-width:9em}
+.mc-n b{display:block;font:400 clamp(56px,5.4vw,84px)/.95 var(--f-display);letter-spacing:-.04em;margin-bottom:6px}
+.mc-n .g b{color:#7F948C}.mc-n .o b{color:var(--brand2)}
+.mc-cal{background:rgba(255,255,255,.7);border-radius:20px;padding:20px 20px 22px}
+.mc-cal>p{margin:0 0 12px;font:600 11.5px/1 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint)}
+.mc-cal ol{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(7,1fr);gap:6px}
+.mc-cal li{position:relative;aspect-ratio:1/0.82;border-radius:10px;background:#F4EBE2;display:flex;flex-direction:column;justify-content:space-between;padding:6px 7px}
+.mc-cal small{font:500 10.5px/1 var(--f-mono);color:var(--faint)}
+.mc-cal span{display:flex;gap:3px}
+.mc-cal span i{width:7px;height:7px;border-radius:50%;background:var(--brand);opacity:.15;transform:scale(.6);transition:opacity .3s,transform .3s;transition-delay:calc(var(--d)*55ms)}
+.wcard.go .mc-cal span i,.mcard.go .mc-cal span i,html.still .mc-cal span i{opacity:1;transform:none}
+.mc-cal li.v{background:#E3E9E6;box-shadow:inset 0 0 0 1.5px #7F948C}
+.mc-cal li.v em{position:absolute;right:7px;top:4px;font:600 15px/1 var(--f-label);font-style:normal;color:#5E736C}
+@media (max-width:900px){ .mcard{grid-template-columns:1fr;padding:28px 22px;gap:26px} }
+/* v26：只居中标题和一行副标题，长段落一律左对齐 */
+.fsub{max-width:none}
+.sec > .intro,.role .intro{text-align:left;max-width:38em;margin-left:auto;margin-right:auto}
+.fa-food small{font:500 12px/1 var(--f-label);color:var(--faint)}
+
+/* v27：五个人放回来，装进同一种米色卡片 */
+.hstage.hcard{background:#F6ECE1;border-radius:28px;padding:36px 28px 22px;margin-top:0}
+.hcard{--pc:#5E6E68;--pa:#7F948C;--pf:#FFFFFF}
+.hcard .hrow::after{background:#D9CBBD;opacity:1}
+.hcard .bubble{box-shadow:none;font-size:18px}
+.hcard .t{color:#7F948C}
+.hcard .meta{border:0!important;padding-top:0!important;display:flex}
+
+/* 发布版：隐藏待补提示 */
+.todo{display:none!important}
+</style>
+</head>
+<body>
+
+<dialog class="filmdlg" id="filmdlg" aria-label="Dialight film">
+  <form method="dialog"><button class="x" aria-label="Close">×</button></form>
+  <video controls playsinline preload="none" poster="media/dialight-film-poster.jpg" aria-label="Dialight film, 15 seconds, no sound">
+    <source src="media/dialight-film-15s.mp4" type="video/mp4">
+  </video>
+  <p><b>15 seconds:</b> a lab report goes in, a recipe that fits today's limits comes out. No sound.</p>
+</dialog>
+<nav class="secbar" id="secbar" aria-label="On this page">
+  <button type="button" id="secbtn" aria-expanded="false" aria-controls="seclist"><span class="sn">1 / 7</span><span class="st">Her month</span><span class="cv" aria-hidden="true">▾</span></button>
+  <ol id="seclist" hidden>
+    <li><a href="#why">Her month</a></li><li><a href="#comp">What was out there</a></li><li><a href="#builds">How it changed</a></li><li><a href="#turn">What I learned</a></li><li><a href="#day">The same day</a></li><li><a href="#how">How it stays safe</a></li><li><a href="#role">My part</a></li>
+  </ol>
+</nav>
+<div class="wrap">
+  <nav class="top" aria-label="Site">
+    <div class="crumb"><a href="#">Chen Liang</a><span>/</span>Dialight 透亮</div>
+    <div class="top-r"><button type="button" class="still-btn" id="still" aria-pressed="false">Pause motion</button><a href="#">← All work</a></div>
+  </nav>
+</div>
+
+  <header class="hero2" id="top" data-w="0">
+    <div class="h2in">
+      <div class="h2copy">
+        <p class="eyebrow"><i></i>Dialight 透亮 · WeChat mini-program</p>
+        <h1><span class="l">Days that feel</span><span class="l">like <em>days</em>,</span><span class="onsticker">on dialysis.</span></h1>
+        <p class="lede">For families living with kidney failure. Fixed rules keep it safe, a language model makes it personal, and a community connects the families who use it.</p>
+        <button type="button" class="filmbtn" id="filmopen"><span class="pl" aria-hidden="true"></span><span><b>Watch the film</b> 0:15</span></button>
+        <p class="wline" aria-live="polite"><span data-w="0" class="on">Dinner from what is already in the fridge</span> <span data-w="1">Someone to ask who has been there</span> <span data-w="2">A weekend away, with dialysis on the way</span> <span data-w="3">One page to bring to the next visit</span></p>
+      </div>
+      <div class="world" aria-label="The four parts of Dialight">
+        <svg class="doodle" viewBox="0 0 600 560" aria-hidden="true">
+          <g class="sun"><circle cx="470" cy="110" r="46"/><g class="rays"><path d="M470 34v-22M470 208v-22M394 110h-22M568 110h-22M416 56l-15-15M539 179l-15-15M416 164l-15 15M539 41l-15 15"/></g></g>
+          <path class="squig" d="M70 420c20-30 40 30 60 0s40 30 60 0 40 30 60 0"/>
+          <path class="squig" d="M380 470c20-24 40 24 60 0s40 24 60 0"/>
+          <g class="dots"><circle cx="110" cy="120" r="7"/><circle cx="140" cy="96" r="4"/><circle cx="540" cy="330" r="6"/><circle cx="90" cy="300" r="4"/></g>
+          <path class="star" d="M120 210l9 20 21 3-15 15 4 21-19-10-19 10 4-21-15-15 21-3z"/>
+        </svg>
+        <div class="wset on" data-w="0" aria-hidden="false">
+          <img class="bigll" src="media/ll_eat.png" width="269" height="320" alt="">
+          <div class="stk s1"><img src="media/hero-eat.jpg" alt="" loading="lazy"></div><div class="stk s2"><img src="media/also-fridge.jpg" alt="" loading="lazy"></div><span class="ptag">Phosphorus 15 · 2%</span>
+        </div>
+        <div class="wset" data-w="1" aria-hidden="true">
+          <img class="bigll" src="media/ll_phone.png" width="233" height="320" alt="">
+          <div class="stk s1"><img src="media/hero-canteen.jpg" alt="" loading="lazy"></div><span class="ptag">#FluidControl</span>
+        </div>
+        <div class="wset" data-w="2" aria-hidden="true">
+          <img class="bigll" src="media/ll_travel.png" width="277" height="320" alt="">
+          <div class="stk s1"><img src="media/hero-go.jpg" alt="" loading="lazy"></div><div class="stk s2"><img src="media/also-travel.jpg" alt="" loading="lazy"></div><span class="ptag">First long trip: 6 things</span>
+        </div>
+        <div class="wset" data-w="3" aria-hidden="true">
+          <img class="bigll" src="media/ll_book.png" width="244" height="320" alt="">
+          <div class="stk s1 a4m" aria-hidden="true"><b>Diet log · Nov</b><i></i><i></i><i></i><i></i><i></i></div><span class="ptag">12 of 30 days logged</span>
+        </div>
+        <div class="wctl">
+          <button type="button" class="arr" id="wprev" aria-label="Previous part">←</button>
+          <p class="wname"><span data-w="0" class="on">Meals</span> <span data-w="1">Community</span> <span data-w="2">Travel</span> <span data-w="3">Me</span></p>
+          <button type="button" class="arr" id="wnext" aria-label="Next part">→</button>
+        </div>
+      </div>
+    </div>
+  </header>
+<div class="wrap">
+
+
+  <!-- ============ 缘起：手算的一天（冷色），和下面「同一天」（暖色）对照 ============ -->
+  <section class="sec why2" id="why">
+    <div class="why3b">
+      <h2 class="fh big">Her machine reports every day.<br><em>Dinner is still done by hand.</em></h2>
+      <p class="fsub">My friend’s mother, one month into peritoneal dialysis.</p>
+      <div class="mcard" id="wcard">
+        <div class="mc-t">
+          <blockquote><p>“The best dialysis machine in the world sends its data out every day, to the hospital. At home, we still work out by hand how many pieces of spare rib she can eat today.”</p><cite>My friend</cite></blockquote>
+          <div class="mc-n"><p class="g"><b>1</b>visit to her doctor</p><p class="o"><b>90</b>meals worked out at home</p></div>
+        </div>
+        <div class="mc-cal" aria-hidden="true"><p>One month</p><ol><li class="" style="--d:1"><small>1</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:2"><small>2</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:3"><small>3</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:4"><small>4</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:5"><small>5</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:6"><small>6</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:7"><small>7</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:8"><small>8</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:9"><small>9</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:10"><small>10</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:11"><small>11</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:12"><small>12</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:13"><small>13</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:14"><small>14</small><span><i></i><i></i><i></i></span></li><li class="v" style="--d:15"><small>15</small><em>+</em><span><i></i><i></i><i></i></span></li><li class="" style="--d:16"><small>16</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:17"><small>17</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:18"><small>18</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:19"><small>19</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:20"><small>20</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:21"><small>21</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:22"><small>22</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:23"><small>23</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:24"><small>24</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:25"><small>25</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:26"><small>26</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:27"><small>27</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:28"><small>28</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:29"><small>29</small><span><i></i><i></i><i></i></span></li><li class="" style="--d:30"><small>30</small><span><i></i><i></i><i></i></span></li></ol></div>
+      </div>
+      <h2 class="fh big ch">Because every meal is <em>a sum.</em></h2>
+      <ol class="fn3">
+        <li>
+          <b class="no">01</b><h4>The nutrients pull apart</h4><p>Low in one, high in the next.</p>
+          <div class="fv fa" id="fa1" role="img" aria-label="Cheese is low in potassium but high in phosphorus and sodium. Potato is low in phosphorus but high in potassium. Egg white is low in phosphorus with good protein, but has more sodium. Chicken breast has good protein, with phosphorus and potassium.">
+            <p class="fa-food"><span>Cheese</span><small> · per 100 g</small></p>
+            <ul class="fa-bars">
+              <li data-k="k"><span>Potassium</span><i><b></b></i><em></em></li>
+              <li data-k="ph"><span>Phosphorus</span><i><b></b></i><em></em></li>
+              <li data-k="na"><span>Sodium</span><i><b></b></i><em></em></li>
+              <li data-k="p" class="pro"><span>Protein</span><i><b></b></i><em></em></li>
+            </ul>
+            <p class="fa-say">Low in potassium. High in phosphorus and sodium.</p>
+          </div>
+        </li>
+        <li>
+          <b class="no">02</b><h4>Even the standard moved</h4><p>Same plate, a different answer.</p>
+          <div class="fv fb" id="fa2" role="img" aria-label="A plate at 1.1 g of protein per kg: below the KDOQI 2000 target of 1.2 to 1.3, inside the KDOQI 2020 target of 1.0 to 1.2.">
+            <p class="fb-yr">KDOQI <b>2000</b></p>
+            <div class="fb-track"><span class="fb-band"></span><span class="fb-dot"><em>1.1</em></span></div>
+            <div class="fb-ticks"><span>0.9</span><span>1.0</span><span>1.1</span><span>1.2</span><span>1.3</span><span>1.4</span></div>
+            <p class="fb-say"><b>Below target</b> · g protein per kg a day</p>
+          </div>
+        </li>
+        <li>
+          <b class="no">03</b><h4>It starts over every month</h4><p>A new lab report, new limits.</p>
+          <div class="fv fc" id="fa3" role="img" aria-label="Each month's lab report changes the day's limits for potassium, phosphorus and sodium.">
+            <div class="fc-win"><ul class="fc-strip"><li><small>JUL</small><b>15</b></li><li><small>AUG</small><b>12</b></li><li><small>SEP</small><b>9</b></li><li><small>OCT</small><b>14</b></li><li><small>NOV</small><b>11</b></li><li><small>DEC</small><b>8</b></li><li><small>JAN</small><b>13</b></li></ul></div>
+            <ul class="fc-lim"><li><span>Potassium</span><b data-i="0">2,200</b></li><li><span>Phosphorus</span><b data-i="1">1,000</b></li><li><span>Sodium</span><b data-i="2">1,900</b></li></ul>
+            <p class="fc-say">mg a day · example months</p>
+          </div>
+        </li>
+      </ol>
+      <p class="fsrc">From 108 surveys and 12 interviews in six Chinese cities.</p>
+    </div>
+    <h2 class="fh big ch">So families do it <em>by hand</em>, all day.</h2>
+    <p class="fsub">Five moments families told us about, again and again.</p>
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <!-- 子女，拿着化验单 -->
+      <symbol id="child" viewBox="0 0 100 170"><g class="ppl"><path class="hair" d="M34 30c0-14 10-22 18-22s18 6 18 20c-6-6-16-8-24-6-4 1-8 4-12 8z"/><circle class="ln fill" cx="52" cy="34" r="16"/><path class="hair" d="M36 28c4-10 14-14 22-12 6 2 10 6 12 12-8-4-20-6-34 0z"/><path class="ln fill" d="M24 168v-70c0-22 12-38 28-38s28 16 28 38v70"/><path class="ln" d="M38 96v72M66 96v72"/><rect class="acc fill" x="56" y="78" width="30" height="40" rx="3" transform="rotate(8 71 98)"/><path class="acc" d="M64 90h16M63 98h14M62 106h10"/><path class="ln" d="M70 74c-6 10-12 18-20 22"/></g></symbol>
+      <!-- 女儿，计算器 -->
+      <symbol id="calc" viewBox="0 0 100 170"><g class="ppl"><path class="hair" d="M30 40c-2-20 8-32 22-32s24 12 22 32c0 14 4 26 6 32-10-4-12-14-12-24H42c0 10-2 20-12 24 2-6 0-18 0-32z"/><circle class="ln fill" cx="52" cy="36" r="15"/><path class="ln fill" d="M24 168v-66c0-22 12-36 28-36s28 14 28 36v66"/><rect class="acc fill" x="34" y="92" width="28" height="38" rx="4"/><rect class="acc" x="39" y="97" width="18" height="8" rx="1.5"/><path class="acc" d="M41 113h3M49 113h3M41 121h3M49 121h3"/><path class="ln" d="M30 104c4 10 8 16 6 22M74 104c-4 10-8 16-12 20"/></g></symbol>
+      <!-- 妈妈（患者），一碗饭 -->
+      <symbol id="mum" viewBox="0 0 100 170"><g class="ppl"><circle class="hair" cx="52" cy="14" r="9"/><circle class="ln fill" cx="52" cy="38" r="16"/><path class="hair" d="M36 34c2-10 8-14 16-14s14 4 16 14c-8-6-24-6-32 0z"/><circle class="ln" cx="46" cy="40" r="4"/><circle class="ln" cx="58" cy="40" r="4"/><path class="ln" d="M50 40h4"/><path class="ln fill" d="M22 168v-62c0-22 14-36 30-36s30 14 30 36v62"/><path class="acc fill" d="M32 100h40c0 14-8 22-20 22s-20-8-20-22z"/><path class="acc" d="M44 94c0-4 3-4 3-8M56 94c0-4 3-4 3-8"/><path class="ln" d="M28 110c4 6 6 8 8 6M76 110c-4 6-6 8-8 6"/><text x="74" y="70" style="font:600 22px Caveat;fill:#7F948C">?</text></g></symbol>
+      <!-- 爸爸（做饭的人），锅铲 -->
+      <symbol id="cook" viewBox="0 0 100 170"><g class="ppl"><circle class="ln fill" cx="50" cy="34" r="16"/><path class="hair" d="M34 30c2-12 10-16 16-16 8 0 14 4 16 16-6-4-12-4-16-2-6-2-12-2-16 2z"/><path class="ln fill" d="M20 168v-66c0-22 14-36 30-36s30 14 30 36v66"/><path class="acc" d="M34 82h32v60H34z"/><path class="acc" d="M34 82c0-6 6-10 16-10s16 4 16 10"/><path class="ln" d="M78 100l14-30"/><rect class="ln fill" x="86" y="56" width="10" height="16" rx="2" transform="rotate(25 91 64)"/></g></symbol>
+      <!-- 拿行李箱的人 -->
+      <symbol id="trip" viewBox="0 0 110 170"><g class="ppl"><circle class="ln fill" cx="44" cy="36" r="15"/><path class="ln fill" d="M24 26h40M30 26c0-10 6-14 14-14s14 4 14 14"/><path class="ln fill" d="M16 168v-64c0-22 12-36 28-36s28 14 28 36v64"/><rect class="acc fill" x="70" y="116" width="34" height="46" rx="5"/><path class="acc" d="M80 116v-8h14v8M87 124v30"/><path class="ln" d="M66 104c6 6 10 8 12 12"/></g></symbol>
+    </svg>
+    <div class="hstage hcard"><ol class="hrow"><li class="p"><p class="bubble">The numbers are easy to read. Turning them into dinner is not.</p><svg viewBox="0 0 100 170" aria-hidden="true"><use href="#child"/></svg><div class="meta"><span class="t"><time>07:10</time> · A grown child</span><span class="q">We asked: Who looks at the lab report first?</span></div></li><li class="p"><p class="bubble">A printed table, a calculator, the WeChat group.</p><svg viewBox="0 0 100 170" aria-hidden="true"><use href="#calc"/></svg><div class="meta"><span class="t"><time>08:05</time> · A daughter</span><span class="q">We asked: Where do you look things up?</span></div></li><li class="p"><p class="bubble">Better to eat less than to eat wrong.</p><svg viewBox="0 0 100 170" aria-hidden="true"><use href="#mum"/></svg><div class="meta"><span class="t"><time>12:00</time> · A patient</span><span class="q">We asked: What worries you most about eating?</span></div></li><li class="p"><p class="bubble">I cook it. Someone else did the sum.</p><svg viewBox="0 0 100 170" aria-hidden="true"><use href="#cook"/></svg><div class="meta"><span class="t"><time>17:30</time> · The cook</span><span class="q">We asked: Who in the family looks things up?</span></div></li><li class="p"><p class="bubble">Dialysis keeps our circle small.</p><svg viewBox="0 0 110 170" aria-hidden="true"><use href="#trip"/></svg><div class="meta"><span class="t"><time>21:00</time> · A couple</span><span class="q">We asked: Going out, travelling?</span></div></li></ol></div>
+    <details class="more wide">
+      <summary>What we heard, and what we built for each</summary>
+      <div class="more-in">
+        <div class="heard">
+      <p class="label">What we heard, and what we built for it</p>
+      <ol>
+        <li><q>I can read the numbers. I can't turn them into dishes.</q><span>Enter the seven values on the report; foods and the day's meals re-sort at once.</span></li>
+        <li><q>My daughter looks everything up. I’m the one who has to eat it.</q><span>No sign-in to start, and a one-page summary the family can bring to the next visit.</span></li>
+        <li><q>I don't trust a number an AI just came up with.</q><span>Every figure shows where it comes from. The model does not make up nutrient values.</span></li>
+        <li><q>Dialysis keeps us close to home.</q><span>Travel: dialysis centres by city, a checklist for the first long trip, an emergency card for the lock screen.</span></li>
+      </ol>
+      <p class="small">Paraphrased from the interviews.</p>
+        </div>
+      </div>
+    </details>
+  </section>
+
+  <!-- ============ 竞品 ============ -->
+  <section class="sec comp" id="comp">
+    <h2 class="fh big">Nobody had built <em>for them.</em></h2>
+    <p class="fsub">Every patient-side dialysis app we found had gone quiet.</p>
+    <div class="lmap" role="table" aria-label="Kidney and health products in China, by who they are built for">
+      <div class="lh" role="row"><span></span><b>Built for hospitals</b><b>Built for patients</b></div>
+      <div class="lr" role="row"><span class="rl">General health</span>
+        <ul><li class=""><img src="media/comp/haodf.png" width="66" height="60" alt=""><b>Haodf</b><small>Online clinic</small></li><li class=""><img src="media/comp/wedoctor.png" width="66" height="60" alt=""><b>WeDoctor</b><small>Online clinic</small></li><li class=""><img src="media/comp/winning.png" width="66" height="60" alt=""><b>Winning Health</b><small>Hospital IT</small></li></ul>
+        <ul><li class=""><img src="media/comp/boohee.png" width="66" height="60" alt=""><b>Boohee</b><small>Nutrition</small></li><li class=""><img src="media/comp/afu.png" width="66" height="60" alt=""><b>Ant Afu</b><small>AI assistant</small></li><li class=""><img src="media/comp/xiaohe.png" width="66" height="60" alt=""><b>Xiaohe</b><small>AI doctor</small></li><li class=""><img src="media/comp/alihealth.png" width="66" height="60" alt=""><b>Ali Health</b><small>Online pharmacy</small></li></ul>
+      </div>
+      <div class="lr pd" role="row"><span class="rl">Dialysis</span>
+        <ul><li class=""><img src="media/comp/pdtap.png" width="66" height="60" alt=""><b>PDTAP</b><small>with a Beijing hospital</small></li><li class=""><img src="media/comp/bianshi.png" width="66" height="60" alt=""><b>Bianshi</b><small>with a Changsha hospital</small></li><li class=""><img src="media/comp/shenzhou.png" width="66" height="60" alt=""><b>Shenzhou Medical</b><small>with a Guangzhou hospital</small></li><li class=""><img src="media/comp/fufan.png" width="66" height="60" alt=""><b>Fufan</b><small>with a Shanghai hospital</small></li></ul>
+        <ul class="mine"><li class="me"><img src="media/logo.png" width="318" height="360" alt=""><b>Dialight</b><small>Starts from daily life</small></li><li class="dead "><img src="media/comp/shenshangxian.png" width="66" height="60" alt=""><b>Shenshangxian</b><small>Patient app appears archived</small></li><li class="dead "><img src="media/comp/aishen.png" width="66" height="60" alt=""><b>Aishen</b><small>No news since 2019</small></li></ul>
+      </div>
+    </div>
+    <p class="small">Logos belong to their owners and are shown only to compare products. Status as of Oct 2026, from public records.</p>
+  </section>
+
+  <!-- ============ 主线：四版，从诊所到厨房 ============ -->
+  <section class="sec builds" id="builds">
+    <h2 class="fh big">So we built it, <em>from a clinic to a kitchen.</em></h2>
+    <p class="fsub">Four weeks, October to November 2026.</p>
+    <div class="b-grid">
+      <div class="b-stage" aria-hidden="true">
+        <div class="b-track">
+          <span data-i="0">Clinic</span><span data-i="1">Paper</span><span data-i="2">Kitchen</span>
+          <i class="b-fill"></i>
+        </div>
+        <div class="b-phone">
+          <img data-i="0" src="media/v2-1024.jpg" width="468" height="680" alt="">
+          <div data-i="1" class="sk-ph"><span class="todo">待重画：英文版手绘稿</span><p>Three ways in → one card for this patient → ranked by rules</p></div>
+          <img data-i="2" src="media/v3-1118.jpg" width="468" height="680" alt="">
+          <img class="b-ll" src="media/ll_eat.png" width="269" height="320" alt="">
+        </div>
+      </div>
+      <ol class="b-steps">
+        <li data-w="1">
+          <div class="pair"><figure><img src="media/v1-1022.jpg" width="468" height="680" loading="lazy" alt="First build, in Chinese: a single food judged with a green or red tag."><figcaption>V1 · 22 Oct</figcaption></figure><figure><img src="media/v2-1024.jpg" width="468" height="680" loading="lazy" alt="Second build, in Chinese: every food sorted, safest first."><figcaption>V2 · 24 Oct</figcaption></figure></div>
+          <p class="b-when"><time>Oct</time>Two builds · clinic</p>
+          <h3>Is this food safe?</h3>
+          <p>V1 judged one food at a time. V2 added the four sections and sorted every food, safest first. Both answered the question we assumed families had. <span class="todo">待确认：截图里的化验值是否来自真实报告</span></p>
+        </li>
+        <li data-w="2">
+          <div class="b-img sk-ph" aria-hidden="true"><span class="todo">待重画：英文版手绘稿</span></div>
+          <p class="b-when"><time>Nov</time>Back to paper</p>
+          <h3>What does a day need?</h3>
+          <p>After the interviews we stopped adding screens and drew the day instead.</p>
+          <ol class="sk3">
+            <li><div class="skf"><span class="todo">待画 ①</span><p>lab report → 3 ways in → rules rank → 1 recipe card</p></div><b>One day, one path</b></li>
+            <li><div class="skf"><span class="todo">待画 ②</span><p>fridge first → grade A/B → lighter on today</p></div><b>The ranking ladder</b></li>
+            <li><div class="skf"><span class="todo">待画 ③</span><p>5 boxes → 3 things</p></div><b>The first screen</b></li>
+          </ol>
+        </li>
+        <li data-w="3">
+          <img class="b-img" src="media/v3-1118.jpg" width="468" height="680" loading="lazy" alt="Frozen build: today's three meals on a warm cream background, with a search box and a fridge-photo card.">
+          <p class="b-when"><time>18 Nov</time>Frozen build · kitchen</p>
+          <h3>A table for the day</h3>
+          <p>Warm colours, large type, the fridge photo as the one solid button. Twelve patients use this build now.</p>
+        </li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="sec turn" id="turn">
+    <p class="label">What I learned</p>
+    <h2 class="fh big">What they needed was <em>less to worry about.</em></h2>
+    <p class="fsub">Most could find the numbers. Doing the sum every meal wore them down.</p>
+    <div class="swap">
+      <article>
+        <p class="was"><s>More foods to choose from</s></p>
+        <div class="vis vis-fridge">
+          <img src="media/also-fridge.jpg" width="300" height="300" loading="lazy" alt="Snap fridge screen: a photo of the fridge and the ingredients found in it">
+          <ol class="k3"><li><b>K0</b>Most of the fridge</li><li><b>K1</b>Grade A, then B</li><li><b>K2</b>Lighter on today</li></ol>
+        </div>
+        <h3>Start from the fridge</h3>
+        <p>Dishes that use what is already at home come first.</p>
+      </article>
+      <article>
+        <p class="was"><s>Eat less, to be safe</s></p>
+        <div class="vis vis-prot" role="img" aria-label="Before: protein counted against a dish. After: with low albumin, protein counts in its favour.">
+          <div><span class="label">Before</span><p class="pb"><i style="width:72%"></i></p><small>Protein counted against a dish</small></div>
+          <div><span class="label">Albumin low</span><p class="pb good"><i style="width:72%"></i></p><small>Protein counts for it</small></div>
+        </div>
+        <h3>Protein counts in your favour</h3>
+        <p>Fear of eating wrong left many short of protein.</p>
+      </article>
+      <article>
+        <p class="was"><s>More numbers to check</s></p>
+        <div class="vis vis-less" aria-hidden="true">
+          <div class="mini"><i></i><i></i><i></i><i></i><i></i></div><span>→</span><div class="mini after"><i class="t"></i><i class="s"></i><i class="c"></i></div>
+        </div>
+        <h3>Three things, not five</h3>
+        <p>Every number comes from the table. Nothing to double-check.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="sec" id="day" data-rail="0">
+    <p class="label">The same day, with Dialight</p>
+    <h2 class="fh big">So now the same day <em>goes like this.</em></h2>
+    <p class="fsub">The same five moments, now with Dialight.</p>
+  </section>
+
+  <section class="stop2" id="p0" data-rail="1">
+    <p class="when"><time>07:10</time><span>Morning</span></p>
+        <h3 class="q3">The lab report is back. What does it say?</h3>
+        <p class="answer">It copies what is printed and stops there.</p>
+        <div class="read">
+        <div class="paper" role="group" aria-label="Demo lab report with five numbered notes">
+          <div class="paper-head">
+            <div><strong>Renal panel</strong><small>Demo sample. Not a real patient.</small></div>
+            <div class="paper-date" data-n="1"><span class="mark">1</span>Collected 24 Oct 2026</div>
+          </div>
+          <table>
+            <thead><tr><th>Test</th><th style="text-align:right">Result</th><th></th><th>Unit</th><th>Reference</th><th></th></tr></thead>
+            <tbody>
+              <tr data-n="2"><td>Potassium</td><td class="num">4.2</td><td class="flag"></td><td>mmol/L</td><td class="ref">3.5–5.5</td><td class="mk"><span class="mark">2</span></td></tr>
+              <tr data-n="3"><td>Phosphorus</td><td class="num">2.25</td><td class="flag">H</td><td>mmol/L</td><td class="ref">1.13–1.78</td><td class="mk"><span class="mark">3</span></td></tr>
+              <tr><td>Calcium</td><td class="num">2.31</td><td class="flag"></td><td>mmol/L</td><td class="ref">2.10–2.50</td><td class="mk"></td></tr>
+              <tr><td>Sodium</td><td class="num">138</td><td class="flag"></td><td>mmol/L</td><td class="ref">135–145</td><td class="mk"></td></tr>
+              <tr><td>Albumin</td><td class="num">33</td><td class="flag">L</td><td>g/L</td><td class="ref">38–55</td><td class="mk"></td></tr>
+              <tr><td>Triglycerides</td><td class="num">1.8</td><td class="flag">H</td><td>mmol/L</td><td class="ref">0.45–1.70</td><td class="mk"></td></tr>
+              <tr data-n="4"><td>Fasting glucose</td><td class="num"><span class="smudge" aria-label="unreadable">6.1</span></td><td class="flag"></td><td>mmol/L</td><td class="ref">4.4–7.0</td><td class="mk"><span class="mark">4</span></td></tr>
+            </tbody>
+          </table>
+          <div class="paper-foot" data-n="5"><span>End of report</span><span class="mark">5</span></div>
+        </div>
+
+        <ol class="anno" id="anno">
+          <li data-n="1" tabindex="0"><span class="mark">1</span><div><b>The date travels with the numbers.</b><span>This sheet is 26 days old on the day we follow. Past 21 days the app shows the age next to every result. Past 45 it says a retest is due.</span></div></li>
+          <li data-n="2" tabindex="0"><span class="mark">2</span><div><b>Number and unit, as printed.</b><span>A sheet in mg/dL is converted to mmol/L, and the screen says it was converted.</span></div></li>
+          <li data-n="3" tabindex="0"><span class="mark">3</span><div><b>The H belongs to the lab.</b><span>It is copied along with the value. The model adds no reading of its own.</span></div></li>
+          <li data-n="4" tabindex="0"><span class="mark">4</span><div><b>Smudged, so skipped.</b><span>An unreadable field is left empty and the app asks for it to be typed. It does not guess.</span></div></li>
+          <li data-n="5" tabindex="0"><span class="mark">5</span><div><b>Limits come from a table, not from the model.</b><span>Phosphorus is flagged high, so today's limit is 800 mg, not 1,000. Albumin is flagged low, so the protein target is 1.2 g per kg, which is 70 g at 58 kg. The bars on the right get their tops here.</span></div></li>
+        </ol>
+      </div>
+        <details class="more">
+          <summary>How it works</summary>
+          <div class="more-in">
+            <p>The model has one job here, which is transcription: the number, the unit, and the lab's own flag. It does not explain what a high phosphorus means. Turning the sheet into today's limits is a separate step, done by a short fixed table in the code that the model cannot change.</p>
+            <p><b>The fixed table.</b> Phosphorus 800, 1,000 or 1,100 mg for a high, in-range or low result. Potassium 1,800 mg if high, otherwise 2,200. Sodium 1,500 mg if high, otherwise 1,900. Protein 1.2 g per kg of dry weight if albumin is low, otherwise 1.0. Phosphorus 800 to 1,000 mg and protein 1.0 to 1.2 g/kg match Chinese dialysis guidance. The other figures, and setting limits by lab result at all, are the team's own.</p>
+            <p><b>Why it only transcribes.</b> China's Detailed Rules for the Supervision of Internet Diagnosis and Treatment (Trial), 2022, say AI software may not stand in for a physician (Art. 13) and may not generate prescriptions (Art. 21). The rules bind hospitals offering care online; we drew our own line from them.</p>
+          </div>
+        </details>
+  </section>
+  <section class="stop2" id="p1" data-rail="2">
+    <p class="when"><time>08:05</time><span>Breakfast</span></p>
+        <h3 class="q3">Which protein can go on the plate?</h3>
+        <p class="answer">A fixed rule sorts every food. The model never grades one.</p>
+        <div class="plot">
+        <div class="plot-bar" id="chips" role="group" aria-label="Filter by food group"></div>
+        <div class="plot-card" id="plot-card">
+          <p class="plot-title">Phosphorus against protein, per 100 g of edible portion</p>
+          <p class="plot-sub">Each mark is one food. The zones are cut at 10, 15 and 20 mg of phosphorus per gram of protein.</p>
+          <div class="legend" id="legend"></div>
+          <svg id="chart" role="img" aria-label="Scatter plot of protein foods by protein and phosphorus content, divided into four grade zones"></svg>
+          <div class="tip" id="tip" role="status"></div>
+        </div>
+        <p class="picked empty" id="picked">Click a mark to see where its numbers come from.</p>
+        <details class="tbl">
+          <summary>See all <span id="n-all2">–</span> foods as a table</summary>
+          <div class="tbl-scroll"><table id="tbl"></table></div>
+        </details>
+      </div>
+        <details class="more">
+          <summary>How it works</summary>
+          <div class="more-in">
+            <p>For meat, fish, eggs and soy, the rule is phosphorus per gram of protein. Under 10 mg/g is A, 10 to 15 is B, 15 to 20 is C, and over 20 is D. The letter says what to do with the food. It is not a health score.</p>
+            <p><b id="n-fit">–</b> of the <b id="n-all">–</b> protein foods land where that ratio puts them. The other <b id="n-exc">–</b> were caught by a rule higher in the list: the sodium cap, the potassium gate, or dried goods that need soaking first.</p>
+            <p><b>Values.</b> <span id="src-line">–</span></p>
+            <p><b>Cut-offs.</b> Grading standard v1.0, 8 Nov 2026, twelve rules checked top to bottom. The ratio cut-offs are the team's; the literature uses them only as table boundaries. The 600 mg sodium line is the UK front-of-pack red for salt.</p>
+          </div>
+        </details>
+  </section>
+  <section class="stop2" id="p2" data-rail="3">
+    <p class="when"><time>12:00</time><span>Lunch</span></p>
+        <h3 class="q3">Can we have braised pork today?</h3>
+        <p class="answer">The model writes the card. A fixed checklist decides whether you see it.</p>
+        <div class="gate">
+        <div class="plot-bar" id="gate-tabs" role="group" aria-label="Choose a test card"></div>
+        <div class="gate-grid">
+          <div class="rcard" id="rcard"></div>
+          <div class="slip" id="slip" aria-live="polite"></div>
+        </div>
+      </div>
+        <details class="more">
+          <summary>How it works</summary>
+          <div class="more-in">
+            <p>Braised pork is not among the 54 recipes, so this is the one place the model writes something new: a one-person version with grams and steps. A checklist in the code then goes through it line by line. Per-serving caps: phosphorus 600 mg, potassium 1,500 mg, sodium 1,200 mg, protein 60 g.</p>
+            <p>The three test cards were written for this page and run through the prototype's own check, offline, on 20 Nov 2026. <span class="todo">定稿前你自己重跑一遍</span></p>
+          </div>
+        </details>
+  </section>
+  <section class="stop2" id="p3" data-rail="3">
+    <p class="when"><time>17:30</time><span>Before dinner</span></p>
+        <h3 class="q3">Why this table and not another?</h3>
+        <p class="answer">Because of one lab sheet. Change a single number and the day is rebuilt.</p>
+        <div class="twice" id="twice"></div>
+        <details class="more">
+          <summary>How it works</summary>
+          <div class="more-in">
+            <p>The meals are picked by rule from recipes graded A or B: a staple and a protein at breakfast, a staple, a protein and a vegetable at lunch and dinner, with the day's sodium kept under the limit. Above, the only difference is the potassium result: 4.2 as printed, and 5.9. A result above 5.5 mmol/L moves the limit from 2,200 to 1,800 mg.</p>
+            <p>Not built yet: re-planning dinner after a lunch that went over.</p>
+          </div>
+        </details>
+  </section>
+  <section class="stop2" id="p4" data-rail="4">
+    <p class="when"><time>21:00</time><span>Evening</span></p>
+        <h3 class="q3">What do we bring to the next visit?</h3>
+        <p class="answer">One page, and it says how many days it is based on.</p>
+        <div class="eve">
+        <div>
+          <p class="count"><span id="n-rec">–</span><small>of 30 days have a record in the demo month.</small></p>
+          <div class="month-grid" id="month2" role="img" aria-label="Thirty days by three meals. Twelve days are filled: days with a record."></div>
+          <div class="keys">
+            <span><i class="k-rec"></i>Day with a record</span>
+            <span><i class="k-rest"></i>Nothing recorded</span>
+          </div>
+        </div>
+        <div class="a4" role="group" aria-label="One-page summary for the dietitian, demo data">
+          <div><div class="who">Demo patient · F · 68 · peritoneal dialysis, 3 years</div>
+          <div class="meta-l">Diet log · 1–30 Nov · <b>12 days logged</b></div></div>
+          <h4>How the month went</h4>
+          <dl class="kv">
+            <dt>Phosphorus</dt><dd>1.3 to 1.6 times the limit all month, mostly soup and eating out</dd>
+            <dt>Potassium</dt><dd>High in the first two weeks, down to 0.9 times in week three</dd>
+            <dt>Calcium, protein</dt><dd>Both a little short (0.6 and 0.9 times)</dd>
+          </dl>
+          <h5>By week, as a multiple of the limit</h5>
+          <table>
+            <thead><tr><th></th><th>Phos.</th><th>Potas.</th><th>Calcium</th><th>Protein</th></tr></thead>
+            <tbody>
+              <tr><td>1–7 Nov</td><td>1.3</td><td>1.1</td><td>0.6</td><td>0.9</td></tr>
+              <tr><td>8–14 Nov</td><td>1.6</td><td>1.3</td><td>0.5</td><td>1.0</td></tr>
+              <tr><td>15–21 Nov</td><td>1.4</td><td>0.9</td><td>0.7</td><td>0.9</td></tr>
+              <tr><td>22–30 Nov</td><td>1.2</td><td>0.8</td><td>0.6</td><td>0.8</td></tr>
+            </tbody>
+          </table>
+          <h5>High-phosphorus foods that kept coming back</h5>
+          <div>Rib soup, 5 times · Ham, 3 · Dried tofu, 2 · Nuts, 2</div>
+          <h5>Filled in by the patient</h5>
+          <div class="blank"><div><span>Dry weight</span><span>kg</span></div><div><span>Blood pressure</span><span>mmHg</span></div><div><span>Heart rate</span><span>bpm</span></div></div>
+          <h5>Filled in by the doctor</h5>
+          <div class="line-f tall"><span>Changes to the diet plan</span></div>
+          <div class="blank" style="grid-template-columns:1fr 1fr"><div><span>Signature</span></div><div><span>Next visit</span></div></div>
+        </div>
+      </div>
+        <details class="more">
+          <summary>How it works</summary>
+          <div class="more-in">
+            <p>Each day with a record fills a column. The page gives each nutrient by week as a multiple of its limit, lists the high-phosphorus foods that kept coming back, and leaves the bottom third for the patient's measurements and the doctor's handwriting. Month and page both run on the prototype's invented sample.</p>
+          </div>
+        </details>
+    <figure class="dayend">
+      <blockquote><p>“<span class="todo">待补：一位内测用户的原话（不写名字），说用了之后哪里变轻松了</span>”</p></blockquote>
+      <figcaption>A family member, one of twelve patients’ families in the closed trial</figcaption>
+    </figure>
+  </section>
+
+  <section class="sec" id="also">
+    <p class="label">Beyond the meal plan</p>
+    <h2 class="fh big">And it reaches <em>past the kitchen.</em></h2>
+    <p class="fsub">Getting out of the house, and finding each other.</p>
+    <ul class="tiles">
+      <li><img src="media/also-travel.jpg" width="300" height="300" loading="lazy" alt="Travel screen, top part"><b>Travel</b><span>A checklist for a first long trip, and dialysis-centre details by city.</span></li>
+      <li><span class="ph">not pictured</span><b>Community</b><span>Posts from other patients and families, reviewed before they appear, each with a report button.</span></li>
+      <li><img src="media/also-fridge.jpg" width="300" height="300" loading="lazy" alt="Snap fridge screen"><b>Fridge photo</b><span>Photograph the fridge; the model names what it sees and the table plans a meal from it.</span></li>
+      <li><img src="media/also-foods.jpg" width="300" height="300" loading="lazy" alt="Food library screen"><b>Food library</b><span>243 foods in 12 groups, each with its source.</span></li>
+      <li><img src="media/also-recipes.jpg" width="300" height="300" loading="lazy" alt="All recipes screen"><b>Recipes</b><span>54 recipes and three worked examples of what not to cook.</span></li>
+      <li><span class="ph">not pictured</span><b>Emergency card</b><span>Contacts, dialysis prescription and allergies on one screen.</span></li>
+    </ul>
+  </section>
+
+  <!-- ============ 安全：两块 ============ -->
+  <section class="sec safe" id="how">
+    <p class="label">How it stays safe</p>
+    <h2 class="fh big">It stays safe because <em>the rules decide.</em></h2>
+    <p class="fsub">The model writes the words. The table decides the numbers.</p>
+    <div class="safe-grid">
+      <div class="qc">
+        <p class="panel-h"><b>1</b>Checked before anyone sees it</p>
+        <div class="node prompt">A dialysis-specific prompt</div>
+        <div class="vline"></div>
+        <div class="gates">
+          <p><b>Four gates</b>checking the card, not the nutrition advice</p>
+          <ol>
+            <li><b>A · Structure</b>Every field present</li>
+            <li><b>B · Numbers</b>Per serving: phosphorus ≤ 600 mg, potassium ≤ 1,500, sodium ≤ 1,200, protein ≤ 60 g</li>
+            <li><b>C · Vague words</b>“A little salt” becomes grams</li>
+            <li><b>D · Never list</b>11 categories and red-line words. A hit blocks the card</li>
+          </ol>
+        </div>
+        <div class="fork"><i></i><i></i><i></i></div>
+        <div class="out">
+          <div class="o1"><b>Passed</b>Shown as it is</div>
+          <div class="o2"><b>Fixed</b>Blanching added or grams changed. Every change is listed</div>
+          <div class="o3"><b>Blocked</b>A search for “low-sodium salt”, which swaps sodium for potassium, is not for someone whose potassium is high</div>
+        </div>
+        <div class="node dark">Swapped for the table’s own portion. The reason stays on screen.</div>
+      </div>
+      <div class="funnel">
+        <p class="panel-h"><b>2</b>Built on a table you can trace</p>
+        <p class="sub">Every value goes back to a figure in a published food table. None is made up by the model.</p>
+        <ol>
+          <li style="--w:100%"><b>≈12,000</b><span>Candidates from four tables, merged</span></li>
+          <li style="--w:90%"><b>≈3,100</b><span>Rules remove high-sodium foods and phosphate additives</span></li>
+          <li style="--w:80%"><b>≈900</b><span>Kept only where two tables agree within 20%</span></li>
+          <li style="--w:70%"><b>240</b><span>Graded on potassium, phosphorus and phosphorus per gram of protein</span></li>
+          <li style="--w:62%" class="last"><b>200+</b><span>Reviewed by two dietitians</span></li>
+        </ol>
+        <p class="small">≈ marks a design estimate.</p>
+      </div>
+    </div>
+    <div class="lines">
+      <div><p class="label">Three lines it does not cross</p><ol><li>It reads the numbers on a lab report and never says what they mean.</li><li>Past a threshold it gives no advice, only three questions to ask the doctor next time.</li><li>It never touches dialysis prescriptions or medication.</li></ol></div>
+      <div><p class="label">If the model fails</p><p>No network, a timeout or a malformed answer: the app falls back to the fixed calculation.</p></div>
+    </div>
+  </section>
+
+  <section class="sec" id="ideas">
+    <p class="label">Design</p>
+    <h2 class="fh big">And it should feel like <em>a kitchen, not a clinic.</em></h2>
+    <figure class="stage" aria-label="The Dialight visual system: warm colours, large type, grades the cook can act on, and Liangliang in five poses.">
+      <p class="bigword" aria-hidden="true">透亮</p>
+      <p class="namekey"><b>透</b> dialysis <b>亮</b> light</p>
+      <div class="lls">
+        <img src="media/ll_eat.png" width="269" height="320" alt="Liangliang eating">
+        <img src="media/ll_phone.png" width="233" height="320" alt="Liangliang with a phone">
+        <img src="media/ll_travel.png" width="277" height="320" alt="Liangliang travelling">
+        <img src="media/ll_book.png" width="244" height="320" alt="Liangliang reading">
+        <img src="media/ll_rest.png" width="320" height="291" alt="Liangliang resting">
+      </div>
+      <div class="stk-q"><span>What to eat today</span></div>
+      <ul class="gstk"><li class="ga"><b>A</b>Eat freely</li><li class="gb"><b>B</b>Watch the portion</li><li class="gc"><b>C</b>Blanch 2 min</li><li class="gd"><b>D</b>Swap it out</li></ul>
+      <ul class="strip"><li style="--c:#FB9E4B">Warm orange</li><li style="--c:#F08C2E">Stove orange</li><li style="--c:#FDF5F1;--t:#161514">Rice white</li><li style="--c:#B292ED">Liangliang</li><li style="--c:#161514">Ink</li></ul>
+    </figure>
+    <ol class="three">
+      <li><b>No blue, no red.</b>Levels differ by lightness, for eyes that diabetes has often damaged.</li>
+      <li><b>One question a screen.</b>Large type, big buttons, steps read aloud.</li>
+      <li><b>Grades you can act on.</b>A C comes with a step. A D comes with a swap.</li>
+    </ol>
+  </section>
+
+
+  <!-- ============ 我做了什么（团队放在这里） ============ -->
+  <section class="sec role" id="role">
+    <p class="label">My part</p>
+    <h2 class="fh big">My part: <em>team lead and product manager.</em></h2>
+    <dl class="meta">
+      <div><dt>My role</dt><dd>Team lead, product manager. Drew the logo, made the film.</dd></div>
+      <div><dt>Team</dt><dd>Five people, four universities</dd></div>
+      <div><dt>When</dt><dd>Sep to Nov 2026</dd></div>
+      <div><dt>Status</dt><dd>Closed trial, 12 patients</dd></div>
+    </dl>
+    <p class="intro">I started the project after seeing what my friend’s family went through, and I led the team. We built every version together. As product manager I wrote the decision table and the product spec, and decided what the product would and would not do, including the rules the language model may not cross. I drew the logo and made <a href="#" class="filmlink">the film</a>.</p>
+    <div class="mine">
+      <article class="dtable">
+        <p class="label">The decision table, 3 Nov</p>
+        <p>One rule: every question gets one answer, one owner and one date. "Let's think about it" was not an allowed answer.</p>
+        <table>
+          <thead><tr><th>Question</th><th>Answer</th></tr></thead>
+          <tbody>
+            <tr><td>How many cities does travel cover?</td><td>The mid-term plan said eight. Twelve days was not enough to check eight, so two.</td></tr>
+            <tr><td>When does someone have to sign in?</td><td>Only to post in the community. Looking things up needs no account.</td></tr>
+            <tr><td>Who vouches for the food values?</td><td>The plan promised a teammate would check them, and nobody had taken it on. We asked two dietitians to review the data.</td></tr>
+          </tbody>
+        </table>
+      </article>
+      <article class="logo2">
+        <p class="label">The logo</p>
+        <div class="lg"><figure><img src="media/logo-sketch.jpg" width="639" height="640" loading="lazy" alt="Pencil sketch of the logo: a kitchen scale whose needle is a spatula, with a small plane on the dial"><figcaption>Sketch</figcaption></figure><i aria-hidden="true">→</i><figure><img src="media/logo.png" width="318" height="360" loading="lazy" alt="Final logo: an orange kitchen scale whose needle is a plane"><figcaption>Final</figcaption></figure></div>
+        <p>A kitchen scale. In my sketch the needle was a spatula. In the final mark it became a plane, so one dial holds both meals and travel.</p>
+      </article>
+    </div>
+    <div class="credits"><p class="label">The team</p><ul class="team2"><li class="me"><img src="media/team/liangchen.jpg" width="160" height="160" loading="lazy" alt=""><b>Chen Liang</b><span>Started it, led the team, wrote the product spec, drew the logo</span><small>UC Berkeley</small></li><li><img src="media/team/chenxinrui.jpg" width="160" height="160" loading="lazy" alt=""><b>Chen Xinrui</b><span>Strategy and product definition</span><small>Tsinghua</small></li><li><img src="media/team/lvsiheng-id.jpg" width="160" height="160" loading="lazy" alt=""><b>Lü Siheng</b><span>Research and the user interviews</span><small>Manchester</small></li><li><img src="media/team/lizhicheng.jpg" width="160" height="160" loading="lazy" alt=""><b>Li Zhicheng</b><span>Project management and engineering</span><small>Cornell</small></li><li><img src="media/team/maokelan.jpg" width="160" height="160" loading="lazy" alt=""><b>Mao Kelan</b><span>Operations and brand</span><small>Cornell</small></li></ul><p class="small"><span class="todo">待确认：四位队友同意放照片</span></p></div>
+    <p class="corner">Started during the Tsinghua SDG Open Innovation Marathon × S-Makers, 2026.</p>
+  </section>
+
+  <section class="sec" id="notes">
+    <p class="label">Fine print</p>
+    <h2 class="fh big">And the fine print, <em>for anyone checking.</em></h2>
+    <details class="more wide">
+      <summary>What it does not do yet</summary>
+      <div class="more-in">
+        <div class="limits">
+        <ul>
+          <li>Five of the nine figures in the limit table have no guideline behind them, and no guideline sets limits by lab result.</li>
+          <li>A meal that goes over does not change the plan for the rest of the day.</li>
+          <li>The diet rules are the same for peritoneal dialysis and haemodialysis.</li>
+          <li>The month view and the one-page summary run on built-in sample data.</li>
+          <li>With the model offline, free-text search understands Chinese dish names only.</li>
+          <li>Two dietitians reviewed the food data. The limit table has not had a clinical review.</li>
+        </ul>
+        </div>
+      </div>
+    </details>
+    <details class="more wide">
+      <summary>Where each figure comes from</summary>
+      <div class="more-in">
+        <p class="small">A filled dot means read from the build, counted here, or checked against the original. Half filled means only some of it has a source. A dashed ring means no source was found.</p>
+        <table class="ledger">
+        <thead><tr><th>Figure</th><th>Where</th><th>Comes from</th><th>Status</th></tr></thead>
+        <tbody>
+          <tr><td>21 and 45 days</td><td>07:10</td><td>Staleness thresholds in the build.</td><td><span class="st ok">From the build</span></td></tr>
+          <tr><td>800 · 2,200 · 1,900 mg · 70 g</td><td>07:10, bars</td><td>The build's limit table applied to the demo sheet, at a dry weight of 58 kg.</td><td><span class="st ok">From the build</span></td></tr>
+          <tr><td>The bands behind those limits</td><td>07:10</td><td>Phosphorus 800 and 1,000 mg, protein 1.0 and 1.2 g/kg: WS/T 557-2017, China's 2021 nutrition guideline, Blood Purification SOP 2021. Phosphorus 1,100, potassium 1,800 and 2,200, sodium 1,500 and 1,900 mg: none found.</td><td><span class="st part">Partly</span></td></tr>
+          <tr><td>Art. 13 and 21</td><td>07:10</td><td>Detailed Rules for the Supervision of Internet Diagnosis and Treatment (Trial), NHC, 8 Feb 2022. Read on nhc.gov.cn.</td><td><span class="st ok">Checked</span></td></tr>
+          <tr><td>243 foods, 54 recipes</td><td>12:00, The rest</td><td>Counted in the build's data on 20 Nov 2026. 57 recipes with the three counter-examples.</td><td><span class="st ok">Counted</span></td></tr>
+          <tr><td>75 foods, 65 and 10</td><td>08:05</td><td>Computed on this page from the food table.</td><td><span class="st ok">Counted</span></td></tr>
+          <tr><td>600 mg sodium</td><td>08:05</td><td>UK front-of-pack guidance, red for salt above 1.5 g per 100 g. China's 2019 salt-reduction messages use the same 600 mg.</td><td><span class="st ok">Checked</span></td></tr>
+          <tr><td>10, 15, 20 mg/g</td><td>08:05</td><td>Team grading standard v1.0. The literature has these as table boundaries only (Kalantar-Zadeh 2010; JSDT 2025). No guideline grades single foods by ratio.</td><td><span class="st part">Partly</span></td></tr>
+          <tr><td>Food values</td><td>08:05</td><td>All 156 entries from the China Food Composition Tables checked against the online table on 20 Nov 2026: 155 match. USDA entries: see notes.</td><td><span class="st ok">Checked</span></td></tr>
+          <tr><td>600 · 1,500 · 1,200 mg · 60 g</td><td>12:00</td><td>Per-serving caps in the build's check.</td><td><span class="st ok">From the build</span></td></tr>
+          <tr><td>674 · 1,371 · 1,662 mg · 63.4 g</td><td>17:30, bars</td><td>The build's table for the demo sheet. Offline run, 20 Nov 2026.</td><td><span class="st ok">From the build</span></td></tr>
+          <tr><td>679 · 1,300 · 1,619 mg · 66.5 g</td><td>17:30</td><td>The same run with potassium set to 5.9 mmol/L.</td><td><span class="st ok">From the build</span></td></tr>
+          <tr><td>12 of 30 days</td><td>21:00</td><td>Sample month in the build, with the weekly figures on the one-page summary.</td><td><span class="st ok">From the build</span></td></tr>
+        </tbody>
+      </table>
+      </div>
+    </details>
+  </section>
+
+  <footer>
+    <span>© 2026 Chen Liang</span>
+    <a href="#">← All work</a>
+  </footer>
+</div>
+
+
+<aside class="rail" id="rail" data-s="0" aria-live="polite" aria-label="Running total for the demo day">
+        <p class="rail-h">Demo day so far</p>
+  <p class="rail-state" id="rail-state"></p>
+        <div class="bars">
+    <div class="bar" data-k="ph" title="Phosphorus"><div class="cap">800<small>limit</small></div><div class="track"><i></i></div><b>–</b><span>Phos. <em>mg</em></span></div>
+    <div class="bar" data-k="k" title="Potassium"><div class="cap">2,200<small>limit</small></div><div class="track"><i></i></div><b>–</b><span>Potas. <em>mg</em></span></div>
+    <div class="bar" data-k="na" title="Sodium"><div class="cap">1,900<small>limit</small></div><div class="track"><i></i></div><b>–</b><span>Sodium <em>mg</em></span></div>
+    <div class="bar" data-k="p" title="Protein"><div class="cap">70<small>target</small></div><div class="track"><i></i></div><b>–</b><span>Protein <em>g</em></span></div>
+  </div>
+</aside>
+
+<script src="data/foods.js"></script>
+<script>
+(function(){
+'use strict';
+const $ = (s, r) => (r || document).querySelector(s);
+const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+const NS = 'http://www.w3.org/2000/svg';
+const el = (tag, attrs, text) => { const n = document.createElementNS(NS, tag); for (const k in attrs) n.setAttribute(k, attrs[k]); if (text != null) n.textContent = text; return n; };
+const h = (tag, cls, text) => { const n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; };
+const fmt = n => Number(n).toLocaleString('en-US', {maximumFractionDigits: 1});
+
+/* ---------- 化验单：标注和行互相点亮 ---------- */
+(function(){
+  const on = n => $$('[data-n]').forEach(x => x.classList.toggle('is-on', n != null && x.dataset.n === n));
+  $$('[data-n]').forEach(x => {
+    x.addEventListener('pointerenter', () => on(x.dataset.n));
+    x.addEventListener('pointerleave', () => on(null));
+    x.addEventListener('focus', () => on(x.dataset.n));
+    x.addEventListener('blur', () => on(null));
+  });
+})();
+
+/* ---------- 额度条 ----------
+   四项上限是原型 quota() 对演示化验单算出来的：血磷偏高 → 800，血钾正常 → 2200，
+   血钠正常 → 1900，白蛋白偏低 → 1.2 g/kg × 58 kg = 70。
+   三餐是原型 seedMenu(0) 配出来的那一桌（2026-11-20 断网运行取出），这里只做累加。 */
+const LIM = {ph: 800, k: 2200, na: 1900, p: 70};
+const DAY_A = [
+  ['Breakfast', [['Lotus root starch porridge', 3, 11, 3, 0.1], ['Steamed egg-white custard', 15, 163, 476, 10.9]]],
+  ['Lunch', [['Brown & white rice', 130, 104, 0, 5.3], ['Beef tenderloin with onion', 178, 296, 464, 17.9], ['Stir-fried mung bean sprouts', 56, 105, 297, 3.2]]],
+  ['Dinner', [['Steamed purple sweet potato', 58, 195, 43, 1.7], ['Pan-seared tilapia', 201, 361, 218, 23], ['Blanched lettuce', 33, 136, 161, 1.3]]]
+];
+const sumDay = (day, k) => { const t = {ph: 0, k: 0, na: 0, p: 0}; day.slice(0, k).forEach(m => m[1].forEach(d => { t.ph += d[1]; t.k += d[2]; t.na += d[3]; t.p += d[4]; })); return t; };
+(function(){
+  const upTo = k => sumDay(DAY_A, k);
+  const STATES = [
+    {txt: 'No limits yet.', tot: null},
+    {txt: 'Limits set from the lab report by a fixed table.', tot: upTo(0)},
+    {txt: 'After breakfast: ' + DAY_A[0][1].map(d => d[0].toLowerCase()).join(', ') + '.', tot: upTo(1)},
+    {txt: 'After lunch, as planned.', tot: upTo(2)},
+    {txt: 'After dinner, as planned.', tot: upTo(3)}
+  ];
+  const rail = $('#rail'), stateEl = $('#rail-state');
+  let cur = -1;
+  function set(s){
+    if (s === cur) return; cur = s;
+    rail.dataset.s = s; stateEl.textContent = STATES[s].txt;
+    $$('.bar', rail).forEach(b => {
+      const k = b.dataset.k, t = STATES[s].tot;
+      b.style.setProperty('--pct', t ? Math.min(100, t[k] / LIM[k] * 100).toFixed(1) : 0);
+      $('b', b).textContent = t ? fmt(Math.round(t[k] * 10) / 10) : '–';
+    });
+  }
+  window.__railSet = set; set(0);
+})();
+
+/* ---------- 08:05 磷蛋白比分级图 ---------- */
+const GROUPS = ['Fish & shellfish', 'Meat', 'Poultry', 'Soy', 'Eggs'];
+const ACTION = {A: 'Eat freely', B: 'Watch the portion', C: 'Prep first', D: 'Swap it out'};
+const SOAK = new Set(['Tofu skin', 'Yuba sticks', 'Dried scallops']);
+const wedge = r => r < 10 ? 'A' : r < 15 ? 'B' : r < 20 ? 'C' : 'D';
+const FOODS = (window.DIALIGHT_FOODS || []).filter(f => GROUPS.includes(f.c) && f.p && f.ph != null).map(f => {
+  const r = f.ph / f.p, w = wedge(r), exc = w !== f.g;
+  let why = '';
+  if (exc){
+    if (f.na > 600) why = 'Sodium cap fired first: ' + fmt(Math.round(f.na)) + ' mg per 100 g, over 600.';
+    else if (SOAK.has(f.n)) why = 'Dried goods rule fired first: needs soaking, so C.';
+    else if (f.k > 600) why = 'Potassium gate: ' + fmt(Math.round(f.k)) + ' mg per 100 g, over 600, so B at best.';
+    else why = 'Caught by an earlier rule.';
+  }
+  return Object.assign({}, f, {r, w, exc, why});
+});
+let filter = 'All', picked = null;
+
+(function fillText(){
+  const all = FOODS.length, exc = FOODS.filter(f => f.exc).length;
+  $('#n-all').textContent = all; $('#n-all2').textContent = all; $('#n-exc').textContent = exc; $('#n-fit').textContent = all - exc;
+  const by = {}; FOODS.forEach(f => by[f.s] = (by[f.s] || 0) + 1);
+  $('#src-line').textContent = Object.keys(by).sort((a, b) => by[b] - by[a]).map(k => k + ' (' + by[k] + ')').join(', ') + '. All per 100 g edible portion.';
+
+  const chips = $('#chips');
+  ['All'].concat(GROUPS).forEach(g => {
+    const b = h('button', 'chip'); b.type = 'button'; b.setAttribute('aria-pressed', String(g === 'All'));
+    b.appendChild(document.createTextNode(g === 'All' ? 'All protein foods' : g));
+    b.appendChild(h('span', 'n', String(g === 'All' ? all : FOODS.filter(f => f.c === g).length)));
+    b.addEventListener('click', () => { filter = g; $$('.chip', chips).forEach(x => x.setAttribute('aria-pressed', String(x === b))); applyFilter(); });
+    chips.appendChild(b);
+  });
+
+  const lg = $('#legend');
+  const mk = (shape, label) => { const s = h('span'); const v = el('svg', {width: 16, height: 16, viewBox: '-8 -8 16 16', 'aria-hidden': 'true'});
+    v.appendChild(shape === 'dot' ? el('circle', {r: 5, fill: 'var(--ink)'}) : el('rect', {x: -5, y: -5, width: 10, height: 10, transform: 'rotate(45)', fill: 'var(--deep)'}));
+    s.appendChild(v); s.appendChild(document.createTextNode(label)); lg.appendChild(s); };
+  mk('dot', 'Graded by the ratio (' + (all - exc) + ')'); mk('dia', 'Caught by an earlier rule (' + exc + ')');
+
+  const tb = $('#tbl'); const hd = h('tr');
+  [['Food', ''], ['Group', ''], ['Protein g', 'r'], ['Phosphorus mg', 'r'], ['mg per g', 'r'], ['Grade', ''], ['Source', '']].forEach(c => { const th = h('th', c[1], c[0]); hd.appendChild(th); });
+  const thead = h('thead'); thead.appendChild(hd); tb.appendChild(thead);
+  const body = h('tbody');
+  FOODS.slice().sort((a, b) => a.r - b.r).forEach(f => { const tr = h('tr');
+    [[f.n, ''], [f.c, ''], [fmt(f.p), 'r'], [fmt(f.ph), 'r'], [f.r.toFixed(1), 'r'], [f.g + (f.exc ? ' (earlier rule)' : ''), ''], [f.s, '']].forEach(c => tr.appendChild(h('td', c[1], c[0])));
+    body.appendChild(tr); });
+  tb.appendChild(body);
+})();
+
+function applyFilter(){
+  $$('#chart .pt').forEach(g => g.classList.toggle('dim', filter !== 'All' && g.dataset.c !== filter));
+}
+
+function drawChart(){
+  const svg = $('#chart'), card = $('#plot-card');
+  const W = Math.max(300, Math.round(card.clientWidth - 44)), narrow = W < 620;
+  const H = narrow ? Math.round(W * 1.15) : Math.round(Math.min(600, W * 0.6));
+  const R = narrow ? 3.6 : 5, DM = narrow ? 8 : 11, RING = narrow ? 1.4 : 2;
+  const m = {l: narrow ? 40 : 46, r: 16, t: 34, b: 46};
+  const XMAX = 60, YMAX = 600, pw = W - m.l - m.r, ph = H - m.t - m.b;
+  const x = v => m.l + v / XMAX * pw, y = v => m.t + ph - v / YMAX * ph;
+  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.replaceChildren();
+
+  /* 四个区：产品里四级的浅底色，区与区之间留 3px 底色缝，不画线 */
+  const O = [x(0), y(0)], TL = [x(0), y(YMAX)], TR = [x(XMAX), y(YMAX)], BR = [x(XMAX), y(0)];
+  const top = r => [x(YMAX / r), y(YMAX)];
+  const poly = (pts, fill) => svg.appendChild(el('polygon', {points: pts.map(p => p.join(',')).join(' '), fill: fill, stroke: 'var(--card)', 'stroke-width': 3, 'stroke-linejoin': 'round'}));
+  poly([O, TL, top(20)], 'var(--d-bg)');
+  poly([O, top(20), top(15)], 'var(--c-bg)');
+  poly([O, top(15), top(10)], 'var(--b-bg)');
+  poly([O, TR, BR], 'var(--a-bg)');
+
+  /* 轴 */
+  for (let v = 0; v <= XMAX; v += 10){ svg.appendChild(el('text', {x: x(v), y: H - m.b + 20, 'text-anchor': 'middle', class: 'tick'}, v)); }
+  for (let v = 0; v <= YMAX; v += 100){ if (v) svg.appendChild(el('text', {x: m.l - 9, y: y(v) + 4, 'text-anchor': 'end', class: 'tick'}, v)); }
+  svg.appendChild(el('text', {x: m.l + pw, y: H - 6, 'text-anchor': 'end', class: 'axis-t'}, 'Protein, g per 100 g →'));
+  svg.appendChild(el('text', {x: 4, y: 16, class: 'axis-t'}, '↑ Phosphorus, mg per 100 g'));
+
+  /* 区的名字直接写在区里 */
+  const zone = (L, px, py, anchor) => {
+    svg.appendChild(el('text', {x: px, y: py, class: 'zone-l', 'text-anchor': anchor || 'start', style: narrow ? 'font-size:24px' : ''}, L));
+    if (!narrow || L === 'A' || L === 'D') svg.appendChild(el('text', {x: px + (anchor === 'end' ? 0 : 0), y: py + 20, class: 'zone-s', 'text-anchor': anchor || 'start'}, ACTION[L]));
+  };
+  const zy = y(YMAX) + (narrow ? 30 : 40);
+  zone('D', x(1.6), zy);
+  zone('C', x(narrow ? 32.6 : 31.2), zy);
+  zone('B', x(narrow ? 44 : 41.5), zy);
+  zone('A', x(XMAX) - 12, y(150), 'end');
+  svg.appendChild(el('text', {x: x(XMAX) - 12, y: y(150) + 40, class: 'ray-l', 'text-anchor': 'end'}, 'under 10 mg/g'));
+  if (!narrow){
+    svg.appendChild(el('text', {x: x(1.6), y: y(YMAX) + 78, class: 'ray-l'}, 'over 20 mg/g'));
+    svg.appendChild(el('text', {x: x(31.2), y: y(YMAX) + 78, class: 'ray-l'}, '15–20'));
+    svg.appendChild(el('text', {x: x(41.5), y: y(YMAX) + 78, class: 'ray-l'}, '10–15'));
+  }
+
+  /* 点：按比值判的用墨色圆点，被前面规则截住的用深橙菱形 */
+  const LABELS = narrow ? {} :
+    {'Sausage': [12, -8, 'start'], 'Dried baby shrimp': [-12, 5, 'end'], 'Dried scallops': [-12, 4, 'end'], 'Tofu skin': [12, 0, 'start'], 'Yuba sticks': [12, 9, 'start'], 'Fermented black beans': [12, 4, 'start']};
+  const order = FOODS.slice().sort((a, b) => (a.exc - b.exc));
+  order.forEach(f => {
+    const g = el('g', {class: 'pt', transform: 'translate(' + x(f.p).toFixed(1) + ',' + y(f.ph).toFixed(1) + ')', tabindex: f.exc ? 0 : -1, role: 'img', 'aria-label': f.n + ', grade ' + f.g + ', ' + f.r.toFixed(1) + ' milligrams of phosphorus per gram of protein'});
+    g.dataset.c = f.c; g.dataset.id = f.id;
+    g.appendChild(el('circle', {r: 13, fill: 'transparent'}));
+    g.appendChild(el('circle', {class: 'sel', r: 11, fill: 'none', stroke: 'var(--lilac)', 'stroke-width': 4, opacity: picked === f.id ? 1 : 0}));
+    if (f.exc) g.appendChild(el('rect', {x: -DM / 2, y: -DM / 2, width: DM, height: DM, transform: 'rotate(45)', fill: 'var(--deep)', stroke: 'var(--card)', 'stroke-width': RING}));
+    else g.appendChild(el('circle', {r: R, fill: 'var(--ink)', stroke: 'var(--card)', 'stroke-width': RING}));
+    const L = LABELS[f.n];
+    if (L) g.appendChild(el('text', {x: L[0], y: L[1], 'text-anchor': L[2], class: 'dl', 'paint-order': 'stroke', stroke: 'var(--card)', 'stroke-width': 4, 'stroke-linejoin': 'round'}, f.n));
+    g.addEventListener('pointerenter', () => showTip(f, g));
+    g.addEventListener('pointerleave', hideTip);
+    g.addEventListener('focus', () => showTip(f, g));
+    g.addEventListener('blur', hideTip);
+    g.addEventListener('click', () => pick(f));
+    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(f); } });
+    g.style.cursor = 'pointer';
+    svg.appendChild(g);
+  });
+  applyFilter();
+}
+
+const tip = $('#tip');
+function showTip(f, g){
+  tip.replaceChildren();
+  tip.appendChild(h('strong', '', f.n));
+  const l1 = h('span'); l1.appendChild(h('span', 'v', fmt(f.ph) + ' mg')); l1.appendChild(document.createTextNode(' phosphorus · ')); l1.appendChild(h('span', 'v', fmt(f.p) + ' g')); l1.appendChild(document.createTextNode(' protein'));
+  tip.appendChild(l1); tip.appendChild(document.createElement('br'));
+  const l2 = h('span'); l2.appendChild(h('span', 'v', f.r.toFixed(1) + ' mg/g')); l2.appendChild(document.createTextNode(' · Grade ' + f.g + ', ' + ACTION[f.g].toLowerCase()));
+  tip.appendChild(l2);
+  if (f.exc) tip.appendChild(h('span', 'why', f.why));
+  const card = $('#plot-card').getBoundingClientRect(), r = g.getBoundingClientRect();
+  tip.classList.add('show');
+  const tw = tip.offsetWidth, th = tip.offsetHeight;
+  let left = r.left + r.width / 2 - card.left + 16, topv = r.top + r.height / 2 - card.top - th - 12;
+  if (left + tw > card.width - 8) left = r.left + r.width / 2 - card.left - tw - 16;
+  if (topv < 8) topv = r.top + r.height / 2 - card.top + 16;
+  tip.style.left = Math.max(8, left) + 'px'; tip.style.top = topv + 'px';
+}
+function hideTip(){ tip.classList.remove('show'); }
+function pick(f){
+  picked = picked === f.id ? null : f.id;
+  $$('#chart .pt').forEach(g => $('.sel', g).setAttribute('opacity', g.dataset.id === picked ? 1 : 0));
+  const box = $('#picked'); box.replaceChildren();
+  if (!picked){ box.classList.add('empty'); box.textContent = 'Click a mark to see where its numbers come from.'; return; }
+  box.classList.remove('empty');
+  box.appendChild(h('b', '', 'You picked ' + f.n + '. '));
+  box.appendChild(document.createTextNode(fmt(f.ph) + ' mg phosphorus and ' + fmt(f.p) + ' g protein per 100 g, which is ' + f.r.toFixed(1) + ' mg/g. Grade ' + f.g + ': ' + ACTION[f.g].toLowerCase() + '. ' + (f.exc ? f.why + ' ' : '') + 'Values from ' + f.s + ', entry ' + f.id + '.'));
+}
+
+/* ---------- 12:00 质检单 ----------
+   三张测试卡的判定和理由，是 2026-11-20 断网运行原型里的 aiCheck() 得到的原样结果（译成英文）。
+   卡片正文里用数组表示一段话：嵌套数组是被质检点到的词。 */
+const CHECKS = [
+  ['Is the card complete?', 'Name, ingredients, steps and all four numbers.'],
+  ['Is it one serving?', 'Caps per dish: phosphorus 600 mg, potassium 1,500 mg, sodium 1,200 mg, protein 60 g.'],
+  ['Can someone follow it?', 'Every amount in grams or spoons. No "to taste".'],
+  ['Anything on the never list?', 'Ten groups, among them long-simmered stock, processed meat, pickles and potassium salt substitutes.']
+];
+const CARDS = [
+  {tab: 'Card 1 · plain stew', name: 'Home-style braised pork',
+   ing: ['Pork belly 80 g, blanched first. Ginger 5 g.'],
+   steps: [['Cut the pork, start it in cold water and skim.'], ['Add the ginger and water, simmer 40 minutes.'], ['Add 1 g of salt before serving.']],
+   sea: ['Salt, 1 g or less'], nums: [['Phosphorus 140 mg'], ['Potassium 180 mg'], ['Sodium 420 mg'], ['Protein 11 g']],
+   res: [['ok'], ['ok'], ['ok'], ['ok']], verdict: ['pass', 'Pass', 'Shown as written.']},
+  {tab: 'Card 2 · "salt to taste"', name: 'Home-style braised pork',
+   ing: ['Pork belly 80 g, ', ['salt to taste'], ', ', ['a little oil'], '.'],
+   steps: [['Cut the pork and stir-fry it.'], ['Cover with water, simmer 40 minutes.'], ['Season before serving.']],
+   sea: [['Salt to taste']], nums: [['Phosphorus 140 mg'], ['Potassium 180 mg'], ['Sodium 820 mg'], ['Protein 11 g']],
+   res: [['ok'], ['ok'], ['fix', 'Rewritten as "salt, 1 g or less" and "oil, 5 g or less". The card says it was changed.'], ['ok']],
+   verdict: ['fix', 'Fixed', 'Shown with the changes listed on the card.']},
+  {tab: 'Card 3 · ham and stock', name: 'Braised pork with ham and stock',
+   ing: ['Pork belly 300 g, ', ['ham'], ' 50 g, ', ['stock'], ' 500 ml.'],
+   steps: [['Cut the pork and the ham.'], ['Add the stock and bring to a boil.'], ['Simmer for an hour and serve with the broth.']],
+   sea: ['Soy sauce, 2 spoons'], nums: [['Phosphorus 640 mg', 1], ['Potassium 980 mg'], ['Sodium 2,400 mg', 1], ['Protein 42 g']],
+   res: [['ok'], ['block', 'Phosphorus 640 mg and sodium 2,400 mg are not one person\'s meal. On its own this dish would take most of today\'s phosphorus and sodium.'], ['ok'], ['block', 'Long-simmered stock holds the most potassium and phosphorus. Eat the meat, leave the soup.']],
+   verdict: ['block', 'Blocked', 'The model\'s card is not shown. The app shows a plain version worked out from the food table, and says why.']}
+];
+(function(){
+  const tabs = $('#gate-tabs'), rc = $('#rcard'), slip = $('#slip');
+  const para = (parent, segs) => segs.forEach(x => parent.appendChild(Array.isArray(x) ? h('mark', '', x[0]) : document.createTextNode(x)));
+  const sym = kind => { const v = el('svg', {width: 16, height: 16, viewBox: '-8 -8 16 16', 'aria-hidden': 'true'});
+    if (kind === 'ok') v.appendChild(el('path', {d: 'M-5.5 0.5 L-1.5 4.5 L5.5 -4', fill: 'none', stroke: 'var(--ink)', 'stroke-width': 2.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}));
+    else if (kind === 'fix') v.appendChild(el('rect', {x: -5, y: -5, width: 10, height: 10, transform: 'rotate(45)', fill: 'var(--deep)'}));
+    else { v.appendChild(el('rect', {x: -7, y: -7, width: 14, height: 14, rx: 2, fill: 'var(--ink)'})); v.appendChild(el('path', {d: 'M-3.5 -3.5 L3.5 3.5 M3.5 -3.5 L-3.5 3.5', stroke: 'var(--card)', 'stroke-width': 2.2, 'stroke-linecap': 'round'})); }
+    return v; };
+  const WORD = {ok: 'OK', fix: 'Changed', block: 'Stopped'};
+  function show(i){
+    const c = CARDS[i];
+    $$('.chip', tabs).forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
+    rc.replaceChildren();
+    rc.appendChild(h('p', 'label', 'As the model wrote it · test input'));
+    rc.appendChild(h('h3', '', c.name));
+    const dl = h('dl');
+    const row = (k, node) => { dl.appendChild(h('dt', '', k)); const dd = h('dd'); dd.appendChild(node); dl.appendChild(dd); };
+    const ing = h('span'); para(ing, c.ing); row('Ingredients', ing);
+    const ol = h('ol'); c.steps.forEach(st => { const li = h('li'); para(li, st); ol.appendChild(li); }); row('Steps', ol);
+    const sea = h('span'); para(sea, c.sea); row('Seasoning', sea);
+    rc.appendChild(dl);
+    const nums = h('div', 'nums'); c.nums.forEach(n => nums.appendChild(h('span', n[1] ? 'hit' : '', n[0]))); rc.appendChild(nums);
+
+    slip.replaceChildren();
+    slip.appendChild(h('p', 'slip-h', 'Check before showing'));
+    const ul = h('ul');
+    CHECKS.forEach((ck, j) => { const r = c.res[j], li = h('li', r[0] === 'ok' ? '' : 'hit');
+      li.appendChild(sym(r[0])); li.appendChild(h('span', 'q', ck[0])); li.appendChild(h('span', 'st', WORD[r[0]]));
+      li.appendChild(h('span', 'm', r[1] || ck[1])); ul.appendChild(li); });
+    slip.appendChild(ul);
+    const sr = h('div', 'stamp-row'); sr.appendChild(h('span', 'stamp ' + c.verdict[0], c.verdict[1])); sr.appendChild(h('p', '', c.verdict[2])); slip.appendChild(sr);
+  }
+  CARDS.forEach((c, i) => { const b = h('button', 'chip', c.tab); b.type = 'button'; b.addEventListener('click', () => show(i)); tabs.appendChild(b); });
+  show(1);
+})();
+
+/* ---------- 17:30 同一天画两遍 ----------
+   两桌菜都是原型 seedMenu(0) 的原样输出：左边是演示化验单（血钾 4.2），
+   右边只把血钾改成 5.9 后重新配的。合计在这里现算。 */
+(function(){
+  const DAY_B = [
+    ['Breakfast', [['Lotus root starch porridge', 3, 11, 3, 0.1], ['Steamed egg-white custard', 15, 163, 476, 10.9]]],
+    ['Lunch', [['Cornmeal wotou', 112, 166, 0, 4.8], ['Beef tenderloin with onion', 178, 296, 464, 17.9], ['Stir-fried mung bean sprouts', 56, 105, 297, 3.2]]],
+    ['Dinner', [['Steamed white rice', 81, 62, 0, 5.3], ['Pan-seared tilapia', 201, 361, 218, 23], ['Blanched lettuce', 33, 136, 161, 1.3]]]
+  ];
+  const PANELS = [
+    {k: '4.2', tag: 'Potassium as printed', sub: 'In range, so the potassium limit is 2,200 mg.', day: DAY_A, lim: {ph: 800, k: 2200, na: 1900, p: 70}},
+    {k: '5.9', tag: 'Potassium, what if', sub: 'Above 5.5, so the limit drops to 1,800 mg.', day: DAY_B, lim: {ph: 800, k: 1800, na: 1900, p: 70}}
+  ];
+  const ROWS = [['ph', 'Phosphorus', 'mg', 'limit'], ['k', 'Potassium', 'mg', 'limit'], ['na', 'Sodium', 'mg', 'limit'], ['p', 'Protein', 'g', 'target']];
+  const scale = {}; ROWS.forEach(r => scale[r[0]] = Math.max(PANELS[0].lim[r[0]], PANELS[1].lim[r[0]]));
+  const names = d => { const o = {}; d.forEach(m => m[1].forEach(x => o[x[0]] = 1)); return o; };
+  const inA = names(DAY_A);
+  const box = $('#twice');
+  PANELS.forEach((P, pi) => {
+    const w = h('div', 'tw');
+    const hd = h('p', 'tw-h'); hd.appendChild(h('b', '', P.k)); hd.appendChild(h('span', '', P.tag + ' · mmol/L')); w.appendChild(hd);
+    w.appendChild(h('p', 'tw-sub', P.sub));
+    P.day.forEach(m => { const dl = h('dl', 'meal'); dl.appendChild(h('dt', '', m[0])); const dd = h('dd');
+      m[1].forEach(x => { const changed = pi === 1 && !inA[x[0]]; const sp = h('span', changed ? 'chg' : '');
+        if (changed){ const v = el('svg', {width: 11, height: 11, viewBox: '-6 -6 12 12', 'aria-hidden': 'true'}); v.appendChild(el('rect', {x: -4, y: -4, width: 8, height: 8, transform: 'rotate(45)', fill: 'var(--deep)'})); sp.appendChild(v); }
+        sp.appendChild(document.createTextNode(x[0] + (changed ? ' (swapped in)' : ''))); dd.appendChild(sp); });
+      dl.appendChild(dd); w.appendChild(dl); });
+    const tot = sumDay(P.day, 3), hb = h('div', 'hbars');
+    ROWS.forEach(r => { const k = r[0], row = h('div', 'hb' + (pi === 1 && P.lim[k] !== PANELS[0].lim[k] ? ' moved' : ''));
+      row.appendChild(h('span', 'nm', r[1]));
+      const t = h('span', 't'); t.style.width = (P.lim[k] / scale[k] * 100).toFixed(1) + '%';
+      const f = h('i'); f.style.width = Math.min(100, tot[k] / P.lim[k] * 100).toFixed(1) + '%'; t.appendChild(f); row.appendChild(t);
+      row.appendChild(h('span', 'v', fmt(Math.round(tot[k] * 10) / 10) + ' of ' + fmt(P.lim[k]) + ' ' + r[2] + ' ' + r[3]));
+      hb.appendChild(row); });
+    w.appendChild(hb); box.appendChild(w);
+  });
+})();
+
+/* ---------- 21:00 月历 ----------
+   哪几天有记录，取自原型里的 ON（11 月，12 天）。原型按天记，不按顿记。 */
+(function(){
+  const ON = [2, 4, 5, 7, 9, 11, 12, 15, 17, 18, 25, 28], g = $('#month2');
+  $('#n-rec').textContent = ON.length;
+  for (let m = 0; m < 3; m++) for (let d = 1; d <= 30; d++) g.appendChild(h('i', 'cell' + (ON.includes(d) ? ' rec' : '')));
+  for (let d = 1; d <= 30; d++) g.appendChild(h('span', 'dn', (d === 1 || d % 5 === 0) ? String(d) : ''));
+})();
+
+
+
+/* ---------- v8：首屏换板块 ---------- */
+(function(){
+  const hero = $('#top'), sets = $$('.wset'), nm = $$('.wname span'), ln = $$('.wline span');
+  let i = 0, timer = 0;
+  function show(n){
+    i = (n + sets.length) % sets.length; hero.dataset.w = i;
+    sets.forEach((x, k) => { x.classList.toggle('on', k === i); x.setAttribute('aria-hidden', k !== i); });
+    nm.forEach((x, k) => x.classList.toggle('on', k === i)); ln.forEach((x, k) => x.classList.toggle('on', k === i));
+  }
+  const still = () => document.documentElement.classList.contains('still') || matchMedia('(prefers-reduced-motion: reduce)').matches;
+  function auto(){ clearInterval(timer); timer = setInterval(() => { if (!still()) show(i + 1); }, 4800); }
+  $('#wprev').addEventListener('click', () => { show(i - 1); auto(); });
+  $('#wnext').addEventListener('click', () => { show(i + 1); auto(); });
+  auto();
+})();
+
+/* ---------- v7：暂停动效 ---------- */
+(function(){
+  const b = $('#still'), v = $('#film video');
+  b.addEventListener('click', () => {
+    const on = document.documentElement.classList.toggle('still');
+    b.setAttribute('aria-pressed', on); b.textContent = on ? 'Motion paused' : 'Pause motion';
+    if (on && v) v.pause();
+  });
+})();
+
+/* ---------- v7：五版随滚动，整页换颜色 ---------- */
+(function(){
+  const sec = $('#builds'), steps = $$('.b-steps > li'), imgs = $$('.b-phone [data-i]'), dots = $$('.b-track span'), fill = $('.b-fill');
+  let cur = -1, world = '';
+  function tick(){
+    const y = innerHeight * 0.5, r = sec.getBoundingClientRect();
+    let i = 0; steps.forEach((x, k) => { if (x.getBoundingClientRect().top < y) i = k; });
+    const inside = r.top < y && r.bottom > y;
+    const w = inside ? 'w' + steps[i].dataset.w : '';
+    if (w !== world) { if (world) document.body.classList.remove(world); if (w) document.body.classList.add(w); world = w; }
+    if (i !== cur) {
+      cur = i;
+      imgs.forEach(m => m.classList.toggle('on', +m.dataset.i === i));
+      dots.forEach(d => d.classList.toggle('on', +d.dataset.i <= i));
+      fill.style.width = (i * 100 / 3) + '%';
+    }
+  }
+  let raf = 0;
+  addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; tick(); }); }, {passive: true});
+  addEventListener('resize', tick); tick();
+})();
+
+/* ---------- 一天：随滚动更新额度条 ---------- */
+(function(){
+  const rail = $('#rail'), secs = $$('[data-rail]');
+  function tick(){
+    const y = innerHeight * 0.62; let st = -1;
+    secs.forEach(x => { const r = x.getBoundingClientRect(); if (r.top < y) st = +x.dataset.rail; });
+    const day = $('#day').getBoundingClientRect(), last = $('#p4').getBoundingClientRect();
+    const inside = day.top < y && last.bottom > innerHeight * 0.25;
+    rail.classList.toggle('on', inside);
+    if (st >= 0) window.__railSet(st);
+  }
+  let raf = 0;
+  addEventListener('scroll', () => { if (!raf) raf = requestAnimationFrame(() => { raf = 0; tick(); }); }, {passive: true});
+  addEventListener('resize', tick); tick();
+})();
+
+let rz = 0;
+addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { drawChart(); }, 120); });
+if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { drawChart(); });
+drawChart();
+})();
+
+/* v9：影片弹窗 */
+(function(){
+  const d=document.getElementById('filmdlg'); if(!d||!d.showModal) return;
+  const v=d.querySelector('video');
+  const open=e=>{e&&e.preventDefault(); d.showModal(); if(!document.documentElement.classList.contains('still')){v.muted=true; v.play().catch(()=>{});} };
+  document.getElementById('filmopen').addEventListener('click',open);
+  document.querySelectorAll('.filmlink').forEach(a=>a.addEventListener('click',open));
+  d.addEventListener('close',()=>v.pause());
+  d.addEventListener('click',e=>{ if(e.target===d) d.close(); });
+})();
+/* v9：顶栏当前章节 */
+(function(){
+  const bar=document.getElementById('secbar'), btn=document.getElementById('secbtn'), list=document.getElementById('seclist');
+  const links=[...list.querySelectorAll('a')], secs=links.map(a=>document.querySelector(a.getAttribute('href')));
+  const hero=document.getElementById('top');
+  function upd(){
+    bar.classList.toggle('on', hero.getBoundingClientRect().bottom<0);
+    let i=0; secs.forEach((s,k)=>{ if(s&&s.getBoundingClientRect().top<innerHeight*.35) i=k; });
+    btn.querySelector('.sn').textContent=(i+1)+' / '+secs.length;
+    btn.querySelector('.st').textContent=links[i].textContent;
+    links.forEach((a,k)=>k===i?a.setAttribute('aria-current','true'):a.removeAttribute('aria-current'));
+  }
+  const close=()=>{list.hidden=true; btn.setAttribute('aria-expanded','false');};
+  btn.addEventListener('click',()=>{list.hidden=!list.hidden; btn.setAttribute('aria-expanded',String(!list.hidden));});
+  links.forEach(a=>a.addEventListener('click',close));
+  document.addEventListener('click',e=>{ if(!bar.contains(e.target)) close(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') close(); });
+  addEventListener('scroll',upd,{passive:true}); addEventListener('resize',upd); upd();
+})();
+
+
+
+/* v23：三个难点的动图 */
+(function(){
+  const still=()=>document.documentElement.classList.contains('still')||matchMedia('(prefers-reduced-motion: reduce)').matches;
+  // 01 食物轮换：数值取自 data/foods.js，每 100 g
+  const foods=[
+    {n:'Cheese',k:75,ph:326,na:585,p:25.7,hi:['ph','na'],say:'Low in potassium. High in phosphorus and sodium.'},
+    {n:'Potato',k:450,ph:55,na:3,p:2.3,hi:['k'],say:'Low in phosphorus. High in potassium.'},
+    {n:'Egg white',k:163,ph:15,na:166,p:10.9,hi:['na'],say:'Good protein, little phosphorus. More sodium.'},
+    {n:'Chicken breast',k:330,ph:215,na:66,p:22.5,hi:['k','ph'],say:'Good protein. Potassium and phosphorus come with it.'}];
+  const max={k:500,ph:350,na:600,p:26};
+  const a=document.getElementById('fa1');
+  if(a){ let i=0; const rows=[...a.querySelectorAll('.fa-bars li')];
+    const show=()=>{ const f=foods[i]; a.querySelector('.fa-food span').textContent=f.n; a.querySelector('.fa-say').textContent=f.say;
+      rows.forEach(r=>{ const key=r.dataset.k, v=f[key]; r.querySelector('b').style.width=Math.min(100,v/max[key]*100)+'%'; r.querySelector('em').textContent=(key==='p'?v+' g':Math.round(v)); r.classList.toggle('hi',f.hi.includes(key)); }); };
+    show(); setInterval(()=>{ if(still()) return; i=(i+1)%foods.length; show(); },2800); }
+  // 02 标准移动：同一盘 1.1 g/kg，2000 年偏低，2020 年在范围内
+  const b=document.getElementById('fa2');
+  if(b){ let y=0; const band=b.querySelector('.fb-band'), yr=b.querySelector('.fb-yr b'), say=b.querySelector('.fb-say b');
+    const pos=v=>((v-0.9)/0.5*100);
+    const show=()=>{ const r=y?[1.0,1.2]:[1.2,1.3]; band.style.left=pos(r[0])+'%'; band.style.width=(pos(r[1])-pos(r[0]))+'%';
+      b.querySelector('.fb-dot').style.left=pos(1.1)+'%'; yr.textContent=y?'2020':'2000'; setTimeout(()=>{ say.textContent=y?'In range':'Below target'; b.classList.toggle('fa-in',!!y); },700); };
+    show(); setInterval(()=>{ if(still()) return; y=1-y; show(); },2600); }
+  // 03 每月重算：月份滑动，限额跟着变（示例月份，限额来自原型的固定表）
+  const c=document.getElementById('fa3');
+  if(c){ const strip=c.querySelector('.fc-strip'), cells=[...strip.children], lim=[...c.querySelectorAll('.fc-lim b')];
+    const L=[['2,200','1,000','1,900'],['1,800','1,000','1,900'],['2,200','800','1,900'],['1,800','1,000','1,500'],['2,200','1,100','1,900']];
+    let i=0;
+    const show=()=>{ const idx=i+1; cells.forEach((x,k)=>x.classList.toggle('on',k===idx));
+      const w=cells[0].getBoundingClientRect().width+8, win=c.querySelector('.fc-win').getBoundingClientRect().width;
+      strip.style.transform=`translateX(${win/2-(idx*w+w/2-4)}px)`;
+      const prev=L[(i+L.length-1)%L.length]; lim.forEach((b,k)=>{ b.textContent=L[i][k]; b.classList.toggle('chg',L[i][k]!==prev[k]); }); };
+    show(); addEventListener('resize',show);
+    setInterval(()=>{ if(still()) return; i=(i+1)%L.length; show(); },2600); }
+})();
+
+/* v24：一个月 90 顿饭，进入视野时一顿顿点亮 */
+(function(){ const w=document.getElementById('wcard'); if(!w) return;
+  if(!('IntersectionObserver' in window)){ w.classList.add('go'); return; }
+  new IntersectionObserver((es,o)=>es.forEach(e=>{ if(e.isIntersecting){ w.classList.add('go'); o.disconnect(); } }),{threshold:.4}).observe(w);
+})();
+</script>
+</body>
+</html>
