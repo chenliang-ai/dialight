@@ -1278,6 +1278,12 @@ html.still #anno .av-ask i::before{animation:none}
 .lead4 .idc{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto 1fr;column-gap:24px}.lead4 .idc>small,.lead4 .idc>b,.lead4 .idc>span{grid-column:1}.lgp{grid-column:2;grid-row:1/4;align-self:center;display:flex;align-items:center;gap:12px}.lgp img{height:112px;width:auto;mix-blend-mode:multiply}.lgp i{font:400 24px/1 var(--f-display);color:var(--deep)}
 @media (max-width:1100px){.lead4 .idc{display:block}.lgp{margin-top:18px}.lgp img{height:92px}}
 @media (max-width:700px){.award{border-radius:22px;font-size:14px}}
+.prize{background:var(--ink);color:#fff}.pzin{max-width:1440px;margin:0 auto;padding:30px clamp(20px,4vw,64px);display:grid;grid-template-columns:auto 1.4fr 1fr;gap:clamp(28px,5vw,80px);align-items:center}.prize p{margin:0}.pz1{display:flex;align-items:baseline;gap:12px;color:#FB9E4B}.pz1 b{font:400 76px/1 var(--f-display);letter-spacing:-.03em}.pz1 sup{font-size:.42em;vertical-align:.95em;line-height:0;margin-left:2px}.pz1 span{font:italic 400 34px/1 var(--f-display)}.pz2 b{display:block;font:400 25px/1.2 var(--f-display)}.pz2 span{display:block;margin-top:6px;font:400 16px/1.3 var(--f-label);color:#D9CCC2}
+#day + .stop2{padding-top:64px}
+.lead{display:block!important;margin:44px 0 36px}.lead>p{max-width:30em;margin:0 auto!important;text-align:center}.lead dl{margin:40px 0 0!important;display:grid;grid-template-columns:repeat(5,auto);justify-content:space-between;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2)}.lead dl div{display:block!important;border:0!important;padding:20px 0!important}.lead dt{margin-bottom:8px}
+.fn5 ol{justify-items:center;gap:6px!important}.fn5 li{width:100%!important;margin:0!important;border-radius:0!important;padding:0 12px!important;height:68px;display:flex;flex-direction:row;justify-content:center;align-items:center!important;gap:12px;font-size:16px;color:var(--ink);--i:0;--a:calc(var(--i)*6%);--b:calc((var(--i) + 1)*6%);clip-path:polygon(var(--a) 0,calc(100% - var(--a)) 0,calc(100% - var(--b)) 100%,var(--b) 100%)}.fn5 li:nth-child(1){--i:0;background:#FBE6CC}.fn5 li:nth-child(2){--i:1;background:#F9D6AC}.fn5 li:nth-child(3){--i:2;background:#F6C088}.fn5 li:nth-child(4){--i:3;background:#F2A55A}.fn5 li:nth-child(5){--i:4}.fn5 li b{min-width:0!important;font:400 29px/1 var(--f-display)!important}.fn5 li.last b{font-size:22px!important}
+@media (max-width:980px){.pzin{grid-template-columns:auto 1fr}.pz2:last-child{grid-column:2}}
+@media (max-width:700px){.pzin{display:block;padding:26px 20px}.pz2{margin-top:16px!important}.pz2 b{font-size:21px}.lead dl{grid-template-columns:1fr 1fr;gap:0 20px}.lead dl div{padding:12px 0!important}.lead>p{text-align:left}.fn5 li{font-size:14px;gap:8px}.fn5 li b{font-size:25px!important}.fn5 li.last b{font-size:17px!important}#day + .stop2{padding-top:44px}}
 .todo{display:none!important}
 </style>
 </head>
@@ -1307,7 +1313,6 @@ html.still #anno .av-ask i::before{animation:none}
     <div class="h2in">
       <div class="h2copy">
         <p class="eyebrow"><i></i>Dialight 透亮 · WeChat mini-program</p>
-        <p class="award"><b>2nd place</b><span>Tsinghua SDG Open Innovation Marathon × S-Makers, 2026<br>Invited to exhibit at Tencent’s S Conference</span></p>
         <h1><span class="l">Days that feel</span><span class="l">like <em>days</em>,</span><span class="onsticker">on dialysis.</span></h1>
         <p class="lede">For families living with kidney failure. Fixed rules keep it safe, a language model makes it personal, and a community connects the families who use it.</p>
         <button type="button" class="filmbtn" id="filmopen"><span class="pl" aria-hidden="true"></span><span><b>Watch the film</b> 0:15</span></button>
@@ -1345,6 +1350,11 @@ html.still #anno .av-ask i::before{animation:none}
       </div>
     </div>
   </header>
+  <section class="prize" aria-label="Award"><div class="pzin">
+    <p class="pz1"><b>2<sup>nd</sup></b><span>place</span></p>
+    <p class="pz2"><b>Tsinghua SDG Open Innovation Marathon × S-Makers</b><span>2026</span></p>
+    <p class="pz2"><b>Invited to exhibit</b><span>Tencent’s S Conference</span></p>
+  </div></section>
 <div class="wrap">
 
 
@@ -1722,14 +1732,15 @@ html.still #anno .av-ask i::before{animation:none}
           <li><span>Complete, in grams, nothing forbidden</span><b class="ok">Passed</b><span>Shown as written</span></li>
         </ul>
       </div>
-      <div class="funnel">
+      <div class="funnel fn5">
         <p class="panel-h"><b>2</b>Built on a table you can trace</p>
         <p class="sub">Raw food values come from published tables. None is made up by the model.</p>
         <ol>
-          <li style="--w:100%"><b>Pick</b><span>243 foods families in China cook with</span></li>
-          <li style="--w:100%"><b>Look up</b><span>China’s food tables first, then the 2024 dietary guide and USDA</span></li>
-          <li style="--w:100%"><b>Grade</b><span>A to D on potassium, sodium, and phosphorus per gram of protein</span></li>
-          <li style="--w:100%" class="last"><b>Review</b><span>Checked by dietitians</span></li>
+          <li><b>243</b><span>everyday foods</span></li>
+          <li><b>242</b><span>with published values</span></li>
+          <li><b>214</b><span>graded A to C</span></li>
+          <li><b>175</b><span>graded A or B</span></li>
+          <li class="last"><b>Dietitians</b><span>review</span></li>
         </ol>
       </div>
     </div>
@@ -1770,7 +1781,7 @@ html.still #anno .av-ask i::before{animation:none}
     <h2 class="fh big">I set the direction <em>and led the team.</em></h2>
     <div class="lead">
       <p>I started Dialight after seeing what my teammate’s family went through. I led five people from that story to a product families could try.</p>
-      <dl><div><dt>Role</dt><dd>Team lead, product manager</dd></div><div><dt>Team</dt><dd>5 people, 4 universities</dd></div><div><dt>Time</dt><dd>Sep to Nov 2026</dd></div><div><dt>Status</dt><dd>Closed trial, 12 patients</dd></div><div><dt>Award</dt><dd>2nd place, Tsinghua SDG Open Innovation Marathon × S-Makers. Invited to exhibit at Tencent’s S Conference.</dd></div></dl>
+      <dl><div><dt>Role</dt><dd>Team lead, product manager</dd></div><div><dt>Team</dt><dd>5 people, 4 universities</dd></div><div><dt>Time</dt><dd>Sep to Nov 2026</dd></div><div><dt>Status</dt><dd>Closed trial, 12 patients</dd></div><div><dt>Award</dt><dd>2nd place</dd></div></dl>
     </div>
     <ol class="lead4">
       <li><small>Direction</small><b>From tracking meals to deciding dinner.</b><span>I chose the problem and set what the product is for.</span></li>
@@ -1812,6 +1823,7 @@ html.still #anno .av-ask i::before{animation:none}
           <tr><td>429 and ≈300 mg</td><td>12:00</td><td>Recipe R-206 in the build, one of two servings. The second figure assumes 30% of the potassium in the pork and pepper is lost, as the build does. Two reviews back boiling in general and give no figure for this dish: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3797240">2013</a>, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5986175">2016</a>.</td></tr>
           <tr><td>Art. 13 and 21</td><td>07:10</td><td>Detailed Rules for the Supervision of Internet Diagnosis and Treatment (Trial), NHC, 8 Feb 2022. Read on nhc.gov.cn.</td></tr>
           <tr><td>243 foods, 54 recipes</td><td>12:00, The rest</td><td>Counted in the build's data on 20 Nov 2026. 57 recipes with the three counter-examples.</td></tr>
+          <tr><td>243, 242, 214, 175</td><td>How it stays safe</td><td>Counted in the build’s food table: one food has only a label, 28 are graded D and shown with a swap, 39 are C. Dietitian review is the team’s record, kept outside the table.</td></tr>
           <tr><td>75 foods</td><td>08:05</td><td>Computed on this page from the food table.</td></tr>
           <tr><td>600 mg sodium</td><td>08:05</td><td>UK front-of-pack guidance, red for salt above 1.5 g per 100 g. China's 2019 salt-reduction messages use the same 600 mg.</td></tr>
           <tr><td>Food values</td><td>08:05</td><td>All 156 entries from the China Food Composition Tables checked against the online table on 20 Nov 2026: 155 match.</td></tr>
