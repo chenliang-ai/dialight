@@ -1274,6 +1274,10 @@ html.still #anno .av-ask i::before{animation:none}
 @media (min-width:701px){#p0 .lim{max-width:none;column-span:all;margin:0 0 22px}#p0 .lim td:first-child{width:34%}}
 .ledger td:last-child{font:400 15.5px/1.45 var(--f-label)!important;text-transform:none!important;letter-spacing:0!important;color:var(--sub)!important;white-space:normal!important}
 @media (min-width:701px){.ledger th:first-child,.ledger td:first-child{width:32%}}
+.award{display:inline-flex;align-items:center;gap:12px;margin:0 0 34px;padding:8px 18px 8px 8px;border-radius:99px;background:#FFF7EF;font:500 15px/1.3 var(--f-label);color:var(--ink)}.award b{flex:none;padding:8px 14px;border-radius:99px;background:var(--ink);color:#fff;font:600 15px/1 var(--f-label)}
+.lead4 .idc{display:grid;grid-template-columns:1fr auto;grid-template-rows:auto auto 1fr;column-gap:24px}.lead4 .idc>small,.lead4 .idc>b,.lead4 .idc>span{grid-column:1}.lgp{grid-column:2;grid-row:1/4;align-self:center;display:flex;align-items:center;gap:12px}.lgp img{height:112px;width:auto;mix-blend-mode:multiply}.lgp i{font:400 24px/1 var(--f-display);color:var(--deep)}
+@media (max-width:1100px){.lead4 .idc{display:block}.lgp{margin-top:18px}.lgp img{height:92px}}
+@media (max-width:700px){.award{border-radius:22px;font-size:14px}}
 .todo{display:none!important}
 </style>
 </head>
@@ -1303,6 +1307,7 @@ html.still #anno .av-ask i::before{animation:none}
     <div class="h2in">
       <div class="h2copy">
         <p class="eyebrow"><i></i>Dialight 透亮 · WeChat mini-program</p>
+        <p class="award"><b>2nd place</b><span>Tsinghua SDG Open Innovation Marathon × S-Makers, 2026</span></p>
         <h1><span class="l">Days that feel</span><span class="l">like <em>days</em>,</span><span class="onsticker">on dialysis.</span></h1>
         <p class="lede">For families living with kidney failure. Fixed rules keep it safe, a language model makes it personal, and a community connects the families who use it.</p>
         <button type="button" class="filmbtn" id="filmopen"><span class="pl" aria-hidden="true"></span><span><b>Watch the film</b> 0:15</span></button>
@@ -1603,25 +1608,25 @@ html.still #anno .av-ask i::before{animation:none}
   <section class="stop2" id="p2" data-rail="3">
     <p class="when"><time>12:00</time><span>Lunch</span></p>
         <h3 class="q3">Can she have pork with green pepper?</h3>
-        <p class="answer">Yes. The recipe is rewritten for her latest lab report.</p>
+        <p class="answer">Yes. Blanch first, and potassium drops by about 30%.</p>
         <div class="rw">
-          <article><p class="rw-h"><b>This month</b><span>Potassium 4.2 · in range</span></p>
-            <dl><dt>Prepare</dt><dd>For two: pork 150 g, green pepper 150 g. <u>Straight into the pan.</u></dd>
-            <dt>Season</dt><dd>Salt 1.5 g, <u>soy sauce 4 g</u>, oil 8 g.</dd>
-            <dt>Cook</dt><dd>Stir-fry the pork and set aside. Cook the pepper <u>1 minute</u>. Return the pork and season.</dd></dl>
+          <article><p class="rw-h"><b>The usual way</b><span>Straight into the pan</span></p>
+            <dl><dt>Prepare</dt><dd>For two: pork 150 g, green pepper 150 g. </dd>
+            <dt>Season</dt><dd>Salt 1.5 g, soy sauce 4 g, oil 8 g.</dd>
+            <dt>Cook</dt><dd>Stir-fry the pork and set aside. Cook the pepper 1 minute. Return the pork and season.</dd></dl>
             <p class="rw-n"><b>429</b><span>mg of potassium per serving</span></p></article>
           <i class="rw-a" aria-hidden="true">→</i>
-          <article class="hi"><p class="rw-h"><b>Next month</b><span>Potassium 5.6 · high</span></p>
-            <dl><dt>Prepare</dt><dd>For two: pork 150 g, green pepper 150 g. <u>Blanch both first.</u></dd>
-            <dt>Season</dt><dd>Salt 1.5 g, <u>soy sauce 2.5 g</u>, oil 8 g.</dd>
-            <dt>Cook</dt><dd><u>Blanch the pork and pepper.</u> Stir-fry, then return to the pan and season.</dd></dl>
-            <p class="rw-n"><b>294</b><span>mg of potassium per serving, 31% less</span></p></article>
+          <article class="hi"><p class="rw-h"><b>For her</b><span>Blanched first</span></p>
+            <dl><dt>Prepare</dt><dd>For two: pork 150 g, green pepper 150 g.</dd>
+            <dt>Season</dt><dd>Salt 1.5 g, soy sauce 4 g, oil 8 g.</dd>
+            <dt>Cook</dt><dd><u>Blanch both and pour the water away.</u> Stir-fry, then return to the pan and season.</dd></dl>
+            <p class="rw-n"><b>≈300</b><span>mg of potassium per serving, an estimate</span></p></article>
         </div>
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <ol class="how3"><li><b>Read</b><span>Take the latest lab results and today’s limits.</span></li><li><b>Rewrite</b><span>Change the amounts, preparation and seasoning for her.</span></li><li><b>Check</b><span>Test the new recipe with fixed rules before she sees it.</span></li></ol>
-            <p class="how3n">Amounts from the recipe in the app. Potassium is worked out from the food table, raw and blanched.</p>
+            <ol class="how3"><li><b>Blanch</b><span>Meat and most vegetables are blanched first, whatever the lab report says.</span></li><li><b>Pour away</b><span>Potassium and some phosphorus leave with the water.</span></li><li><b>Adjust</b><span>If her potassium is low, the doctor is asked first.</span></li></ol>
+            <p class="how3n">Amounts from the recipe in the app, which still blanches only when potassium is high. About 30% is the app’s own estimate for both foods, and a real pot will vary.</p>
           </div>
         </details>
   </section>
@@ -1713,7 +1718,7 @@ html.still #anno .av-ask i::before{animation:none}
           <li class="chk-h"><span>The draft says</span><span>She sees</span></li>
           <li><span>“Salt to taste”</span><b class="fx">Fixed</b><span>Salt, 1 g or less</span></li>
           <li><span>Potato, straight into the pot</span><b class="fx">Fixed</b><span>Blanch 1 minute first</span></li>
-          <li><span>Low-sodium salt</span><b class="bl">Blocked</b><span>Not shown, with the reason: it swaps sodium for potassium</span></li>
+          <li><span>Low-sodium salt</span><b class="bl">Blocked</b><span>Hidden, and she is told why: it is made with potassium</span></li>
           <li><span>Complete, in grams, nothing forbidden</span><b class="ok">Passed</b><span>Shown as written</span></li>
         </ul>
       </div>
@@ -1753,7 +1758,6 @@ html.still #anno .av-ask i::before{animation:none}
       <ul class="gstk"><li class="ga"><b>A</b>Good choice</li><li class="gb"><b>B</b>Watch the portion</li><li class="gc"><b>C</b>Blanch 2 min</li><li class="gd"><b>D</b>Swap it out</li></ul>
       <ul class="strip"><li style="--c:#FB9E4B">Warm orange</li><li style="--c:#F08C2E">Stove orange</li><li style="--c:#FDF5F1;--t:#161514">Rice white</li><li style="--c:#B292ED">Liangliang</li><li style="--c:#161514">Ink</li></ul>
     </figure>
-    <figure class="logoline"><img src="media/logo-sketch.jpg" width="639" height="640" loading="lazy" alt="My pencil sketch of the logo: a kitchen scale with a spatula for a needle"><i aria-hidden="true">→</i><img src="media/logo.png" width="318" height="360" loading="lazy" alt="Final logo: an orange kitchen scale with a plane for a needle"><figcaption><b>One scale for meals and travel.</b>The needle started as a spatula. It became a plane.</figcaption></figure>
     <ol class="three">
       <li><b>No blue, no red.</b>Levels differ by lightness, for eyes that diabetes has often damaged.</li>
       <li><b>One question a screen.</b>Large type, big buttons, steps read aloud.</li>
@@ -1768,16 +1772,15 @@ html.still #anno .av-ask i::before{animation:none}
     <h2 class="fh big">I set the direction <em>and led the team.</em></h2>
     <div class="lead">
       <p>I started Dialight after seeing what my teammate’s family went through. I led five people from that story to a product families could try.</p>
-      <dl><div><dt>Role</dt><dd>Team lead, product manager</dd></div><div><dt>Team</dt><dd>5 people, 4 universities</dd></div><div><dt>Time</dt><dd>Sep to Nov 2026</dd></div><div><dt>Status</dt><dd>Closed trial, 12 patients</dd></div></dl>
+      <dl><div><dt>Role</dt><dd>Team lead, product manager</dd></div><div><dt>Team</dt><dd>5 people, 4 universities</dd></div><div><dt>Time</dt><dd>Sep to Nov 2026</dd></div><div><dt>Status</dt><dd>Closed trial, 12 patients</dd></div><div><dt>Award</dt><dd>2nd place, Tsinghua SDG Open Innovation Marathon × S-Makers</dd></div></dl>
     </div>
     <ol class="lead4">
       <li><small>Direction</small><b>From tracking meals to deciding dinner.</b><span>I chose the problem and set what the product is for.</span></li>
       <li><small>Safety</small><b>Rules decide. The model writes.</b><span>I drew the lines the model may not cross.</span></li>
-      <li><small>Scope</small><b>Do less, and check it.</b><span>I cut travel from eight cities to two, because we could not check eight in time.</span></li>
+      <li class="idc"><small>Identity</small><b>One scale for meals and travel.</b><span>I sketched the logo. The needle began as a spatula and became a plane.</span><div class="lgp"><img src="media/logo-sketch.jpg" width="639" height="640" loading="lazy" alt="My pencil sketch of the logo: a kitchen scale with a spatula for a needle"><i aria-hidden="true">→</i><img src="media/logo.png" width="318" height="360" loading="lazy" alt="Final logo: an orange kitchen scale with a plane for a needle"></div></li>
       <li><small>Team</small><b>One answer, one owner, one date.</b><span>I ran every open question this way, and wrote the product spec.</span></li>
     </ol>
     <div class="credits"><p class="label">The team</p><ul class="team2"><li class="me"><img src="media/team/liangchen.jpg" width="160" height="160" loading="lazy" alt=""><b>Chen Liang</b><span>Started it, set the direction, led the team</span><small>UC Berkeley</small></li><li><img src="media/team/chenxinrui.jpg" width="160" height="160" loading="lazy" alt=""><b>Chen Xinrui</b><span>Strategy and product definition</span><small>Tsinghua</small></li><li><img src="media/team/lvsiheng-id.jpg" width="160" height="160" loading="lazy" alt=""><b>Lü Siheng</b><span>Research and the user interviews</span><small>Manchester</small></li><li><img src="media/team/lizhicheng.jpg" width="160" height="160" loading="lazy" alt=""><b>Li Zhicheng</b><span>Project management and engineering</span><small>Cornell</small></li><li><img src="media/team/maokelan.jpg" width="160" height="160" loading="lazy" alt=""><b>Mao Kelan</b><span>Operations and brand</span><small>Cornell</small></li></ul><p class="small"><span class="todo">待确认：四位队友同意放照片</span></p></div>
-    <p class="corner">Started during the Tsinghua SDG Open Innovation Marathon × S-Makers, 2026.</p>
   </section>
 
   <section class="sec" id="next">
@@ -1788,7 +1791,7 @@ html.still #anno .av-ask i::before{animation:none}
       <li class="n-big"><img src="media/ll_travel.png" width="277" height="320" loading="lazy" alt=""><div><b>Trips planned around dialysis.</b><span>We handle the centre, the supplies and the pace of the day. Families only think about what any traveller thinks about: where to go, what to see.</span></div></li>
       <li class="n-vid"><i aria-hidden="true"></i><b>Cook along with a video.</b><span>Each recipe shown step by step, with the blanching done on screen.</span></li>
       <li><b>A clinician confirms the limits.</b><span>A doctor or dietitian approves or changes each number for her.</span></li>
-      <li><b>One-to-one with a dietitian.</b><span>Her month of meals is already on the page when the call starts.</span></li>
+      <li><b>More dietitians, easier to reach.</b><span>Free answers to simple questions, and booking with the dietitian who fits her best.</span></li>
       <li><b>Certified places to stay.</b><span>Hotels and towns checked for dialysis travellers.</span></li>
     </ol>
   </section>
@@ -1805,10 +1808,10 @@ html.still #anno .av-ask i::before{animation:none}
           <tr><td>800 · 2,000 · 2,000 mg · 58–70 g</td><td>07:10</td><td>The proposed table applied to the demo sheet: hemodialysis, no urine, dry weight 58 kg. The build still has an earlier table.</td></tr>
           <tr><td>Phosphorus 800 and 1,000, potassium 2,000, sodium 2,000 mg, protein 1.0–1.2 g/kg</td><td>07:10</td><td>China’s Blood Purification SOP 2021. Its potassium figure is for patients who pass no urine.</td></tr>
           <tr><td>No potassium limit and the sodium rule on peritoneal dialysis</td><td>07:10</td><td>Japanese Society for Dialysis Therapy, 2014.</td></tr>
-          <tr><td>Potassium high above 5.5</td><td>12:00, 07:10</td><td>UK Kidney Association, 2026: diet advice when potassium stays above 5.5.</td></tr>
+          <tr><td>Potassium high above 5.5</td><td>07:10</td><td>UK Kidney Association, 2026: diet advice when potassium stays above 5.5.</td></tr>
           <tr><td>Low-result rules and the 6.0 line</td><td>07:10</td><td>Ours. For a doctor to confirm.</td></tr>
           <tr><td>Other guidance compared</td><td>07:10</td><td>European EBPG ranges as cited in J Nephrol 2021, NSW Agency for Clinical Innovation, KDOQI 2020 (summary only).</td></tr>
-          <tr><td>429 and 294 mg</td><td>12:00</td><td>Recipe R-206 in the build, one of two servings. The blanched figure is the food table’s: pork 278 and pepper 114 mg per 100 g.</td></tr>
+          <tr><td>429 and ≈300 mg</td><td>12:00</td><td>Recipe R-206 in the build, one of two servings. The second figure assumes 30% of the potassium in the pork and pepper is lost, as the build does. Two reviews back boiling in general and give no figure for this dish: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3797240">2013</a>, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5986175">2016</a>.</td></tr>
           <tr><td>Art. 13 and 21</td><td>07:10</td><td>Detailed Rules for the Supervision of Internet Diagnosis and Treatment (Trial), NHC, 8 Feb 2022. Read on nhc.gov.cn.</td></tr>
           <tr><td>243 foods, 54 recipes</td><td>12:00, The rest</td><td>Counted in the build's data on 20 Nov 2026. 57 recipes with the three counter-examples.</td></tr>
           <tr><td>75 foods</td><td>08:05</td><td>Computed on this page from the food table.</td></tr>
@@ -1943,7 +1946,7 @@ function drawChart(){
   o += '<text class="ax" x="' + L + '" y="' + (T - 14) + '">↑ Phosphorus</text><text class="ax" x="' + x(X) + '" y="' + (H - (m ? 8 : 20)) + '" text-anchor="end">Protein →</text><text class="bt" x="' + (x(X) - 14) + '" y="' + y(12) + '" text-anchor="end">Better ↘</text>';
   Object.keys(PICKS).forEach(n => { const f = FOODS.find(q => q.n === n); if (!f || (m && n === 'Pork liver')) return;
     const hot = n === 'Egg white', bad = n === 'Sausage', left = PICKS[n] === 'l' || (m && n === 'Firm tofu'), g = m ? (hot ? 12 : 9) : hot ? 20 : 16;
-    const name = hot ? (m ? 'Egg white, today' : 'Egg white, today’s breakfast') : bad ? (m ? 'Sausage: D' : 'Sausage: too salty, so D') : n;
+    const name = hot ? 'Egg white' : bad ? (m ? 'Sausage: D' : 'Sausage: too salty, so D') : n;
     o += '<g class="pd" role="button" tabindex="0" data-id="' + f.id + '" aria-pressed="' + (picked === f.id) + '" aria-label="' + n + ', ' + f.r.toFixed(1) + ' mg of phosphorus per gram of protein, grade ' + f.g + '"><circle cx="' + x(f.p) + '" cy="' + y(f.ph) + '" r="' + (m ? 15 : 20) + '" fill="transparent"/><circle class="dot" cx="' + x(f.p) + '" cy="' + y(f.ph) + '" r="' + (m ? (hot ? 8 : 5.5) : hot ? 11 : 8) + '" fill="' + (bad ? '#F6ECE1' : hot ? '#F08C2E' : '#161514') + '"' + (bad ? ' stroke="#C4621A" stroke-width="' + (m ? 2.5 : 3) + '"' : '') + '/><text class="' + (hot || bad ? 'nb' : 'nm') + '" x="' + (x(f.p) + (left ? -g : g)) + '" y="' + (y(f.ph) + 5) + '" text-anchor="' + (left ? 'end' : 'start') + '">' + name + '</text></g>'; });
   box.innerHTML = '<svg class="psvg" viewBox="0 0 ' + W + ' ' + H + '" role="group" aria-label="Protein against phosphorus for a few foods, split into grades A to D">' + o + '</svg>';
   $$('.pd', box).forEach(g => { const f = FOODS.find(q => String(q.id) === g.dataset.id); g.addEventListener('click', () => pick(f)); g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(f); } }); });
