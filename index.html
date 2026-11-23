@@ -1394,7 +1394,7 @@ html.still #anno .av-ask i::before{animation:none}
         </li>
         <li>
           <b class="no">03</b><h4>It starts over every month</h4><p>A new lab report, new limits.</p>
-          <div class="fv fc" id="fa3" role="img" aria-label="Each month's lab report changes the day's limits for potassium, phosphorus and sodium.">
+          <div class="fv fc" id="fa3" role="img" aria-label="Each month's lab report changes the day's limits for potassium and phosphorus.">
             <div class="fc-win"><ul class="fc-strip"><li><small>JUL</small><b>15</b></li><li><small>AUG</small><b>12</b></li><li><small>SEP</small><b>9</b></li><li><small>OCT</small><b>14</b></li><li><small>NOV</small><b>11</b></li><li><small>DEC</small><b>8</b></li><li><small>JAN</small><b>13</b></li></ul></div>
             <ul class="fc-lim"><li><span>Potassium</span><b data-i="0">2,200</b></li><li><span>Phosphorus</span><b data-i="1">1,000</b></li><li><span>Sodium</span><b data-i="2">1,900</b></li></ul>
             <p class="fc-say">mg a day · example months</p>
@@ -1575,12 +1575,12 @@ html.still #anno .av-ask i::before{animation:none}
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <table class="lim"><thead><tr><th>Blood result</th><th>Daily limit</th></tr></thead><tbody>
-<tr><td>Phosphorus high / normal / low</td><td><b>800</b> / 1,000 / 1,100 mg</td></tr>
-<tr><td>Potassium high / otherwise</td><td>1,800 / <b>2,200</b> mg</td></tr>
-<tr><td>Sodium high / otherwise</td><td>1,500 / <b>1,900</b> mg</td></tr>
-<tr><td>Albumin low / otherwise</td><td><b>1.2</b> / 1.0 g protein per kg</td></tr></tbody></table>
-            <p class="limn">Phosphorus 800–1,000 mg and protein 1.0–1.2 g per kg follow Chinese guidance. The rest, and switching by result, is our choice.</p>
+            <table class="lim"><thead><tr><th>Blood result</th><th>Daily target</th></tr></thead><tbody>
+<tr><td>Phosphorus high / normal / low</td><td>up to <b>800</b> / 1,000 / 1,100 mg</td></tr>
+<tr><td>Potassium high / otherwise</td><td>up to 1,800 / <b>2,200</b> mg</td></tr>
+<tr><td>Sodium, any result</td><td>up to <b>1,900</b> mg</td></tr>
+<tr><td>Albumin low / otherwise</td><td>aim for <b>1.2</b> / 1.0 g protein per kg</td></tr></tbody></table>
+            <p class="limn">Phosphorus 800–1,000 mg and protein 1.0–1.2 g per kg of body weight follow Chinese guidance. Adjusting phosphorus and potassium to blood results is common practice. The other cut-offs are ours and need a dietitian’s review.</p>
             <p class="limn">The model only copies: a line we drew from China’s 2022 rules for online hospitals, where AI may not replace a doctor.</p>
           </div>
         </details>
@@ -1593,7 +1593,7 @@ html.still #anno .av-ask i::before{animation:none}
         <div class="plot-bar" id="chips" role="group" aria-label="Filter by food group"></div>
         <div class="plot-card" id="plot-card">
           <p class="plot-title">More protein, less phosphorus is the better pick.</p>
-          <p class="plot-sub">Each dot is a food, per 100 g. A lettered tag is a food moved down for salt, potassium or soaking.</p>
+          <p class="plot-sub">Color is the grade. Lettered foods moved down for salt or potassium. <span id="n-off"></span> dried foods run off the scale; see the table.</p>
           <div class="legend" id="legend"></div>
           <svg id="chart" role="img" aria-label="Scatter plot of protein foods by protein and phosphorus content, divided into four grade zones"></svg>
           <div class="tip" id="tip" role="status"></div>
@@ -1843,7 +1843,7 @@ html.still #anno .av-ask i::before{animation:none}
         <tbody>
           <tr><td>30 days</td><td>07:10</td><td>Product spec (PRD v1). The frozen build still shows the age from day 21 and asks for a retest from day 45.</td><td><span class="st part">Spec</span></td></tr>
           <tr><td>800 · 2,200 · 1,900 mg · 70 g</td><td>07:10, bars</td><td>The build's limit table applied to the demo sheet, at a dry weight of 58 kg.</td><td><span class="st ok">From the build</span></td></tr>
-          <tr><td>The bands behind those limits</td><td>07:10</td><td>Phosphorus 800 and 1,000 mg, protein 1.0 and 1.2 g/kg: WS/T 557-2017, China's 2021 nutrition guideline, Blood Purification SOP 2021. Phosphorus 1,100, potassium 1,800 and 2,200, sodium 1,500 and 1,900 mg: none found.</td><td><span class="st part">Partly</span></td></tr>
+          <tr><td>The bands behind those limits</td><td>07:10</td><td>Phosphorus 800 and 1,000 mg, protein 1.0 and 1.2 g/kg: WS/T 557-2017, China's 2021 nutrition guideline, Blood Purification SOP 2021. Phosphorus 1,100, potassium 1,800 and 2,200, sodium 1,900 mg: no source found. The frozen build still drops sodium to 1,500 mg when blood sodium is high; this page leaves that out, because blood sodium tracks water balance more than salt eaten. Potassium 2,200 mg is above the SOP’s 2,000 mg for patients who pass no urine; the build does not ask yet.</td><td><span class="st part">Partly</span></td></tr>
           <tr><td>Art. 13 and 21</td><td>07:10</td><td>Detailed Rules for the Supervision of Internet Diagnosis and Treatment (Trial), NHC, 8 Feb 2022. Read on nhc.gov.cn.</td><td><span class="st ok">Checked</span></td></tr>
           <tr><td>243 foods, 54 recipes</td><td>12:00, The rest</td><td>Counted in the build's data on 20 Nov 2026. 57 recipes with the three counter-examples.</td><td><span class="st ok">Counted</span></td></tr>
           <tr><td>75 foods, 65 and 10</td><td>08:05</td><td>Computed on this page from the food table.</td><td><span class="st ok">Counted</span></td></tr>
@@ -1951,6 +1951,8 @@ const FOODS = (window.DIALIGHT_FOODS || []).filter(f => GROUPS.includes(f.c) && 
   return Object.assign({}, f, {r, w, exc, why});
 });
 let filter = 'All', picked = null;
+/* 点的颜色就是它的实际等级；落错区的另带字母 */
+const GCOL = {A: '#5E8272', B: '#D9962E', C: '#B9541A', D: '#6E3A22'};
 
 (function fillText(){
   const all = FOODS.length, exc = FOODS.filter(f => f.exc).length;
@@ -1965,10 +1967,9 @@ let filter = 'All', picked = null;
   });
 
   const lg = $('#legend');
-  const mk = (shape, label) => { const s = h('span'); const v = el('svg', {width: 16, height: 16, viewBox: '-8 -8 16 16', 'aria-hidden': 'true'});
-    v.appendChild(shape === 'dot' ? el('circle', {r: 5, fill: 'var(--ink)'}) : el('rect', {x: -7, y: -7, width: 14, height: 14, rx: 4, fill: 'var(--deep)'}));
-    s.appendChild(v); s.appendChild(document.createTextNode(label)); lg.appendChild(s); };
-  mk('dot', 'Graded by its zone (' + (all - exc) + ')'); mk('dia', 'Moved down, tag shows the grade (' + exc + ')');
+  ['A', 'B', 'C', 'D'].forEach(k => { const s = h('span'), v = el('svg', {width: 16, height: 16, viewBox: '-8 -8 16 16', 'aria-hidden': 'true'});
+    v.appendChild(el('circle', {r: 5.5, fill: GCOL[k]})); s.appendChild(v); s.appendChild(document.createTextNode(k + ' · ' + FOODS.filter(f => f.g === k).length)); lg.appendChild(s); });
+  $('#n-off').textContent = FOODS.filter(f => f.p > 33 || f.ph > 330).length;
 
   const tb = $('#tbl'); const hd = h('tr');
   [['Food', ''], ['Group', ''], ['Protein g', 'r'], ['Phosphorus mg', 'r'], ['mg per g', 'r'], ['Grade', ''], ['Source', '']].forEach(c => { const th = h('th', c[1], c[0]); hd.appendChild(th); });
@@ -1990,7 +1991,7 @@ function drawChart(){
   const H = narrow ? Math.round(W * 1.15) : Math.round(Math.min(600, W * 0.6));
   const R = narrow ? 3.6 : 5, DM = narrow ? 8 : 11, RING = narrow ? 1.4 : 2;
   const m = {l: narrow ? 40 : 46, r: 16, t: 34, b: 46};
-  const XMAX = 60, YMAX = 600, pw = W - m.l - m.r, ph = H - m.t - m.b;
+  const XMAX = 33, YMAX = 330, pw = W - m.l - m.r, ph = H - m.t - m.b;
   const x = v => m.l + v / XMAX * pw, y = v => m.t + ph - v / YMAX * ph;
   svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.replaceChildren();
 
@@ -1998,10 +1999,10 @@ function drawChart(){
   const O = [x(0), y(0)], TL = [x(0), y(YMAX)], TR = [x(XMAX), y(YMAX)], BR = [x(XMAX), y(0)];
   const top = r => [x(YMAX / r), y(YMAX)];
   const poly = (pts, fill) => svg.appendChild(el('polygon', {points: pts.map(p => p.join(',')).join(' '), fill: fill, stroke: 'var(--card)', 'stroke-width': 3, 'stroke-linejoin': 'round'}));
-  poly([O, TL, top(20)], '#EAD7C9');
-  poly([O, top(20), top(15)], '#F5D3AC');
-  poly([O, top(15), top(10)], '#FBE7CB');
-  poly([O, TR, BR], '#E3EBE4');
+  poly([O, TL, top(20)], '#F1E4DA');
+  poly([O, top(20), top(15)], '#F8E2C8');
+  poly([O, top(15), top(10)], '#FCF0DF');
+  poly([O, TR, BR], '#EAF0EA');
 
   /* 轴 */
   for (let v = 0; v <= XMAX; v += 10){ svg.appendChild(el('text', {x: x(v), y: H - m.b + 20, 'text-anchor': 'middle', class: 'tick'}, v)); }
@@ -2009,38 +2010,32 @@ function drawChart(){
   svg.appendChild(el('text', {x: m.l + pw, y: H - 6, 'text-anchor': 'end', class: 'axis-t'}, 'Protein, g per 100 g →'));
   svg.appendChild(el('text', {x: 4, y: 16, class: 'axis-t'}, '↑ Phosphorus, mg per 100 g'));
 
-  if (!narrow) svg.appendChild(el('text', {x: x(XMAX) - 12, y: y(18), 'text-anchor': 'end', class: 'better'}, 'Better ↘'));
+  if (!narrow) svg.appendChild(el('text', {x: x(XMAX) - 12, y: y(10), 'text-anchor': 'end', class: 'better'}, 'Better ↘'));
   /* 区的名字直接写在区里 */
   const zone = (L, px, py, anchor) => {
     svg.appendChild(el('text', {x: px, y: py, class: 'zone-l', 'text-anchor': anchor || 'start', style: narrow ? 'font-size:24px' : ''}, L));
-    if (!narrow || L === 'A' || L === 'D') svg.appendChild(el('text', {x: px + (anchor === 'end' ? 0 : 0), y: py + 20, class: 'zone-s', 'text-anchor': anchor || 'start'}, ACTION[L]));
+    if (!narrow || L === 'D') svg.appendChild(el('text', {x: px + (anchor === 'end' ? 0 : 0), y: py + 20, class: 'zone-s', 'text-anchor': anchor || 'start'}, ACTION[L]));
   };
   const zy = y(YMAX) + (narrow ? 30 : 40);
-  zone('D', x(1.6), zy);
-  zone('C', x(narrow ? 32.6 : 31.2), zy);
-  zone('B', x(narrow ? 44 : 41.5), zy);
-  zone('A', x(XMAX) - 12, y(150), 'end');
-  svg.appendChild(el('text', {x: x(XMAX) - 12, y: y(150) + 40, class: 'ray-l', 'text-anchor': 'end'}, 'under 10 mg/g'));
-  if (!narrow){
-    svg.appendChild(el('text', {x: x(1.6), y: y(YMAX) + 78, class: 'ray-l'}, 'over 20 mg/g'));
-    svg.appendChild(el('text', {x: x(31.2), y: y(YMAX) + 78, class: 'ray-l'}, '15–20'));
-    svg.appendChild(el('text', {x: x(41.5), y: y(YMAX) + 78, class: 'ray-l'}, '10–15'));
-  }
+  zone('D', x(.9), zy);
+  zone('C', x(narrow ? 16.6 : 17.2), zy);
+  zone('B', x(narrow ? 24.2 : 22.8), zy);
+  zone('A', x(XMAX) - 12, y(narrow ? 110 : 95), 'end');
 
   /* 点：按比值判的用墨色圆点，被前面规则截住的用深橙菱形 */
   const LABELS = narrow ? {} :
-    {'Sausage': [4, -16, 'start', 'Sausage, salty'], 'Dried baby shrimp': [-15, 5, 'end', 'Dried baby shrimp, salty'], 'Dried scallops': [-15, 5, 'end', 'Dried scallops, soak first'], 'Tofu skin': [15, 0, 'start', 'Tofu skin'], 'Fermented black beans': [15, 5, 'start', 'Fermented black beans'], 'Egg white': [8, -14, 'start', 'Egg white, today’s breakfast']};
-  const order = FOODS.slice().sort((a, b) => (a.exc - b.exc));
+{'Sausage': [4, -14, 'start', 'Sausage'], 'Fermented black beans': [14, 5, 'start', 'Fermented black beans'], 'Egg white': [0, -16, 'middle', 'Egg white, today’s breakfast']};
+  const order = FOODS.filter(f => f.p <= XMAX && f.ph <= YMAX).sort((a, b) => (a.exc - b.exc));
   order.forEach(f => {
     const g = el('g', {class: 'pt', transform: 'translate(' + x(f.p).toFixed(1) + ',' + y(f.ph).toFixed(1) + ')', tabindex: f.exc ? 0 : -1, role: 'img', 'aria-label': f.n + ', grade ' + f.g + ', ' + f.r.toFixed(1) + ' milligrams of phosphorus per gram of protein'});
     g.dataset.c = f.c; g.dataset.id = f.id;
     g.appendChild(el('circle', {r: 13, fill: 'transparent'}));
     g.appendChild(el('circle', {class: 'sel', r: 11, fill: 'none', stroke: 'var(--lilac)', 'stroke-width': 4, opacity: picked === f.id ? 1 : 0}));
-    if (f.exc){ const S = narrow ? 15 : 20;
-      g.appendChild(el('rect', {x: -S / 2, y: -S / 2, width: S, height: S, rx: 6, fill: 'var(--deep)', stroke: '#fff', 'stroke-width': 1.5}));
-      g.appendChild(el('text', {y: narrow ? 3.6 : 4.6, 'text-anchor': 'middle', class: 'tag-l', style: 'font-size:' + (narrow ? 10 : 13) + 'px'}, f.g)); }
-    else if (f.n === 'Egg white') g.appendChild(el('circle', {r: R + 3, fill: 'var(--brand2)', stroke: '#fff', 'stroke-width': 2}));
-    else g.appendChild(el('circle', {r: R, fill: 'var(--ink)', stroke: 'var(--card)', 'stroke-width': RING}));
+    if (f.exc){ const S = narrow ? 14 : 17;
+      g.appendChild(el('rect', {x: -S / 2, y: -S / 2, width: S, height: S, rx: 5, fill: GCOL[f.g], stroke: 'var(--card)', 'stroke-width': 1.5}));
+      g.appendChild(el('text', {y: narrow ? 3.6 : 4, 'text-anchor': 'middle', class: 'tag-l', style: 'font-size:' + (narrow ? 10 : 11.5) + 'px'}, f.g)); }
+    else if (f.n === 'Egg white') g.appendChild(el('circle', {r: R + 4, fill: GCOL.A, stroke: 'var(--ink)', 'stroke-width': 2}));
+    else g.appendChild(el('circle', {r: R, fill: GCOL[f.g], stroke: 'var(--card)', 'stroke-width': RING}));
     const L = LABELS[f.n];
     if (L) g.appendChild(el('text', {x: L[0], y: L[1], 'text-anchor': L[2], class: 'dl', 'paint-order': 'stroke', stroke: 'var(--card)', 'stroke-width': 4, 'stroke-linejoin': 'round'}, L[3] || f.n));
     g.addEventListener('pointerenter', () => showTip(f, g));
@@ -2323,7 +2318,7 @@ drawChart();
   // 03 每月重算：月份滑动，限额跟着变（示例月份，限额来自原型的固定表）
   const c=document.getElementById('fa3');
   if(c){ const strip=c.querySelector('.fc-strip'), cells=[...strip.children], lim=[...c.querySelectorAll('.fc-lim b')];
-    const L=[['2,200','1,000','1,900'],['1,800','1,000','1,900'],['2,200','800','1,900'],['1,800','1,000','1,500'],['2,200','1,100','1,900']];
+    const L=[['2,200','1,000','1,900'],['1,800','1,000','1,900'],['2,200','800','1,900'],['1,800','800','1,900'],['2,200','1,100','1,900']];
     let i=0;
     const show=()=>{ const idx=i+1; cells.forEach((x,k)=>x.classList.toggle('on',k===idx));
       const w=cells[0].getBoundingClientRect().width+8, win=c.querySelector('.fc-win').getBoundingClientRect().width;
