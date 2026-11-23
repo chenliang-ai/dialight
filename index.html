@@ -1256,6 +1256,12 @@ body,body.w0,body.w1,body.w2,body.w3,body.w4{background-color:var(--bg)!importan
 .hrow svg.two{width:169px}
 .hrow .meta{align-items:flex-start;text-align:left;align-self:stretch}
 .hrow .bubble u{text-decoration:underline;text-decoration-color:#F08C2E;text-decoration-thickness:2.5px;text-underline-offset:5px;text-decoration-skip-ink:none}
+.duo{display:grid;gap:14px;align-items:stretch;margin-top:40px}.duo.l{grid-template-columns:264px minmax(0,1fr)}.duo.r{grid-template-columns:minmax(0,1fr) 264px}.duo .lmap{margin:0!important}
+.ev{display:grid;grid-template-rows:auto 1fr;gap:14px}.ev>div{background:#F6ECE1;border-radius:26px;padding:20px 22px}.ev .n{font:400 46px/1 var(--f-display);color:var(--deep);letter-spacing:-.03em}.ev p{font:400 15.5px/1.45 var(--f-label);color:var(--sub);margin:10px 0 0}.ev small{display:block;margin-top:8px;font:400 13px/1.4 var(--f-label);color:var(--faint)}.ev h4{font:400 24px/1.15 var(--f-display);margin:0 0 12px}
+.ev .b{display:grid;grid-template-columns:1fr auto;gap:5px 8px;margin:0 0 12px;font:400 15px/1.2 var(--f-label)}.ev .b i{grid-column:1/-1;grid-row:2;height:12px;border-radius:9px;background:#E9DACB;overflow:hidden}.ev .b u{display:block;height:100%;background:#7F948C;border-radius:9px}.ev .b.on u{background:#F08C2E}
+@media(min-width:1181px){.duo .lr>ul{display:grid!important;grid-template-columns:repeat(4,minmax(0,1fr))!important;gap:6px!important;padding-left:12px!important;padding-right:12px!important}.duo .lr>ul.mine{grid-template-columns:1.4fr 1fr 1fr!important}.duo .lr>ul>li{width:auto!important;max-width:none!important;min-width:0!important}.duo .lmap{display:grid;grid-template-rows:auto 1fr 1.25fr}.duo .lr{grid-template-columns:100px minmax(0,1fr) minmax(0,1fr)!important}.duo .lh{grid-template-columns:100px minmax(0,1fr) minmax(0,1fr)!important}}
+@media(max-width:1180px){.duo.l,.duo.r{grid-template-columns:minmax(0,1fr)}}@media(min-width:1181px){.duo .lr>ul,.duo .lr .rl{align-content:center}.duo .lr>ul{align-items:start}}
+@media(max-width:1180px) and (min-width:700px){.duo .ev{grid-template:auto/1fr 1.4fr}}
 .todo{display:none!important}
 </style>
 </head>
@@ -1409,7 +1415,7 @@ body,body.w0,body.w1,body.w2,body.w3,body.w4{background-color:var(--bg)!importan
   <section class="sec comp" id="comp">
     <h2 class="fh big">Nobody had built <em>for them.</em></h2>
     <p class="fsub">Every patient-side dialysis app we found had gone quiet.</p>
-    <div class="lmap" role="table" aria-label="Kidney and health products in China, by who they are built for">
+    <div class="duo r"><div class="lmap" role="table" aria-label="Kidney and health products in China, by who they are built for">
       <div class="lh" role="row"><span></span><b>Built for hospitals</b><b>Built for patients</b></div>
       <div class="lr" role="row"><span class="rl">General health</span>
         <ul><li class=""><img src="media/comp/haodf.png" width="66" height="60" alt=""><b>Haodf</b><small>Online clinic</small></li><li class=""><img src="media/comp/wedoctor.png" width="66" height="60" alt=""><b>WeDoctor</b><small>Online clinic</small></li><li class=""><img src="media/comp/winning.png" width="66" height="60" alt=""><b>Winning Health</b><small>Hospital IT</small></li></ul>
@@ -1420,6 +1426,8 @@ body,body.w0,body.w1,body.w2,body.w3,body.w4{background-color:var(--bg)!importan
         <ul class="mine"><li class="me"><img src="media/logo.png" width="318" height="360" alt=""><b>Dialight</b><small>Starts from daily life</small></li><li class="dead "><img src="media/comp/shenshangxian.png" width="66" height="60" alt=""><b>Shenshangxian</b><small>Patient app appears archived</small></li><li class="dead "><img src="media/comp/aishen.png" width="66" height="60" alt=""><b>Aishen</b><small>No news since 2019</small></li></ul>
       </div>
     </div>
+    <aside class="ev"><div><b class="n">162,000</b><p>people on peritoneal dialysis in China, 2025</p><small>CNRDS registry, as reported at CCBPC 2026</small></div>
+<div><h4>Deaths during the trial</h4><div class="b"><span>Standard home dialysis</span><i><u style="width:69%"></u></i><b>13.8%</b></div><div class="b on"><span>With remote monitoring</span><i><u style="width:41%"></u></i><b>8.2%</b></div><p>Machine data sent to the hospital, 801 patients in Mexico. Not a trial of Dialight.</p><small>55 of 398 vs 33 of 403, P = .01; a secondary outcome, median 9.5 months. <a href="https://doi.org/10.1093/ndt/gfae188">Paniagua et al., NDT 2025</a></small></div></aside></div>
     <p class="small">Logos belong to their owners and are shown only to compare products. Status as of Oct 2026, from public records.</p>
   </section>
 
