@@ -1268,6 +1268,7 @@ body,body.w0,body.w1,body.w2,body.w3,body.w4{background-color:var(--bg)!importan
 .todo{max-width:100%;white-space:normal;overflow-wrap:anywhere}
 .anno .mark{color:var(--card)}
 .anno li.is-on .mark{color:var(--ink)}
+.lim{break-inside:avoid;border-collapse:collapse;width:100%;max-width:640px;font:400 16px/1.4 var(--f-label)}.lim th{text-align:left;font:600 12px/1 var(--f-mono);color:var(--faint);letter-spacing:.05em;text-transform:uppercase;padding:0 12px 10px 0}.lim td{padding:10px 12px 10px 0;border-top:1px solid var(--line2);color:var(--sub)}.lim td b{color:var(--deep)}#p0 .limn{font-size:15px;color:var(--sub);margin:0 0 12px}
 .todo{display:none!important}
 </style>
 </head>
@@ -1556,9 +1557,13 @@ body,body.w0,body.w1,body.w2,body.w3,body.w4{background-color:var(--bg)!importan
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <p>The model has one job here, which is transcription: the numbers and the date. It does not explain what a high phosphorus means. Turning the sheet into today's limits is a separate step, done by a short fixed table in the code that the model cannot change.</p>
-            <p><b>The fixed table.</b> Phosphorus 800, 1,000 or 1,100 mg for a high, in-range or low result. Potassium 1,800 mg if high, otherwise 2,200. Sodium 1,500 mg if high, otherwise 1,900. Protein 1.2 g per kg of dry weight if albumin is low, otherwise 1.0. Phosphorus 800 to 1,000 mg and protein 1.0 to 1.2 g/kg match Chinese dialysis guidance. The other figures, and setting limits by lab result at all, are the team's own.</p>
-            <p><b>Why it only transcribes.</b> China's Detailed Rules for the Supervision of Internet Diagnosis and Treatment (Trial), 2022, say AI software may not stand in for a physician (Art. 13) and may not generate prescriptions (Art. 21). The rules bind hospitals offering care online; we drew our own line from them.</p>
+            <table class="lim"><thead><tr><th>Blood result</th><th>Daily limit</th></tr></thead><tbody>
+<tr><td>Phosphorus high / normal / low</td><td><b>800</b> / 1,000 / 1,100 mg</td></tr>
+<tr><td>Potassium high / otherwise</td><td>1,800 / <b>2,200</b> mg</td></tr>
+<tr><td>Sodium high / otherwise</td><td>1,500 / <b>1,900</b> mg</td></tr>
+<tr><td>Albumin low / otherwise</td><td><b>1.2</b> / 1.0 g protein per kg</td></tr></tbody></table>
+            <p class="limn">Phosphorus 800–1,000 mg and protein 1.0–1.2 g per kg follow Chinese guidance. The rest, and switching by result, is our choice.</p>
+            <p class="limn">The model only copies: a line we drew from China’s 2022 rules for online hospitals, where AI may not replace a doctor.</p>
           </div>
         </details>
   </section>
