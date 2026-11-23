@@ -1271,6 +1271,9 @@ html.still #anno .av-ask i::before{animation:none}
 .b-com img{position:absolute;right:34px;bottom:26px;height:200px;width:auto}.b-com .tags{max-width:26em}.safe-grid .qc .sub{font-size:16px;color:var(--sub);margin:6px 0 0}.lead4 small{text-transform:none;letter-spacing:0}@media (max-width:700px){.b-com img{position:static;height:120px;display:block;margin:18px 0 0}}.b-em h3{font-size:26px}.b-em ul{margin-top:14px;padding:12px 16px;font-size:15px}.plot-title{margin-bottom:16px}
 .psvg{display:block;width:100%;height:auto}.psvg text{font-family:var(--f-label);fill:var(--ink)}.psvg .zb{font:500 40px var(--f-display)}.psvg .zs{font-size:16px;fill:var(--sub)}.psvg .ax{font:400 15px var(--f-label);text-transform:none;letter-spacing:0;fill:var(--sub)}.psvg .nm{font-size:16px}.psvg .nb{font-size:16px;font-weight:600;fill:#A04A0E}.psvg .bt{font:italic 400 26px var(--f-display);fill:var(--deep)}.pd{cursor:pointer;outline:none}.pd:hover .dot,.pd:focus-visible .dot,.pd[aria-pressed=true] .dot{stroke:#C4621A;stroke-width:4}
 @media (max-width:700px){.plot-card{padding:16px 12px 12px}.psvg .zb{font-size:26px}.psvg .ax,.psvg .nm,.psvg .nb{font-size:13.5px}.psvg .bt{font-size:17px}}
+@media (min-width:701px){#p0 .lim{max-width:none;column-span:all;margin:0 0 22px}#p0 .lim td:first-child{width:34%}}
+.ledger td:last-child{font:400 15.5px/1.45 var(--f-label)!important;text-transform:none!important;letter-spacing:0!important;color:var(--sub)!important;white-space:normal!important}
+@media (min-width:701px){.ledger th:first-child,.ledger td:first-child{width:32%}}
 .todo{display:none!important}
 </style>
 </head>
@@ -1380,7 +1383,7 @@ html.still #anno .av-ask i::before{animation:none}
           <b class="no">03</b><h4>It starts over every month</h4><p>A new lab report, new limits.</p>
           <div class="fv fc" id="fa3" role="img" aria-label="Each month's lab report changes the day's limits for potassium and phosphorus.">
             <div class="fc-win"><ul class="fc-strip"><li><small>JUL</small><b>15</b></li><li><small>AUG</small><b>12</b></li><li><small>SEP</small><b>9</b></li><li><small>OCT</small><b>14</b></li><li><small>NOV</small><b>11</b></li><li><small>DEC</small><b>8</b></li><li><small>JAN</small><b>13</b></li></ul></div>
-            <ul class="fc-lim"><li><span>Potassium</span><b data-i="0">2,200</b></li><li><span>Phosphorus</span><b data-i="1">1,000</b></li><li><span>Sodium</span><b data-i="2">1,900</b></li></ul>
+            <ul class="fc-lim"><li><span>Potassium</span><b data-i="0">2,000</b></li><li><span>Phosphorus</span><b data-i="1">1,000</b></li><li><span>Sodium</span><b data-i="2">2,000</b></li></ul>
             <p class="fc-say">mg a day · example months</p>
           </div>
         </li>
@@ -1532,7 +1535,7 @@ html.still #anno .av-ask i::before{animation:none}
         <div class="read">
         <div class="paper" role="group" aria-label="Demo lab report with three numbered notes">
           <div class="paper-head">
-            <div><strong>Renal panel</strong><small>Demo sample. Not a real patient.</small></div>
+            <div><strong>Renal panel</strong><small>Demo sample, on hemodialysis with little urine. Not a real patient.</small></div>
             <div class="paper-date" data-n="1"><span class="mark">1</span>Collected 24 Oct 2026</div>
           </div>
           <table>
@@ -1559,12 +1562,16 @@ html.still #anno .av-ask i::before{animation:none}
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <table class="lim"><thead><tr><th>Blood result</th><th>Daily target</th></tr></thead><tbody>
-<tr><td>Phosphorus high / normal / low</td><td>up to <b>800</b> / 1,000 / 1,100 mg</td></tr>
-<tr><td>Potassium high / otherwise</td><td>up to 1,800 / <b>2,200</b> mg</td></tr>
-<tr><td>Sodium, any result</td><td>up to <b>1,900</b> mg</td></tr>
-<tr><td>Albumin low / otherwise</td><td>aim for <b>1.2</b> / 1.0 g protein per kg</td></tr></tbody></table>
-            <p class="limn">Phosphorus 800–1,000 mg and protein 1.0–1.2 g per kg of body weight follow Chinese guidance. Adjusting phosphorus and potassium to blood results is common practice. The other cut-offs are ours and need a dietitian’s review.</p>
+            <table class="lim"><thead><tr><th>Her result</th><th>Daily target</th></tr></thead><tbody>
+<tr><td>Phosphorus high / in range</td><td>up to <b>800</b> / 1,000 mg</td></tr>
+<tr><td>Potassium, hemodialysis</td><td>up to <b>2,000</b> mg; a doctor may allow more if she passes over 1.5 L of urine</td></tr>
+<tr><td>Potassium, peritoneal dialysis</td><td>no limit unless high, then 2,000 mg</td></tr>
+<tr><td>Phosphorus or potassium low</td><td>no limit; ask the doctor first</td></tr>
+<tr><td>Potassium 6.0 or above</td><td>no meal plan; get medical help</td></tr>
+<tr><td>Sodium, hemodialysis</td><td>up to <b>2,000</b> mg</td></tr>
+<tr><td>Sodium, peritoneal dialysis</td><td>set from fluid removed and urine</td></tr>
+<tr><td>Protein, any result</td><td>aim for <b>1.0–1.2</b> g per kg</td></tr></tbody></table>
+            <p class="limn">If her doctor has set a number, that number is used. We checked this table against guidance from China, Japan, Europe, Australia, the UK and the US. It is a proposal: no doctor or dietitian has signed it off, and the app still runs an earlier version.</p>
             <p class="limn">The model only copies: a line we drew from China’s 2022 rules for online hospitals, where AI may not replace a doctor.</p>
           </div>
         </details>
@@ -1604,7 +1611,7 @@ html.still #anno .av-ask i::before{animation:none}
             <dt>Cook</dt><dd>Stir-fry the pork and set aside. Cook the pepper <u>1 minute</u>. Return the pork and season.</dd></dl>
             <p class="rw-n"><b>429</b><span>mg of potassium per serving</span></p></article>
           <i class="rw-a" aria-hidden="true">→</i>
-          <article class="hi"><p class="rw-h"><b>Next month</b><span>Potassium 5.5 · high</span></p>
+          <article class="hi"><p class="rw-h"><b>Next month</b><span>Potassium 5.6 · high</span></p>
             <dl><dt>Prepare</dt><dd>For two: pork 150 g, green pepper 150 g. <u>Blanch both first.</u></dd>
             <dt>Season</dt><dd>Salt 1.5 g, <u>soy sauce 2.5 g</u>, oil 8 g.</dd>
             <dt>Cook</dt><dd><u>Blanch the pork and pepper.</u> Stir-fry, then return to the pan and season.</dd></dl>
@@ -1626,8 +1633,8 @@ html.still #anno .av-ask i::before{animation:none}
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <ol class="how3"><li><b>Limit</b><span>Her potassium result sets the day’s limit: 2,200 mg, or 1,800 mg above 5.5 mmol/L.</span></li><li><b>Rank</b><span>Recipes are sorted from A to D, so better choices are seen first.</span></li><li><b>Build</b><span>Every meal has a staple and a protein. Lunch and dinner add a vegetable.</span></li></ol>
-            <p class="how3n">Not built yet: changing dinner after a heavy lunch.</p>
+            <ol class="how3"><li><b>Limit</b><span>Her phosphorus result sets the day’s limit: 1,000 mg, or 800 mg above 1.78 mmol/L.</span></li><li><b>Rank</b><span>Recipes are sorted from A to D, so better choices are seen first.</span></li><li><b>Build</b><span>Every meal has a staple and a protein. Lunch and dinner add a vegetable.</span></li></ol>
+            <p class="how3n">Both days come from the app’s own meal planner, run with the proposed limits. Not built yet: changing dinner after a heavy lunch.</p>
           </div>
         </details>
   </section>
@@ -1795,16 +1802,20 @@ html.still #anno .av-ask i::before{animation:none}
         <table class="ledger">
         <thead><tr><th>Figure</th><th>Where</th><th>Comes from</th></tr></thead>
         <tbody>
-          <tr><td>800 · 2,200 · 1,900 mg · 70 g</td><td>07:10</td><td>The build's limit table applied to the demo sheet, at a dry weight of 58 kg.</td></tr>
-          <tr><td>800 and 1,000 mg phosphorus, 1.0 and 1.2 g/kg protein</td><td>07:10</td><td>WS/T 557-2017, China’s 2021 nutrition guideline, Blood Purification SOP 2021.</td></tr>
+          <tr><td>800 · 2,000 · 2,000 mg · 58–70 g</td><td>07:10</td><td>The proposed table applied to the demo sheet: hemodialysis, little urine, dry weight 58 kg. The build still has an earlier table.</td></tr>
+          <tr><td>Phosphorus 800 and 1,000, potassium 2,000, sodium 2,000 mg, protein 1.0–1.2 g/kg</td><td>07:10</td><td>China’s Blood Purification SOP 2021. Its potassium figure is for patients who pass no urine.</td></tr>
+          <tr><td>No potassium limit and the sodium rule on peritoneal dialysis</td><td>07:10</td><td>Japanese Society for Dialysis Therapy, 2014.</td></tr>
+          <tr><td>Potassium high above 5.5</td><td>12:00, 07:10</td><td>UK Kidney Association, 2026: diet advice when potassium stays above 5.5.</td></tr>
+          <tr><td>Low-result rules and the 6.0 line</td><td>07:10</td><td>Ours. For a doctor to confirm.</td></tr>
+          <tr><td>Other guidance compared</td><td>07:10</td><td>European EBPG ranges as cited in J Nephrol 2021, NSW Agency for Clinical Innovation, KDOQI 2020 (summary only).</td></tr>
           <tr><td>429 and 294 mg</td><td>12:00</td><td>Recipe R-206 in the build, one of two servings. The blanched figure is the food table’s: pork 278 and pepper 114 mg per 100 g.</td></tr>
           <tr><td>Art. 13 and 21</td><td>07:10</td><td>Detailed Rules for the Supervision of Internet Diagnosis and Treatment (Trial), NHC, 8 Feb 2022. Read on nhc.gov.cn.</td></tr>
           <tr><td>243 foods, 54 recipes</td><td>12:00, The rest</td><td>Counted in the build's data on 20 Nov 2026. 57 recipes with the three counter-examples.</td></tr>
           <tr><td>75 foods</td><td>08:05</td><td>Computed on this page from the food table.</td></tr>
           <tr><td>600 mg sodium</td><td>08:05</td><td>UK front-of-pack guidance, red for salt above 1.5 g per 100 g. China's 2019 salt-reduction messages use the same 600 mg.</td></tr>
           <tr><td>Food values</td><td>08:05</td><td>All 156 entries from the China Food Composition Tables checked against the online table on 20 Nov 2026: 155 match.</td></tr>
-          <tr><td>674 · 1,371 · 1,662 mg · 63.4 g</td><td>17:30</td><td>The build's table for the demo sheet. Offline run, 20 Nov 2026.</td></tr>
-          <tr><td>679 · 1,300 · 1,619 mg · 66.5 g</td><td>17:30</td><td>The same run with potassium set to 5.9 mmol/L.</td></tr>
+          <tr><td>674 · 1,371 · 1,662 mg · 63.4 g</td><td>17:30</td><td>The build’s meal planner with the proposed limits, demo sheet. Offline run, 23 Nov 2026.</td></tr>
+          <tr><td>722 · 1,347 · 1,579 mg · 71.4 g</td><td>17:30</td><td>The same run with phosphorus set to 1.6 mmol/L.</td></tr>
           <tr><td>12 of 30 days</td><td>21:00</td><td>Sample month in the build, with the weekly figures on the one-page summary.</td></tr>
         </tbody>
       </table>
@@ -1824,9 +1835,9 @@ html.still #anno .av-ask i::before{animation:none}
   <p class="rail-state" id="rail-state"></p>
         <div class="bars">
     <div class="bar" data-k="ph" title="Phosphorus"><div class="cap">800<small>limit</small></div><div class="track"><i></i></div><b>–</b><span>Phos. <em>mg</em></span></div>
-    <div class="bar" data-k="k" title="Potassium"><div class="cap">2,200<small>limit</small></div><div class="track"><i></i></div><b>–</b><span>Potas. <em>mg</em></span></div>
-    <div class="bar" data-k="na" title="Sodium"><div class="cap">1,900<small>limit</small></div><div class="track"><i></i></div><b>–</b><span>Sodium <em>mg</em></span></div>
-    <div class="bar" data-k="p" title="Protein"><div class="cap">70<small>target</small></div><div class="track"><i></i></div><b>–</b><span>Protein <em>g</em></span></div>
+    <div class="bar" data-k="k" title="Potassium"><div class="cap">2,000<small>limit</small></div><div class="track"><i></i></div><b>–</b><span>Potas. <em>mg</em></span></div>
+    <div class="bar" data-k="na" title="Sodium"><div class="cap">2,000<small>limit</small></div><div class="track"><i></i></div><b>–</b><span>Sodium <em>mg</em></span></div>
+    <div class="bar" data-k="p" title="Protein"><div class="cap">58–70<small>target</small></div><div class="track"><i></i></div><b>–</b><span>Protein <em>g</em></span></div>
   </div>
 </aside>
 
@@ -1853,10 +1864,10 @@ const fmt = n => Number(n).toLocaleString('en-US', {maximumFractionDigits: 1});
 })();
 
 /* ---------- 额度条 ----------
-   四项上限是原型 quota() 对演示化验单算出来的：血磷偏高 → 800，血钾正常 → 2200，
-   血钠正常 → 1900，白蛋白偏低 → 1.2 g/kg × 58 kg = 70。
-   三餐是原型 seedMenu(0) 配出来的那一桌（2026-11-20 断网运行取出），这里只做累加。 */
-const LIM = {ph: 800, k: 2200, na: 1900, p: 70};
+   上限用建议档位（血透、尿少）：血磷偏高 → 800，钾 2000，钠 2000，
+   蛋白 1.0–1.2 g/kg × 58 kg = 58–70。原型 quota() 还是旧档位，未同步。
+   三餐是原型 seedMenu(0) 配出来的那一桌（2026-11-23 换成建议档位重跑，菜不变），这里只做累加。 */
+const LIM = {ph: 800, k: 2000, na: 2000, p: 70};
 const DAY_A = [
   ['Breakfast', [['Lotus root starch porridge', 3, 11, 3, 0.1], ['Steamed egg-white custard', 15, 163, 476, 10.9]]],
   ['Lunch', [['Brown & white rice', 130, 104, 0, 5.3], ['Beef tenderloin with onion', 178, 296, 464, 17.9], ['Stir-fried mung bean sprouts', 56, 105, 297, 3.2]]],
@@ -1949,17 +1960,17 @@ function pick(f){
 }
 
 /* ---------- 17:30 同一天画两遍 ----------
-   两桌菜都是原型 seedMenu(0) 的原样输出：左边是演示化验单（血钾 4.2），
-   右边只把血钾改成 5.9 后重新配的。合计在这里现算。 */
+   两桌菜都是原型 seedMenu(0) 的原样输出，限额换成建议档位（钾 2000、钠 2000）：
+   左边是演示化验单（血磷 2.25），右边只把血磷改成 1.6 后重新配的。2026-11-23 断网运行。 */
 (function(){
   const DAY_B = [
     ['Breakfast', [['Lotus root starch porridge', 3, 11, 3, 0.1], ['Steamed egg-white custard', 15, 163, 476, 10.9]]],
-    ['Lunch', [['Cornmeal wotou', 112, 166, 0, 4.8], ['Beef tenderloin with onion', 178, 296, 464, 17.9], ['Stir-fried mung bean sprouts', 56, 105, 297, 3.2]]],
+    ['Lunch', [['Cornmeal wotou', 112, 166, 0, 4.8], ['Silky steamed chicken breast', 221, 343, 424, 22.8], ['Stir-fried mung bean sprouts', 56, 105, 297, 3.2]]],
     ['Dinner', [['Steamed white rice', 81, 62, 0, 5.3], ['Pan-seared tilapia', 201, 361, 218, 23], ['Blanched lettuce', 33, 136, 161, 1.3]]]
   ];
   const PANELS = [
-    {k: '4.2', tag: 'Potassium as printed', sub: 'In range, so the potassium limit is 2,200 mg.', day: DAY_A, lim: {ph: 800, k: 2200, na: 1900, p: 70}},
-    {k: '5.9', tag: 'Potassium, what if', sub: 'Above 5.5, so the limit drops to 1,800 mg.', day: DAY_B, lim: {ph: 800, k: 1800, na: 1900, p: 70}}
+    {k: '2.25', tag: 'Phosphorus as printed', sub: 'High, so the phosphorus limit is 800 mg.', day: DAY_A, lim: LIM},
+    {k: '1.6', tag: 'Phosphorus, what if', sub: 'Back in range, so the limit rises to 1,000 mg.', day: DAY_B, lim: Object.assign({}, LIM, {ph: 1000})}
   ];
   const ROWS = [['ph', 'Phosphorus', 'mg', 'limit'], ['k', 'Potassium', 'mg', 'limit'], ['na', 'Sodium', 'mg', 'limit'], ['p', 'Protein', 'g', 'target']];
   const scale = {}; ROWS.forEach(r => scale[r[0]] = Math.max(PANELS[0].lim[r[0]], PANELS[1].lim[r[0]]));
@@ -1980,7 +1991,7 @@ function pick(f){
       row.appendChild(h('span', 'nm', r[1]));
       const t = h('span', 't'); t.style.width = (P.lim[k] / scale[k] * 100).toFixed(1) + '%';
       const f = h('i'); f.style.width = Math.min(100, tot[k] / P.lim[k] * 100).toFixed(1) + '%'; t.appendChild(f); row.appendChild(t);
-      row.appendChild(h('span', 'v', fmt(Math.round(tot[k] * 10) / 10) + ' of ' + fmt(P.lim[k]) + ' ' + r[2] + ' ' + r[3]));
+      row.appendChild(h('span', 'v', k === 'p' ? fmt(Math.round(tot[k] * 10) / 10) + ' g, target 58–70 g' : fmt(Math.round(tot[k] * 10) / 10) + ' of ' + fmt(P.lim[k]) + ' ' + r[2] + ' ' + r[3]));
       hb.appendChild(row); });
     w.appendChild(hb); box.appendChild(w);
   });
@@ -2121,10 +2132,10 @@ drawChart();
     const show=()=>{ const r=y?[1.0,1.2]:[1.2,1.3]; band.style.left=pos(r[0])+'%'; band.style.width=(pos(r[1])-pos(r[0]))+'%';
       b.querySelector('.fb-dot').style.left=pos(1.1)+'%'; yr.textContent=y?'2020':'2000'; setTimeout(()=>{ say.textContent=y?'In range':'Below target'; b.classList.toggle('fa-in',!!y); },700); };
     show(); setInterval(()=>{ if(still()) return; y=1-y; show(); },2600); }
-  // 03 每月重算：月份滑动，限额跟着变（示例月份，限额来自原型的固定表）
+  // 03 每月重算：月份滑动，限额跟着变（示例月份，限额来自建议档位表；偏低时不给限额，先问医生）
   const c=document.getElementById('fa3');
   if(c){ const strip=c.querySelector('.fc-strip'), cells=[...strip.children], lim=[...c.querySelectorAll('.fc-lim b')];
-    const L=[['2,200','1,000','1,900'],['1,800','1,000','1,900'],['2,200','800','1,900'],['1,800','800','1,900'],['2,200','1,100','1,900']];
+    const L=[['2,000','1,000','2,000'],['2,000','800','2,000'],['Ask','800','2,000'],['2,000','1,000','2,000'],['2,000','Ask','2,000']];
     let i=0;
     const show=()=>{ const idx=i+1; cells.forEach((x,k)=>x.classList.toggle('on',k===idx));
       const w=cells[0].getBoundingClientRect().width+8, win=c.querySelector('.fc-win').getBoundingClientRect().width;
