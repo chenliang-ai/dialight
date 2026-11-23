@@ -1535,7 +1535,7 @@ html.still #anno .av-ask i::before{animation:none}
         <div class="read">
         <div class="paper" role="group" aria-label="Demo lab report with three numbered notes">
           <div class="paper-head">
-            <div><strong>Renal panel</strong><small>Demo sample, on hemodialysis with little urine. Not a real patient.</small></div>
+            <div><strong>Renal panel</strong><small>Demo sample, on hemodialysis and passing no urine. Not a real patient.</small></div>
             <div class="paper-date" data-n="1"><span class="mark">1</span>Collected 24 Oct 2026</div>
           </div>
           <table>
@@ -1652,7 +1652,7 @@ html.still #anno .av-ask i::before{animation:none}
           </div>
         </div>
         <div class="a4" role="group" aria-label="One-page summary for the dietitian, demo data">
-          <div><div class="who">Demo patient · F · 68 · peritoneal dialysis, 3 years</div>
+          <div><div class="who">Demo patient · F · 68 · hemodialysis, 3 years</div>
           <div class="meta-l">Diet log · 1–30 Nov · <b>12 days logged</b></div></div>
           <h4>How the month went</h4>
           <dl class="kv">
@@ -1695,7 +1695,7 @@ html.still #anno .av-ask i::before{animation:none}
     <div class="bento">
       <article class="b-go"><div><h3>Travel without<br>missing dialysis.</h3><p>What to pack, who to call, and when to register.</p></div><figure class="ph1"><img src="media/also-first.jpg" width="780" height="1500" loading="lazy" alt="Before you go: a six-step checklist covering documents, registration, the receiving centre, medication and supplies"></figure></article>
       <article class="b-com"><h3>Ask people who’ve been there.</h3><p class="tags"><span>#GoingOut</span><span>#FluidControl</span><span>#PDdiet</span><span>#HighPotassium</span><span>#JobHunting</span><span>#LivingAlone</span></p><img src="media/ll_phone.png" width="233" height="320" loading="lazy" alt=""></article>
-      <article class="b-em"><h3>One screen for an emergency.</h3><ul><li><span>Using</span>1.5% PD fluid, 2 L × 4 a day</li><li><span>Taking</span>Phosphate binder, EPO injections</li><li><span>Allergies</span>None</li></ul></article>
+      <article class="b-em"><h3>One screen for an emergency.</h3><ul><li><span>Using</span>Hemodialysis, 3 × 4 h a week</li><li><span>Taking</span>Phosphate binder, EPO injections</li><li><span>Allergies</span>None</li></ul></article>
       <article class="b-fam"><h3>The whole family can see it.</h3><div class="fam"><span>Her</span><i></i><span>Daughter</span><i></i><span>Husband</span></div></article>
     </div>
   </section>
@@ -1802,7 +1802,7 @@ html.still #anno .av-ask i::before{animation:none}
         <table class="ledger">
         <thead><tr><th>Figure</th><th>Where</th><th>Comes from</th></tr></thead>
         <tbody>
-          <tr><td>800 · 2,000 · 2,000 mg · 58–70 g</td><td>07:10</td><td>The proposed table applied to the demo sheet: hemodialysis, little urine, dry weight 58 kg. The build still has an earlier table.</td></tr>
+          <tr><td>800 · 2,000 · 2,000 mg · 58–70 g</td><td>07:10</td><td>The proposed table applied to the demo sheet: hemodialysis, no urine, dry weight 58 kg. The build still has an earlier table.</td></tr>
           <tr><td>Phosphorus 800 and 1,000, potassium 2,000, sodium 2,000 mg, protein 1.0–1.2 g/kg</td><td>07:10</td><td>China’s Blood Purification SOP 2021. Its potassium figure is for patients who pass no urine.</td></tr>
           <tr><td>No potassium limit and the sodium rule on peritoneal dialysis</td><td>07:10</td><td>Japanese Society for Dialysis Therapy, 2014.</td></tr>
           <tr><td>Potassium high above 5.5</td><td>12:00, 07:10</td><td>UK Kidney Association, 2026: diet advice when potassium stays above 5.5.</td></tr>
@@ -1864,7 +1864,7 @@ const fmt = n => Number(n).toLocaleString('en-US', {maximumFractionDigits: 1});
 })();
 
 /* ---------- 额度条 ----------
-   上限用建议档位（血透、尿少）：血磷偏高 → 800，钾 2000，钠 2000，
+   上限用建议档位（血透、无尿）：血磷偏高 → 800，钾 2000，钠 2000，
    蛋白 1.0–1.2 g/kg × 58 kg = 58–70。原型 quota() 还是旧档位，未同步。
    三餐是原型 seedMenu(0) 配出来的那一桌（2026-11-23 换成建议档位重跑，菜不变），这里只做累加。 */
 const LIM = {ph: 800, k: 2000, na: 2000, p: 70};
