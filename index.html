@@ -1281,9 +1281,10 @@ html.still #anno .av-ask i::before{animation:none}
 .prize{background:var(--ink);color:#fff}.pzin{max-width:1440px;margin:0 auto;padding:30px clamp(20px,4vw,64px);display:grid;grid-template-columns:auto 1.4fr 1fr;gap:clamp(28px,5vw,80px);align-items:center}.prize p{margin:0}.pz1{display:flex;align-items:baseline;gap:12px;color:#FB9E4B}.pz1 b{font:400 76px/1 var(--f-display);letter-spacing:-.03em}.pz1 sup{font-size:.42em;vertical-align:.95em;line-height:0;margin-left:2px}.pz1 span{font:italic 400 34px/1 var(--f-display)}.pz2 b{display:block;font:400 25px/1.2 var(--f-display)}.pz2 span{display:block;margin-top:6px;font:400 16px/1.3 var(--f-label);color:#D9CCC2}
 #day + .stop2{padding-top:64px}
 .lead{display:block!important;margin:44px 0 36px}.lead>p{max-width:30em;margin:0 auto!important;text-align:center}.lead dl{margin:40px 0 0!important;display:grid;grid-template-columns:repeat(5,auto);justify-content:space-between;border-top:1px solid var(--line2);border-bottom:1px solid var(--line2)}.lead dl div{display:block!important;border:0!important;padding:20px 0!important}.lead dt{margin-bottom:8px}
-.fn5 ol{justify-items:center;gap:6px!important}.fn5 li{width:100%!important;margin:0!important;border-radius:0!important;padding:0 12px!important;height:68px;display:flex;flex-direction:row;justify-content:center;align-items:center!important;gap:12px;font-size:16px;color:var(--ink);--i:0;--a:calc(var(--i)*6%);--b:calc((var(--i) + 1)*6%);clip-path:polygon(var(--a) 0,calc(100% - var(--a)) 0,calc(100% - var(--b)) 100%,var(--b) 100%)}.fn5 li:nth-child(1){--i:0;background:#FBE6CC}.fn5 li:nth-child(2){--i:1;background:#F9D6AC}.fn5 li:nth-child(3){--i:2;background:#F6C088}.fn5 li:nth-child(4){--i:3;background:#F2A55A}.fn5 li:nth-child(5){--i:4}.fn5 li b{min-width:0!important;font:400 29px/1 var(--f-display)!important}.fn5 li.last b{font-size:22px!important}
+.fn5 ol{justify-items:center;gap:10px!important}.fn5 li{width:var(--k)!important;margin:0!important;border-radius:16px!important;padding:0 20px!important;min-height:64px;display:flex;align-items:center!important;gap:20px;font-size:16px;line-height:1.25;color:#5A3A1C}.fn5 li:nth-child(1){--k:100%;background:#F1E4D4}.fn5 li:nth-child(2){--k:93%;background:#F8E0C4}.fn5 li:nth-child(3){--k:84%;background:#F5CFA4}.fn5 li:nth-child(4){--k:76%;background:#EFB679}.fn5 li:nth-child(5){--k:68%;color:#fff}.fn5 li b{min-width:4.3em!important;font:600 20px/1 var(--f-label)!important}.fn5 li.last span{color:#EFE6DC}.fn5 .small{margin-top:16px}
 @media (max-width:980px){.pzin{grid-template-columns:auto 1fr}.pz2:last-child{grid-column:2}}
-@media (max-width:700px){.pzin{display:block;padding:26px 20px}.pz2{margin-top:16px!important}.pz2 b{font-size:21px}.lead dl{grid-template-columns:1fr 1fr;gap:0 20px}.lead dl div{padding:12px 0!important}.lead>p{text-align:left}.fn5 li{font-size:14px;gap:8px}.fn5 li b{font-size:25px!important}.fn5 li.last b{font-size:17px!important}#day + .stop2{padding-top:44px}}
+@media (max-width:700px){.pzin{display:block;padding:26px 20px}.pz2{margin-top:16px!important}.pz2 b{font-size:21px}.lead dl{grid-template-columns:1fr 1fr;gap:0 20px}.lead dl div{padding:12px 0!important}.lead>p{text-align:left}.fn5 li{font-size:14.5px;gap:8px;padding:10px 14px!important}.fn5 li b{font-size:17px!important}.fn5 li:nth-child(2){--k:96%}.fn5 li:nth-child(3){--k:92%}.fn5 li:nth-child(4){--k:88%}.fn5 li:nth-child(5){--k:84%}#day + .stop2{padding-top:44px}}
+@media (min-width:981px){.qc{display:flex;flex-direction:column}.qc .chk{flex:1;display:flex;flex-direction:column}.qc .chk li:not(.chk-h){flex:1;align-items:center}}
 .todo{display:none!important}
 </style>
 </head>
@@ -1736,12 +1737,13 @@ html.still #anno .av-ask i::before{animation:none}
         <p class="panel-h"><b>2</b>Built on a table you can trace</p>
         <p class="sub">Raw food values come from published tables. None is made up by the model.</p>
         <ol>
-          <li><b>243</b><span>everyday foods</span></li>
-          <li><b>242</b><span>with published values</span></li>
-          <li><b>214</b><span>graded A to C</span></li>
-          <li><b>175</b><span>graded A or B</span></li>
-          <li class="last"><b>Dietitians</b><span>review</span></li>
+          <li><b>≈12,000</b><span>Four food tables, merged</span></li>
+          <li><b>≈3,100</b><span>Very salty foods and phosphate additives out</span></li>
+          <li><b>≈900</b><span>Values agree across two tables</span></li>
+          <li><b>243</b><span>Everyday foods, graded A to D</span></li>
+          <li class="last"><b>200+</b><span>Reviewed by dietitians</span></li>
         </ol>
+        <p class="small">≈ is a design estimate. A few very salty foods stay in as warnings, graded D.</p>
       </div>
     </div>
     <div class="lines">
@@ -1823,7 +1825,7 @@ html.still #anno .av-ask i::before{animation:none}
           <tr><td>429 and ≈300 mg</td><td>12:00</td><td>Recipe R-206 in the build, one of two servings. The second figure assumes 30% of the potassium in the pork and pepper is lost, as the build does. Two reviews back boiling in general and give no figure for this dish: <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC3797240">2013</a>, <a href="https://pmc.ncbi.nlm.nih.gov/articles/PMC5986175">2016</a>.</td></tr>
           <tr><td>Art. 13 and 21</td><td>07:10</td><td>Detailed Rules for the Supervision of Internet Diagnosis and Treatment (Trial), NHC, 8 Feb 2022. Read on nhc.gov.cn.</td></tr>
           <tr><td>243 foods, 54 recipes</td><td>12:00, The rest</td><td>Counted in the build's data on 20 Nov 2026. 57 recipes with the three counter-examples.</td></tr>
-          <tr><td>243, 242, 214, 175</td><td>How it stays safe</td><td>Counted in the build’s food table: one food has only a label, 28 are graded D and shown with a swap, 39 are C. Dietitian review is the team’s record, kept outside the table.</td></tr>
+          <tr><td>≈12,000 to 200+</td><td>How it stays safe</td><td>≈ figures are the team’s design estimates from the final pitch. 243 is counted in the build. 200+ is the team’s review record, kept outside the build.</td></tr>
           <tr><td>75 foods</td><td>08:05</td><td>Computed on this page from the food table.</td></tr>
           <tr><td>600 mg sodium</td><td>08:05</td><td>UK front-of-pack guidance, red for salt above 1.5 g per 100 g. China's 2019 salt-reduction messages use the same 600 mg.</td></tr>
           <tr><td>Food values</td><td>08:05</td><td>All 156 entries from the China Food Composition Tables checked against the online table on 20 Nov 2026: 155 match.</td></tr>
