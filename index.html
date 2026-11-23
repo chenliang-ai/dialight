@@ -1269,10 +1269,10 @@ body,body.w0,body.w1,body.w2,body.w3,body.w4{background-color:var(--bg)!importan
 .anno .mark{color:var(--card)}
 .anno li.is-on .mark{color:var(--ink)}
 .lim{break-inside:avoid;border-collapse:collapse;width:100%;max-width:640px;font:400 16px/1.4 var(--f-label)}.lim th{text-align:left;font:600 12px/1 var(--f-mono);color:var(--faint);letter-spacing:.05em;text-transform:uppercase;padding:0 12px 10px 0}.lim td{padding:10px 12px 10px 0;border-top:1px solid var(--line2);color:var(--sub)}.lim td b{color:var(--deep)}#p0 .limn{font-size:15px;color:var(--sub);margin:0 0 12px}
-.anno#anno{display:grid;grid-template-rows:repeat(3,1fr);gap:16px;height:100%;margin:0;padding:0}
-#anno>li{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto 1fr;gap:0 16px;background:#F6ECE1;border:0;border-radius:24px;padding:24px 26px;margin:0}
+.anno#anno{display:grid;grid-template-rows:auto 1fr 1fr;gap:14px;height:100%;margin:0;padding:0}
+#anno>li{display:grid;grid-template-columns:auto minmax(0,1fr);grid-template-rows:auto 1fr;gap:0 16px;background:#F6ECE1;border:0;border-radius:24px;padding:18px 24px;margin:0}
 #anno>li.is-on{background:#EEE4F9}
-#anno .av{grid-column:2;align-self:end;margin-top:12px}
+#anno .av{grid-column:2;align-self:end;margin-top:10px}
 #anno .av p{margin:0;display:flex;align-items:baseline;gap:12px;font:500 16px/1 var(--f-label);color:var(--sub)}
 #anno .av em{font:400 clamp(44px,4vw,60px)/.9 var(--f-display);font-style:normal;letter-spacing:-.03em;color:var(--deep)}
 #anno .av s{font:400 clamp(28px,2.6vw,38px)/.9 var(--f-display);color:var(--faint);text-decoration-thickness:1.5px}
@@ -1285,6 +1285,8 @@ body,body.w0,body.w1,body.w2,body.w3,body.w4{background-color:var(--bg)!importan
 html.still #anno .av-ask i::before{animation:none}
 @media (prefers-reduced-motion:reduce){#anno .av-ask i::before{animation:none}}
 @media (max-width:520px){#anno>li{padding:20px 18px}#anno .av{grid-column:1/-1}}
+#anno .av-life i{display:block;height:10px;border-radius:9px;background:#E9DACB;margin:10px 0 7px;overflow:hidden}#anno .av-life u{display:block;height:100%;width:86.7%;border-radius:9px;background:var(--brand2)}#anno .av-life .e{justify-content:space-between;font-size:13.5px}
+#chart .tag-l{font:700 13px var(--f-label);fill:#fff;pointer-events:none}#chart .better{font:italic 400 22px var(--f-display);fill:var(--deep)}
 .todo{display:none!important}
 </style>
 </head>
@@ -1565,7 +1567,7 @@ html.still #anno .av-ask i::before{animation:none}
         </div>
 
         <ol class="anno" id="anno">
-          <li data-n="1" tabindex="0"><span class="mark">1</span><div><b>The date stays with it.</b><span>An old report shows its age.</span></div><div class="av" aria-hidden="true"><p class="av-age"><em>26</em>days old</p></div></li>
+          <li data-n="1" tabindex="0"><span class="mark">1</span><div><b>A report lasts 30 days.</b><span>After 30 days, the app asks for a new report.</span></div><div class="av" aria-hidden="true"><div class="av-life"><p><em>26</em>of 30 days</p><i><u></u></i><p class="e"><span>24 Oct</span><span>Time for a new one</span></p></div></div></li>
           <li data-n="2" tabindex="0"><span class="mark">2</span><div><b>The table decides.</b><span>High phosphorus cuts the limit.</span></div><div class="av" aria-hidden="true"><p class="av-cut"><s>1,000</s><svg viewBox="0 0 40 16"><path d="M2 8h34M29 2l7 6-7 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><em>800</em>mg</p></div></li>
           <li data-n="3" tabindex="0"><span class="mark">3</span><div><b>The model only reads.</b><span>Smudged? It leaves a blank and asks.</span></div><div class="av" aria-hidden="true"><p class="av-ask"><span>Fasting glucose</span><i></i><span>mmol/L</span></p></div></li>
         </ol>
@@ -1590,8 +1592,8 @@ html.still #anno .av-ask i::before{animation:none}
         <div class="plot">
         <div class="plot-bar" id="chips" role="group" aria-label="Filter by food group"></div>
         <div class="plot-card" id="plot-card">
-          <p class="plot-title">Phosphorus against protein, per 100 g of edible portion</p>
-          <p class="plot-sub">Each mark is one food. The zones are cut at 10, 15 and 20 mg of phosphorus per gram of protein.</p>
+          <p class="plot-title">More protein, less phosphorus is the better pick.</p>
+          <p class="plot-sub">Each dot is a food, per 100 g. A lettered tag is a food moved down for salt, potassium or soaking.</p>
           <div class="legend" id="legend"></div>
           <svg id="chart" role="img" aria-label="Scatter plot of protein foods by protein and phosphorus content, divided into four grade zones"></svg>
           <div class="tip" id="tip" role="status"></div>
@@ -1605,10 +1607,8 @@ html.still #anno .av-ask i::before{animation:none}
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <p>For meat, fish, eggs and soy, the rule is phosphorus per gram of protein. Under 10 mg/g is A, 10 to 15 is B, 15 to 20 is C, and over 20 is D. The letter says what to do with the food. It is not a health score.</p>
-            <p><b id="n-fit">–</b> of the <b id="n-all">–</b> protein foods land where that ratio puts them. The other <b id="n-exc">–</b> were caught by a rule higher in the list: the sodium cap, the potassium gate, or dried goods that need soaking first.</p>
-            <p><b>Values.</b> <span id="src-line">–</span></p>
-            <p><b>Cut-offs.</b> Grading standard v1.0, 8 Nov 2026, twelve rules checked top to bottom. The ratio cut-offs are the team's; the literature uses them only as table boundaries. The 600 mg sodium line is the UK front-of-pack red for salt.</p>
+            <p>The rule is phosphorus per gram of protein: <b>A</b> under 10 mg, <b>B</b> 10–15, <b>C</b> 15–20, <b>D</b> over 20. <b id="n-fit">–</b> of <b id="n-all">–</b> foods follow it. <b id="n-exc">–</b> move down for salt, potassium or soaking.</p>
+            <p>Values: China Food Composition Tables, China’s 2024 dietary guide, USDA. The cut-offs are our team’s.</p>
           </div>
         </details>
   </section>
@@ -1841,7 +1841,7 @@ html.still #anno .av-ask i::before{animation:none}
         <table class="ledger">
         <thead><tr><th>Figure</th><th>Where</th><th>Comes from</th><th>Status</th></tr></thead>
         <tbody>
-          <tr><td>21 and 45 days</td><td>07:10</td><td>Staleness thresholds in the build.</td><td><span class="st ok">From the build</span></td></tr>
+          <tr><td>30 days</td><td>07:10</td><td>Product spec (PRD v1). The frozen build still shows the age from day 21 and asks for a retest from day 45.</td><td><span class="st part">Spec</span></td></tr>
           <tr><td>800 · 2,200 · 1,900 mg · 70 g</td><td>07:10, bars</td><td>The build's limit table applied to the demo sheet, at a dry weight of 58 kg.</td><td><span class="st ok">From the build</span></td></tr>
           <tr><td>The bands behind those limits</td><td>07:10</td><td>Phosphorus 800 and 1,000 mg, protein 1.0 and 1.2 g/kg: WS/T 557-2017, China's 2021 nutrition guideline, Blood Purification SOP 2021. Phosphorus 1,100, potassium 1,800 and 2,200, sodium 1,500 and 1,900 mg: none found.</td><td><span class="st part">Partly</span></td></tr>
           <tr><td>Art. 13 and 21</td><td>07:10</td><td>Detailed Rules for the Supervision of Internet Diagnosis and Treatment (Trial), NHC, 8 Feb 2022. Read on nhc.gov.cn.</td><td><span class="st ok">Checked</span></td></tr>
@@ -1936,7 +1936,7 @@ const sumDay = (day, k) => { const t = {ph: 0, k: 0, na: 0, p: 0}; day.slice(0, 
 
 /* ---------- 08:05 磷蛋白比分级图 ---------- */
 const GROUPS = ['Fish & shellfish', 'Meat', 'Poultry', 'Soy', 'Eggs'];
-const ACTION = {A: 'Eat freely', B: 'Watch the portion', C: 'Prep first', D: 'Swap it out'};
+const ACTION = {A: 'Good choice', B: 'Watch the portion', C: 'Prep first', D: 'Swap it out'};
 const SOAK = new Set(['Tofu skin', 'Yuba sticks', 'Dried scallops']);
 const wedge = r => r < 10 ? 'A' : r < 15 ? 'B' : r < 20 ? 'C' : 'D';
 const FOODS = (window.DIALIGHT_FOODS || []).filter(f => GROUPS.includes(f.c) && f.p && f.ph != null).map(f => {
@@ -1955,9 +1955,6 @@ let filter = 'All', picked = null;
 (function fillText(){
   const all = FOODS.length, exc = FOODS.filter(f => f.exc).length;
   $('#n-all').textContent = all; $('#n-all2').textContent = all; $('#n-exc').textContent = exc; $('#n-fit').textContent = all - exc;
-  const by = {}; FOODS.forEach(f => by[f.s] = (by[f.s] || 0) + 1);
-  $('#src-line').textContent = Object.keys(by).sort((a, b) => by[b] - by[a]).map(k => k + ' (' + by[k] + ')').join(', ') + '. All per 100 g edible portion.';
-
   const chips = $('#chips');
   ['All'].concat(GROUPS).forEach(g => {
     const b = h('button', 'chip'); b.type = 'button'; b.setAttribute('aria-pressed', String(g === 'All'));
@@ -1969,9 +1966,9 @@ let filter = 'All', picked = null;
 
   const lg = $('#legend');
   const mk = (shape, label) => { const s = h('span'); const v = el('svg', {width: 16, height: 16, viewBox: '-8 -8 16 16', 'aria-hidden': 'true'});
-    v.appendChild(shape === 'dot' ? el('circle', {r: 5, fill: 'var(--ink)'}) : el('rect', {x: -5, y: -5, width: 10, height: 10, transform: 'rotate(45)', fill: 'var(--deep)'}));
+    v.appendChild(shape === 'dot' ? el('circle', {r: 5, fill: 'var(--ink)'}) : el('rect', {x: -7, y: -7, width: 14, height: 14, rx: 4, fill: 'var(--deep)'}));
     s.appendChild(v); s.appendChild(document.createTextNode(label)); lg.appendChild(s); };
-  mk('dot', 'Graded by the ratio (' + (all - exc) + ')'); mk('dia', 'Caught by an earlier rule (' + exc + ')');
+  mk('dot', 'Graded by its zone (' + (all - exc) + ')'); mk('dia', 'Moved down, tag shows the grade (' + exc + ')');
 
   const tb = $('#tbl'); const hd = h('tr');
   [['Food', ''], ['Group', ''], ['Protein g', 'r'], ['Phosphorus mg', 'r'], ['mg per g', 'r'], ['Grade', ''], ['Source', '']].forEach(c => { const th = h('th', c[1], c[0]); hd.appendChild(th); });
@@ -2001,10 +1998,10 @@ function drawChart(){
   const O = [x(0), y(0)], TL = [x(0), y(YMAX)], TR = [x(XMAX), y(YMAX)], BR = [x(XMAX), y(0)];
   const top = r => [x(YMAX / r), y(YMAX)];
   const poly = (pts, fill) => svg.appendChild(el('polygon', {points: pts.map(p => p.join(',')).join(' '), fill: fill, stroke: 'var(--card)', 'stroke-width': 3, 'stroke-linejoin': 'round'}));
-  poly([O, TL, top(20)], 'var(--d-bg)');
-  poly([O, top(20), top(15)], 'var(--c-bg)');
-  poly([O, top(15), top(10)], 'var(--b-bg)');
-  poly([O, TR, BR], 'var(--a-bg)');
+  poly([O, TL, top(20)], '#EAD7C9');
+  poly([O, top(20), top(15)], '#F5D3AC');
+  poly([O, top(15), top(10)], '#FBE7CB');
+  poly([O, TR, BR], '#E3EBE4');
 
   /* 轴 */
   for (let v = 0; v <= XMAX; v += 10){ svg.appendChild(el('text', {x: x(v), y: H - m.b + 20, 'text-anchor': 'middle', class: 'tick'}, v)); }
@@ -2012,6 +2009,7 @@ function drawChart(){
   svg.appendChild(el('text', {x: m.l + pw, y: H - 6, 'text-anchor': 'end', class: 'axis-t'}, 'Protein, g per 100 g →'));
   svg.appendChild(el('text', {x: 4, y: 16, class: 'axis-t'}, '↑ Phosphorus, mg per 100 g'));
 
+  if (!narrow) svg.appendChild(el('text', {x: x(XMAX) - 12, y: y(18), 'text-anchor': 'end', class: 'better'}, 'Better ↘'));
   /* 区的名字直接写在区里 */
   const zone = (L, px, py, anchor) => {
     svg.appendChild(el('text', {x: px, y: py, class: 'zone-l', 'text-anchor': anchor || 'start', style: narrow ? 'font-size:24px' : ''}, L));
@@ -2031,17 +2029,20 @@ function drawChart(){
 
   /* 点：按比值判的用墨色圆点，被前面规则截住的用深橙菱形 */
   const LABELS = narrow ? {} :
-    {'Sausage': [12, -8, 'start'], 'Dried baby shrimp': [-12, 5, 'end'], 'Dried scallops': [-12, 4, 'end'], 'Tofu skin': [12, 0, 'start'], 'Yuba sticks': [12, 9, 'start'], 'Fermented black beans': [12, 4, 'start']};
+    {'Sausage': [4, -16, 'start', 'Sausage, salty'], 'Dried baby shrimp': [-15, 5, 'end', 'Dried baby shrimp, salty'], 'Dried scallops': [-15, 5, 'end', 'Dried scallops, soak first'], 'Tofu skin': [15, 0, 'start', 'Tofu skin'], 'Fermented black beans': [15, 5, 'start', 'Fermented black beans'], 'Egg white': [8, -14, 'start', 'Egg white, today’s breakfast']};
   const order = FOODS.slice().sort((a, b) => (a.exc - b.exc));
   order.forEach(f => {
     const g = el('g', {class: 'pt', transform: 'translate(' + x(f.p).toFixed(1) + ',' + y(f.ph).toFixed(1) + ')', tabindex: f.exc ? 0 : -1, role: 'img', 'aria-label': f.n + ', grade ' + f.g + ', ' + f.r.toFixed(1) + ' milligrams of phosphorus per gram of protein'});
     g.dataset.c = f.c; g.dataset.id = f.id;
     g.appendChild(el('circle', {r: 13, fill: 'transparent'}));
     g.appendChild(el('circle', {class: 'sel', r: 11, fill: 'none', stroke: 'var(--lilac)', 'stroke-width': 4, opacity: picked === f.id ? 1 : 0}));
-    if (f.exc) g.appendChild(el('rect', {x: -DM / 2, y: -DM / 2, width: DM, height: DM, transform: 'rotate(45)', fill: 'var(--deep)', stroke: 'var(--card)', 'stroke-width': RING}));
+    if (f.exc){ const S = narrow ? 15 : 20;
+      g.appendChild(el('rect', {x: -S / 2, y: -S / 2, width: S, height: S, rx: 6, fill: 'var(--deep)', stroke: '#fff', 'stroke-width': 1.5}));
+      g.appendChild(el('text', {y: narrow ? 3.6 : 4.6, 'text-anchor': 'middle', class: 'tag-l', style: 'font-size:' + (narrow ? 10 : 13) + 'px'}, f.g)); }
+    else if (f.n === 'Egg white') g.appendChild(el('circle', {r: R + 3, fill: 'var(--brand2)', stroke: '#fff', 'stroke-width': 2}));
     else g.appendChild(el('circle', {r: R, fill: 'var(--ink)', stroke: 'var(--card)', 'stroke-width': RING}));
     const L = LABELS[f.n];
-    if (L) g.appendChild(el('text', {x: L[0], y: L[1], 'text-anchor': L[2], class: 'dl', 'paint-order': 'stroke', stroke: 'var(--card)', 'stroke-width': 4, 'stroke-linejoin': 'round'}, f.n));
+    if (L) g.appendChild(el('text', {x: L[0], y: L[1], 'text-anchor': L[2], class: 'dl', 'paint-order': 'stroke', stroke: 'var(--card)', 'stroke-width': 4, 'stroke-linejoin': 'round'}, L[3] || f.n));
     g.addEventListener('pointerenter', () => showTip(f, g));
     g.addEventListener('pointerleave', hideTip);
     g.addEventListener('focus', () => showTip(f, g));
