@@ -201,36 +201,6 @@ details.tbl th{position:sticky;top:0;background:var(--a-bg);text-align:left;font
 details.tbl td{padding:8px 12px;border-top:1px solid var(--line)}
 details.tbl td.r, details.tbl th.r{text-align:right;font-family:var(--f-mono);font-variant-numeric:tabular-nums}
 
-/* ---------- 12:00 质检单 ---------- */
-.gate{margin-top:44px}
-.gate-grid{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,410px);gap:44px;align-items:start}
-@media (max-width:940px){ .gate-grid{grid-template-columns:1fr;gap:28px} }
-.rcard{background:var(--card);border-radius:22px;box-shadow:0 0 0 1.5px var(--line2);padding:24px 28px 24px}
-.rcard h3{font:600 25px/1.2 var(--f-label);margin:8px 0 18px}
-.rcard dl{margin:0;display:grid;grid-template-columns:112px minmax(0,1fr);gap:12px 16px;font:400 17px/1.5 var(--f-label)}
-.rcard dt{font:600 12px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;color:var(--faint);padding-top:5px}
-.rcard dd{margin:0}
-.rcard ol{margin:0;padding-left:1.25em}
-.rcard mark{background:var(--b-bg);color:inherit;padding:1px 4px;border-radius:3px;box-shadow:inset 0 -2.5px 0 var(--deep)}
-.nums{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
-.nums span{font:500 14.5px/1 var(--f-mono);background:var(--a-bg);border-radius:8px;padding:9px 11px}
-.nums span.hit{background:var(--b-bg);box-shadow:inset 0 -2.5px 0 var(--deep)}
-@media (max-width:560px){ .rcard{padding:20px 18px} .rcard dl{grid-template-columns:1fr;gap:2px 0} .rcard dd{margin-bottom:10px} }
-.slip{background:var(--card);padding:22px 24px 26px;box-shadow:0 0 0 1.5px var(--line2);border-top:3px dashed var(--ink);border-bottom:3px dashed var(--ink)}
-.slip-h{font:600 12.5px/1.3 var(--f-mono);letter-spacing:.06em;text-transform:uppercase;margin:0 0 4px}
-.slip ul{list-style:none;margin:10px 0 0;padding:0}
-.slip li{display:grid;grid-template-columns:20px minmax(0,1fr) auto;gap:4px 12px;padding:13px 0;border-top:1px dashed var(--line2);align-items:start}
-.slip .q{font:600 16.5px/1.35 var(--f-label)}
-.slip .st{font:600 12px/1.6 var(--f-mono);letter-spacing:.05em;text-transform:uppercase;white-space:nowrap}
-.slip .m{grid-column:2 / -1;font:400 15px/1.45 var(--f-label);color:var(--sub)}
-.slip li.hit .m{color:var(--ink)}
-.slip svg{margin-top:4px}
-.stamp-row{display:flex;gap:18px;align-items:center;margin-top:20px;padding-top:18px;border-top:2px solid var(--ink)}
-.stamp{flex:none;font:700 21px/1 var(--f-mono);letter-spacing:.12em;text-transform:uppercase;padding:11px 15px 10px;border:3px solid var(--ink);border-radius:6px;transform:rotate(-3deg)}
-.stamp.fix{color:var(--brown);border-color:var(--brown)}
-.stamp.block{background:var(--ink);color:var(--card)}
-.stamp-row p{margin:0;font:400 15.5px/1.45 var(--f-label)}
-
 /* ---------- 17:30 同一天画两遍 ---------- */
 .twice{margin-top:44px;display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:36px}
 @media (max-width:860px){ .twice{grid-template-columns:1fr;gap:44px} }
@@ -1292,7 +1262,15 @@ html.still #anno .av-ask i::before{animation:none}
 .pfr{width:100%;border:0;background:none;padding:0;text-align:left;cursor:pointer;color:inherit;border-radius:10px}.pfr:hover,.pfr[aria-pressed=true]{background:#F1E3D4}.pb-n{font:400 16px/1.2 var(--f-label);padding:0 0 0 4px}.pb-n small{font:400 13px/1.2 var(--f-label);color:var(--deep);margin-left:8px;white-space:nowrap}.pb-t{position:relative;height:36px;background:linear-gradient(#DCCAB9,#DCCAB9) 0 0/1.5px 100% no-repeat,linear-gradient(#DCCAB9,#DCCAB9) 41.67% 0/1.5px 100% no-repeat,linear-gradient(#DCCAB9,#DCCAB9) 62.5% 0/1.5px 100% no-repeat,linear-gradient(#DCCAB9,#DCCAB9) 83.33% 0/1.5px 100% no-repeat}.pb-t i{position:absolute;left:0;top:9px;height:18px;background:#E3B98F;border-radius:0 9px 9px 0}.pfr.today i{background:var(--brand2)}.pfr.exc i{background:repeating-linear-gradient(135deg,#E3B98F 0 4px,#F3E1CE 4px 8px)}.pb-t em{position:absolute;top:8px;padding-left:8px;font:500 14px/20px var(--f-mono);color:var(--sub);white-space:nowrap}.pfr.exc em{color:var(--deep)}.pb-cut{font:600 13.5px/1 var(--f-label);color:var(--sub);margin:16px 0 6px 4px}.pb-axis{font:400 13px/1.4 var(--f-label);color:var(--sub);text-align:right;margin:10px 0 0}.plot-title{margin-bottom:16px}
 .forher{font:400 15px/1.4 var(--f-label);color:var(--deep);margin:-8px 0 18px}.slip-sw{display:flex;gap:8px;margin:12px 0 0;flex-wrap:wrap}.slip-sw button{border:1.5px solid var(--line2);background:none;border-radius:999px;padding:7px 14px;font:500 14.5px/1.2 var(--f-label);cursor:pointer;color:inherit}.slip-sw button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
 @media (max-width:700px){.how3{grid-template-columns:1fr;gap:10px}.pb-head,.pfr{grid-template-columns:98px minmax(0,1fr);gap:8px}.pb-n{font-size:14px}.pb-n small{display:block;margin:2px 0 0;font-size:12px;white-space:normal}.pb-scale{height:34px}.pb-scale small{display:none}.pb-scale span{padding-left:5px}.pb-t em{font-size:12px;padding-left:5px}}
-.todo{display:none!important}
+.rw{display:grid;grid-template-columns:1fr 34px 1fr;gap:10px;align-items:stretch;margin-top:30px}.rw article{background:var(--card);border-radius:26px;padding:26px 28px;display:flex;flex-direction:column}.rw-a{align-self:center;text-align:center;font:400 28px/1 var(--f-display);color:var(--deep);font-style:normal}.rw-h{margin:0 0 16px;display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline}.rw-h b{font:500 27px/1.1 var(--f-display)}.rw-h span{font:500 15px/1.3 var(--f-label);color:var(--sub)}.rw .hi .rw-h span{color:var(--deep)}.rw dl{margin:0 0 22px;display:grid;grid-template-columns:84px 1fr;gap:12px 12px;font:400 17px/1.45 var(--f-label)}.rw dt{color:var(--sub);font-size:15px}.rw dd{margin:0}.rw u{text-decoration:none;box-shadow:inset 0 -2.5px 0 var(--brand2)}.rw-n{margin:auto 0 0;padding-top:16px;border-top:1px solid var(--line2);display:flex;align-items:baseline;gap:12px}.rw-n b{font:400 52px/1 var(--f-display)}.rw .hi .rw-n b{color:var(--deep)}.rw-n span{font:400 15px/1.3 var(--f-label);color:var(--sub)}
+.bento{display:grid;grid-template-columns:1.25fr 1fr 1fr;grid-template-rows:300px 270px;gap:18px;margin-top:40px}.bento article{background:#F6ECE1;border-radius:28px;padding:30px;overflow:hidden;position:relative}.bento h3{font:400 29px/1.1 var(--f-display);letter-spacing:-.015em;margin:0}.bento p{font:400 17px/1.45 var(--f-label);color:var(--sub);margin:12px 0 0}.b-go{grid-row:1/3;background:#FBE3C6!important}.b-go h3{font-size:38px}.ph1{margin:0;position:absolute;left:50%;transform:translateX(-50%);top:212px;width:310px;border:7px solid #161514;border-bottom:0;border-radius:38px 38px 0 0;overflow:hidden;background:#fff}.ph1 img{width:100%;height:auto;display:block}.b-com{grid-column:2/4}.b-com h3{max-width:12em;font-size:34px}.b-com .tags{display:flex;flex-wrap:wrap;gap:10px;margin:34px 0 0;max-width:34em}.tags span{background:#fff;border-radius:999px;padding:12px 20px;font:500 18px/1 var(--f-label);color:var(--ink)}.tags span:nth-child(3n+1){background:#E4D6FA}.b-em ul{list-style:none;margin:20px 0 0;padding:16px 18px;background:#fff;border-radius:18px;font:500 15.5px/1.35 var(--f-label)}.b-em li{display:grid;grid-template-columns:72px 1fr;padding:6px 0}.b-em li span{color:var(--faint);font-weight:400}.b-fam{background:#EDE4F8!important}.fam{display:flex;align-items:center;margin-top:56px}.fam span{width:82px;height:82px;border-radius:50%;background:#fff;display:grid;place-items:center;font:500 15px/1 var(--f-label);flex:none}.fam span:first-child{background:#B292ED}.fam i{flex:1;border-top:2px dashed #B292ED}
+.chk{list-style:none;margin:20px 0 0;padding:0}.chk li{display:grid;grid-template-columns:1fr 92px 1.2fr;gap:14px;align-items:center;padding:18px 0;border-top:1px solid var(--line2);font:500 17px/1.35 var(--f-label)}.chk li>span:first-child{color:var(--sub);font-weight:400}.chk b{justify-self:start;border-radius:999px;padding:7px 13px;font:600 14px/1 var(--f-label)}.chk .fx{background:#F9D9B0}.chk .bl{background:var(--ink);color:#fff}.chk .ok{background:#DCE6DF}.chk .chk-h{border:0;padding:0 0 10px;font:500 14px/1 var(--f-label)}.chk .chk-h span:last-child{grid-column:3;color:var(--sub)}
+.logoline{margin:22px 0 34px;background:#F6ECE1;border-radius:28px;padding:22px 34px;display:flex;align-items:center;gap:24px}.logoline img{height:130px;width:auto;mix-blend-mode:multiply}.logoline i{font:400 28px/1 var(--f-display);color:var(--deep)}.logoline figcaption{margin-left:36px;font:400 17px/1.45 var(--f-label);color:var(--sub);max-width:22em}.logoline b{display:block;font:400 27px/1.15 var(--f-display);color:var(--ink);margin-bottom:6px}
+.lead{display:grid;grid-template-columns:1.6fr 1fr;gap:64px;align-items:end;margin:48px 0 40px}.lead>p{font:400 clamp(25px,2.4vw,36px)/1.25 var(--f-display);letter-spacing:-.015em;margin:0}.lead dl{margin:0}.lead dl div{display:grid;grid-template-columns:76px 1fr;padding:11px 0;border-top:1px solid var(--line2);font:500 16.5px/1.3 var(--f-label)}.lead dt{color:var(--faint);font-weight:400}.lead dd{margin:0}.lead4{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:1fr 1fr;gap:18px}.lead4 li{background:#F6ECE1;border-radius:26px;padding:28px 30px 30px}.lead4 small{display:block;font:500 15px/1 var(--f-label);color:var(--deep);margin-bottom:16px}.lead4 b{display:block;font:400 30px/1.12 var(--f-display);letter-spacing:-.015em;margin-bottom:10px}.lead4 span{font:400 17px/1.45 var(--f-label);color:var(--sub)}
+.next{list-style:none;margin:40px 0 0;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.next li{background:#F6ECE1;border-radius:26px;padding:28px}.next b{display:block;font:400 25px/1.15 var(--f-display);margin-bottom:8px}.next span{font:400 17px/1.45 var(--f-label);color:var(--sub)}.next .n-big{grid-column:1/3;background:#FBE3C6;display:flex;align-items:center;gap:30px}.next .n-big img{height:190px;width:auto}.next .n-big b{font-size:34px}.n-vid i{display:block;height:104px;border-radius:16px;background:radial-gradient(circle at 50% 50%,#fff 0 30px,transparent 31px),#F3C48F;margin-bottom:18px;position:relative}.n-vid i::after{content:"";position:absolute;left:calc(50% - 7px);top:calc(50% - 11px);border:11px solid transparent;border-left:17px solid var(--deep);border-right:0}
+@media (max-width:980px){.bento{grid-template-columns:1fr 1fr;grid-template-rows:none}.b-go{grid-row:auto;grid-column:1/3;min-height:560px}.b-com{grid-column:1/3}.lead{grid-template-columns:1fr;gap:28px}.next{grid-template-columns:1fr 1fr}}
+@media (max-width:700px){.rw{grid-template-columns:1fr}.rw-a{transform:rotate(90deg)}.rw article{padding:22px 20px}.rw dl{grid-template-columns:68px 1fr}.bento,.lead4,.next{grid-template-columns:minmax(0,1fr)}.b-go,.b-com,.next .n-big{grid-column:auto}.bento article{padding:24px 22px}.ph1{width:270px}.tags span{font-size:15px;padding:10px 14px}.fam{margin:26px 0 4px}.fam span{width:72px;height:72px;font-size:14px}.logoline{flex-wrap:wrap;padding:22px;gap:14px}.logoline img{height:96px}.logoline figcaption{margin:0}.next .n-big{display:block}.next .n-big img{height:130px}.chk li{grid-template-columns:1fr auto;gap:8px}.chk li>span:last-child{grid-column:1/3}.chk .chk-h{display:none}.lead dl div{grid-template-columns:64px 1fr}}
+.b-com img{position:absolute;right:34px;bottom:26px;height:200px;width:auto}.b-com .tags{max-width:26em}.safe-grid .qc .sub{font-size:16px;color:var(--sub);margin:6px 0 0}.lead4 small{text-transform:none;letter-spacing:0}@media (max-width:700px){.b-com img{position:static;height:120px;display:block;margin:18px 0 0}}.b-em h3{font-size:26px}.b-em ul{margin-top:14px;padding:12px 16px;font-size:15px}.todo{display:none!important}
 </style>
 </head>
 <body>
@@ -1617,20 +1595,26 @@ html.still #anno .av-ask i::before{animation:none}
   </section>
   <section class="stop2" id="p2" data-rail="3">
     <p class="when"><time>12:00</time><span>Lunch</span></p>
-        <h3 class="q3">Can we cook something new today?</h3>
-        <p class="answer">The model drafts it for her limits. Code checks it before she sees it.</p>
-        <div class="gate">
-        <div class="plot-bar" id="gate-tabs" role="group" aria-label="Choose a test card"></div>
-        <div class="gate-grid">
-          <div class="rcard" id="rcard"></div>
-          <div class="slip" id="slip" aria-live="polite"></div>
+        <h3 class="q3">Can she have pork with green pepper?</h3>
+        <p class="answer">Yes. The recipe is rewritten for her latest lab report.</p>
+        <div class="rw">
+          <article><p class="rw-h"><b>This month</b><span>Potassium 4.2 · in range</span></p>
+            <dl><dt>Prepare</dt><dd>For two: pork 150 g, green pepper 150 g. <u>Straight into the pan.</u></dd>
+            <dt>Season</dt><dd>Salt 1.5 g, <u>soy sauce 4 g</u>, oil 8 g.</dd>
+            <dt>Cook</dt><dd>Stir-fry the pork and set aside. Cook the pepper <u>1 minute</u>. Return the pork and season.</dd></dl>
+            <p class="rw-n"><b>429</b><span>mg of potassium per serving</span></p></article>
+          <i class="rw-a" aria-hidden="true">→</i>
+          <article class="hi"><p class="rw-h"><b>Next month</b><span>Potassium 5.5 · high</span></p>
+            <dl><dt>Prepare</dt><dd>For two: pork 150 g, green pepper 150 g. <u>Blanch both first.</u></dd>
+            <dt>Season</dt><dd>Salt 1.5 g, <u>soy sauce 2.5 g</u>, oil 8 g.</dd>
+            <dt>Cook</dt><dd><u>Blanch the pork and pepper.</u> Stir-fry, then return to the pan and season.</dd></dl>
+            <p class="rw-n"><b>294</b><span>mg of potassium per serving, 31% less</span></p></article>
         </div>
-      </div>
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <ol class="how3"><li><b>Ask</b><span>If a dish is not in our 54 recipes, the model drafts one.</span></li><li><b>Fit</b><span>The draft is written for her daily limits and one portion.</span></li><li><b>Check</b><span>Code fixes or blocks it before she sees it.</span></li></ol>
-            <p class="how3n">The three drafts are test inputs written for this page. The results come from the prototype’s own check, run offline on 23 Nov 2026.</p>
+            <ol class="how3"><li><b>Read</b><span>Take the latest lab results and today’s limits.</span></li><li><b>Rewrite</b><span>Change the amounts, preparation and seasoning for her.</span></li><li><b>Check</b><span>Test the new recipe with fixed rules before she sees it.</span></li></ol>
+            <p class="how3n">Amounts from the recipe in the app. Potassium is worked out from the food table, raw and blanched.</p>
           </div>
         </details>
   </section>
@@ -1642,7 +1626,7 @@ html.still #anno .av-ask i::before{animation:none}
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <ol class="how3"><li><b>Limit</b><span>Her potassium result sets the day’s limit: 2,200 mg, or 1,800 mg above 5.5 mmol/L.</span></li><li><b>Filter</b><span>Only recipes graded A or B can be picked.</span></li><li><b>Build</b><span>Every meal has a staple and a protein. Lunch and dinner add a vegetable.</span></li></ol>
+            <ol class="how3"><li><b>Limit</b><span>Her potassium result sets the day’s limit: 2,200 mg, or 1,800 mg above 5.5 mmol/L.</span></li><li><b>Rank</b><span>Recipes are sorted from A to D, so better choices are seen first.</span></li><li><b>Build</b><span>Every meal has a staple and a protein. Lunch and dinner add a vegetable.</span></li></ol>
             <p class="how3n">Not built yet: changing dinner after a heavy lunch.</p>
           </div>
         </details>
@@ -1695,24 +1679,18 @@ html.still #anno .av-ask i::before{animation:none}
             <p class="how3n">The month shown is made-up demo data.</p>
           </div>
         </details>
-    <figure class="dayend">
-      <blockquote><p>“<span class="todo">待补：一位内测用户的原话（不写名字），说用了之后哪里变轻松了</span>”</p></blockquote>
-      <figcaption>A family member, one of twelve patients’ families in the closed trial</figcaption>
-    </figure>
   </section>
 
   <section class="sec" id="also">
     <p class="label">Beyond the meal plan</p>
     <h2 class="fh big">And it reaches <em>past the kitchen.</em></h2>
     <p class="fsub">Getting out of the house, and finding each other.</p>
-    <ul class="tiles">
-      <li><img src="media/also-travel.jpg" width="300" height="300" loading="lazy" alt="Travel screen, top part"><b>Travel</b><span>A checklist for a first long trip, and dialysis-centre details by city.</span></li>
-      <li><span class="ph">not pictured</span><b>Community</b><span>Posts from other patients and families, reviewed before they appear, each with a report button.</span></li>
-      <li><img src="media/also-fridge.jpg" width="300" height="300" loading="lazy" alt="Snap fridge screen"><b>Fridge photo</b><span>Photograph the fridge; the model names what it sees and the table plans a meal from it.</span></li>
-      <li><img src="media/also-foods.jpg" width="300" height="300" loading="lazy" alt="Food library screen"><b>Food library</b><span>243 foods in 12 groups, each with its source.</span></li>
-      <li><img src="media/also-recipes.jpg" width="300" height="300" loading="lazy" alt="All recipes screen"><b>Recipes</b><span>54 recipes and three worked examples of what not to cook.</span></li>
-      <li><span class="ph">not pictured</span><b>Emergency card</b><span>Contacts, dialysis prescription and allergies on one screen.</span></li>
-    </ul>
+    <div class="bento">
+      <article class="b-go"><div><h3>Travel without<br>missing dialysis.</h3><p>What to pack, who to call, and when to register.</p></div><figure class="ph1"><img src="media/also-first.jpg" width="780" height="1500" loading="lazy" alt="Before you go: a six-step checklist covering documents, registration, the receiving centre, medication and supplies"></figure></article>
+      <article class="b-com"><h3>Ask people who’ve been there.</h3><p class="tags"><span>#GoingOut</span><span>#FluidControl</span><span>#PDdiet</span><span>#HighPotassium</span><span>#JobHunting</span><span>#LivingAlone</span></p><img src="media/ll_phone.png" width="233" height="320" loading="lazy" alt=""></article>
+      <article class="b-em"><h3>One screen for an emergency.</h3><ul><li><span>Using</span>1.5% PD fluid, 2 L × 4 a day</li><li><span>Taking</span>Phosphate binder, EPO injections</li><li><span>Allergies</span>None</li></ul></article>
+      <article class="b-fam"><h3>The whole family can see it.</h3><div class="fam"><span>Her</span><i></i><span>Daughter</span><i></i><span>Husband</span></div></article>
+    </div>
   </section>
 
   <!-- ============ 安全：两块 ============ -->
@@ -1722,25 +1700,15 @@ html.still #anno .av-ask i::before{animation:none}
     <p class="fsub">The model writes the words. The table decides the numbers.</p>
     <div class="safe-grid">
       <div class="qc">
-        <p class="panel-h"><b>1</b>Checked before anyone sees it</p>
-        <div class="node prompt">A dialysis-specific prompt</div>
-        <div class="vline"></div>
-        <div class="gates">
-          <p><b>Four gates</b>checking the card, not the nutrition advice</p>
-          <ol>
-            <li><b>A · Structure</b>Every field present</li>
-            <li><b>B · Numbers</b>Per serving: phosphorus ≤ 600 mg, potassium ≤ 1,500, sodium ≤ 1,200, protein ≤ 60 g</li>
-            <li><b>C · Vague words</b>“A little salt” becomes grams</li>
-            <li><b>D · Never list</b>11 categories and red-line words. A hit blocks the card</li>
-          </ol>
-        </div>
-        <div class="fork"><i></i><i></i><i></i></div>
-        <div class="out">
-          <div class="o1"><b>Passed</b>Shown as it is</div>
-          <div class="o2"><b>Fixed</b>Blanching added or grams changed. Every change is listed</div>
-          <div class="o3"><b>Blocked</b>A search for “low-sodium salt”, which swaps sodium for potassium, is not for someone whose potassium is high</div>
-        </div>
-        <div class="node dark">Swapped for the table’s own portion. The reason stays on screen.</div>
+        <p class="panel-h"><b>1</b>Every recipe is checked first</p>
+        <p class="sub">The model writes a draft. Fixed rules decide what she sees.</p>
+        <ul class="chk">
+          <li class="chk-h"><span>The draft says</span><span>She sees</span></li>
+          <li><span>“Salt to taste”</span><b class="fx">Fixed</b><span>Salt, 1 g or less</span></li>
+          <li><span>Potato, straight into the pot</span><b class="fx">Fixed</b><span>Blanch 1 minute first</span></li>
+          <li><span>Low-sodium salt</span><b class="bl">Blocked</b><span>Not shown, with the reason: it swaps sodium for potassium</span></li>
+          <li><span>Complete, in grams, nothing forbidden</span><b class="ok">Passed</b><span>Shown as written</span></li>
+        </ul>
       </div>
       <div class="funnel">
         <p class="panel-h"><b>2</b>Built on a table you can trace</p>
@@ -1778,10 +1746,11 @@ html.still #anno .av-ask i::before{animation:none}
       <ul class="gstk"><li class="ga"><b>A</b>Good choice</li><li class="gb"><b>B</b>Watch the portion</li><li class="gc"><b>C</b>Blanch 2 min</li><li class="gd"><b>D</b>Swap it out</li></ul>
       <ul class="strip"><li style="--c:#FB9E4B">Warm orange</li><li style="--c:#F08C2E">Stove orange</li><li style="--c:#FDF5F1;--t:#161514">Rice white</li><li style="--c:#B292ED">Liangliang</li><li style="--c:#161514">Ink</li></ul>
     </figure>
+    <figure class="logoline"><img src="media/logo-sketch.jpg" width="639" height="640" loading="lazy" alt="My pencil sketch of the logo: a kitchen scale with a spatula for a needle"><i aria-hidden="true">→</i><img src="media/logo.png" width="318" height="360" loading="lazy" alt="Final logo: an orange kitchen scale with a plane for a needle"><figcaption><b>One scale for meals and travel.</b>The needle started as a spatula. It became a plane.</figcaption></figure>
     <ol class="three">
       <li><b>No blue, no red.</b>Levels differ by lightness, for eyes that diabetes has often damaged.</li>
       <li><b>One question a screen.</b>Large type, big buttons, steps read aloud.</li>
-      <li><b>Grades you can act on.</b>A C comes with a step. A D comes with a swap.</li>
+      <li><b>A grade is an instruction.</b>Every grade says what to do. C means blanch it first. D means choose something else.</li>
     </ol>
   </section>
 
@@ -1789,75 +1758,54 @@ html.still #anno .av-ask i::before{animation:none}
   <!-- ============ 我做了什么（团队放在这里） ============ -->
   <section class="sec role" id="role">
     <p class="label">My part</p>
-    <h2 class="fh big">My part: <em>team lead and product manager.</em></h2>
-    <dl class="meta">
-      <div><dt>My role</dt><dd>Team lead, product manager. Drew the logo, made the film.</dd></div>
-      <div><dt>Team</dt><dd>Five people, four universities</dd></div>
-      <div><dt>When</dt><dd>Sep to Nov 2026</dd></div>
-      <div><dt>Status</dt><dd>Closed trial, 12 patients</dd></div>
-    </dl>
-    <p class="intro">I started the project after seeing what my teammate’s family went through, and I led the team. We built every version together. As product manager I wrote the decision table and the product spec, and decided what the product would and would not do, including the rules the language model may not cross. I drew the logo and made <a href="#" class="filmlink">the film</a>.</p>
-    <div class="mine">
-      <article class="dtable">
-        <p class="label">The decision table, 3 Nov</p>
-        <p>One rule: every question gets one answer, one owner and one date. "Let's think about it" was not an allowed answer.</p>
-        <table>
-          <thead><tr><th>Question</th><th>Answer</th></tr></thead>
-          <tbody>
-            <tr><td>How many cities does travel cover?</td><td>The mid-term plan said eight. Twelve days was not enough to check eight, so two.</td></tr>
-            <tr><td>When does someone have to sign in?</td><td>Only to post in the community. Looking things up needs no account.</td></tr>
-            <tr><td>Who vouches for the food values?</td><td>The plan promised a teammate would check them, and nobody had taken it on. We asked two dietitians to review the data.</td></tr>
-          </tbody>
-        </table>
-      </article>
-      <article class="logo2">
-        <p class="label">The logo</p>
-        <div class="lg"><figure><img src="media/logo-sketch.jpg" width="639" height="640" loading="lazy" alt="Pencil sketch of the logo: a kitchen scale whose needle is a spatula, with a small plane on the dial"><figcaption>Sketch</figcaption></figure><i aria-hidden="true">→</i><figure><img src="media/logo.png" width="318" height="360" loading="lazy" alt="Final logo: an orange kitchen scale whose needle is a plane"><figcaption>Final</figcaption></figure></div>
-        <p>A kitchen scale. In my sketch the needle was a spatula. In the final mark it became a plane, so one dial holds both meals and travel.</p>
-      </article>
+    <h2 class="fh big">I set the direction <em>and led the team.</em></h2>
+    <div class="lead">
+      <p>I started Dialight after seeing what my teammate’s family went through. I led five people from that story to a product families could try.</p>
+      <dl><div><dt>Role</dt><dd>Team lead, product manager</dd></div><div><dt>Team</dt><dd>5 people, 4 universities</dd></div><div><dt>Time</dt><dd>Sep to Nov 2026</dd></div><div><dt>Status</dt><dd>Closed trial, 12 patients</dd></div></dl>
     </div>
-    <div class="credits"><p class="label">The team</p><ul class="team2"><li class="me"><img src="media/team/liangchen.jpg" width="160" height="160" loading="lazy" alt=""><b>Chen Liang</b><span>Started it, led the team, wrote the product spec, drew the logo</span><small>UC Berkeley</small></li><li><img src="media/team/chenxinrui.jpg" width="160" height="160" loading="lazy" alt=""><b>Chen Xinrui</b><span>Strategy and product definition</span><small>Tsinghua</small></li><li><img src="media/team/lvsiheng-id.jpg" width="160" height="160" loading="lazy" alt=""><b>Lü Siheng</b><span>Research and the user interviews</span><small>Manchester</small></li><li><img src="media/team/lizhicheng.jpg" width="160" height="160" loading="lazy" alt=""><b>Li Zhicheng</b><span>Project management and engineering</span><small>Cornell</small></li><li><img src="media/team/maokelan.jpg" width="160" height="160" loading="lazy" alt=""><b>Mao Kelan</b><span>Operations and brand</span><small>Cornell</small></li></ul><p class="small"><span class="todo">待确认：四位队友同意放照片</span></p></div>
+    <ol class="lead4">
+      <li><small>Direction</small><b>From tracking meals to deciding dinner.</b><span>I chose the problem and set what the product is for.</span></li>
+      <li><small>Safety</small><b>Rules decide. The model writes.</b><span>I drew the lines the model may not cross.</span></li>
+      <li><small>Scope</small><b>Do less, and check it.</b><span>I cut travel from eight cities to two, because we could not check eight in time.</span></li>
+      <li><small>Team</small><b>One answer, one owner, one date.</b><span>I ran every open question this way, and wrote the product spec.</span></li>
+    </ol>
+    <div class="credits"><p class="label">The team</p><ul class="team2"><li class="me"><img src="media/team/liangchen.jpg" width="160" height="160" loading="lazy" alt=""><b>Chen Liang</b><span>Started it, set the direction, led the team</span><small>UC Berkeley</small></li><li><img src="media/team/chenxinrui.jpg" width="160" height="160" loading="lazy" alt=""><b>Chen Xinrui</b><span>Strategy and product definition</span><small>Tsinghua</small></li><li><img src="media/team/lvsiheng-id.jpg" width="160" height="160" loading="lazy" alt=""><b>Lü Siheng</b><span>Research and the user interviews</span><small>Manchester</small></li><li><img src="media/team/lizhicheng.jpg" width="160" height="160" loading="lazy" alt=""><b>Li Zhicheng</b><span>Project management and engineering</span><small>Cornell</small></li><li><img src="media/team/maokelan.jpg" width="160" height="160" loading="lazy" alt=""><b>Mao Kelan</b><span>Operations and brand</span><small>Cornell</small></li></ul><p class="small"><span class="todo">待确认：四位队友同意放照片</span></p></div>
     <p class="corner">Started during the Tsinghua SDG Open Innovation Marathon × S-Makers, 2026.</p>
+  </section>
+
+  <section class="sec" id="next">
+    <p class="label">What comes next</p>
+    <h2 class="fh big">And next, <em>an ordinary life.</em></h2>
+    <p class="fsub">Not built yet. This is where we want to take it.</p>
+    <ol class="next">
+      <li class="n-big"><img src="media/ll_travel.png" width="277" height="320" loading="lazy" alt=""><div><b>Trips planned around dialysis.</b><span>We handle the centre, the supplies and the pace of the day. Families only think about what any traveller thinks about: where to go, what to see.</span></div></li>
+      <li class="n-vid"><i aria-hidden="true"></i><b>Cook along with a video.</b><span>Each recipe shown step by step, with the blanching done on screen.</span></li>
+      <li><b>A clinician confirms the limits.</b><span>A doctor or dietitian approves or changes each number for her.</span></li>
+      <li><b>One-to-one with a dietitian.</b><span>Her month of meals is already on the page when the call starts.</span></li>
+      <li><b>Certified places to stay.</b><span>Hotels and towns checked for dialysis travellers.</span></li>
+    </ol>
   </section>
 
   <section class="sec" id="notes">
     <p class="label">Fine print</p>
     <h2 class="fh big">And the fine print, <em>for anyone checking.</em></h2>
     <details class="more wide">
-      <summary>What it does not do yet</summary>
-      <div class="more-in">
-        <div class="limits">
-        <ul>
-          <li>Five of the nine figures in the limit table have no guideline behind them, and no guideline sets limits by lab result.</li>
-          <li>A meal that goes over does not change the plan for the rest of the day.</li>
-          <li>The diet rules are the same for peritoneal dialysis and haemodialysis.</li>
-          <li>The month view and the one-page summary run on built-in sample data.</li>
-          <li>With the model offline, free-text search understands Chinese dish names only.</li>
-          <li>Two dietitians reviewed the food data. The limit table has not had a clinical review.</li>
-        </ul>
-        </div>
-      </div>
-    </details>
-    <details class="more wide">
       <summary>Where each figure comes from</summary>
       <div class="more-in">
-        <p class="small">A filled dot means read from the build, counted here, or checked against the original. Half filled means only some of it has a source. A dashed ring means no source was found.</p>
         <table class="ledger">
-        <thead><tr><th>Figure</th><th>Where</th><th>Comes from</th><th>Status</th></tr></thead>
+        <thead><tr><th>Figure</th><th>Where</th><th>Comes from</th></tr></thead>
         <tbody>
-          <tr><td>30 days</td><td>07:10</td><td>Product spec (PRD v1). The frozen build still shows the age from day 21 and asks for a retest from day 45.</td><td><span class="st part">Spec</span></td></tr>
-          <tr><td>800 · 2,200 · 1,900 mg · 70 g</td><td>07:10, bars</td><td>The build's limit table applied to the demo sheet, at a dry weight of 58 kg.</td><td><span class="st ok">From the build</span></td></tr>
-          <tr><td>The bands behind those limits</td><td>07:10</td><td>Phosphorus 800 and 1,000 mg, protein 1.0 and 1.2 g/kg: WS/T 557-2017, China's 2021 nutrition guideline, Blood Purification SOP 2021. Phosphorus 1,100, potassium 1,800 and 2,200, sodium 1,900 mg: no source found. The frozen build still drops sodium to 1,500 mg when blood sodium is high; this page leaves that out, because blood sodium tracks water balance more than salt eaten. Potassium 2,200 mg is above the SOP’s 2,000 mg for patients who pass no urine; the build does not ask yet.</td><td><span class="st part">Partly</span></td></tr>
-          <tr><td>Art. 13 and 21</td><td>07:10</td><td>Detailed Rules for the Supervision of Internet Diagnosis and Treatment (Trial), NHC, 8 Feb 2022. Read on nhc.gov.cn.</td><td><span class="st ok">Checked</span></td></tr>
-          <tr><td>243 foods, 54 recipes</td><td>12:00, The rest</td><td>Counted in the build's data on 20 Nov 2026. 57 recipes with the three counter-examples.</td><td><span class="st ok">Counted</span></td></tr>
-          <tr><td>75 foods, 65 and 10</td><td>08:05</td><td>Computed on this page from the food table.</td><td><span class="st ok">Counted</span></td></tr>
-          <tr><td>600 mg sodium</td><td>08:05</td><td>UK front-of-pack guidance, red for salt above 1.5 g per 100 g. China's 2019 salt-reduction messages use the same 600 mg.</td><td><span class="st ok">Checked</span></td></tr>
-          <tr><td>10, 15, 20 mg/g</td><td>08:05</td><td>Team grading standard v1.0. The literature has these as table boundaries only (Kalantar-Zadeh 2010; JSDT 2025). No guideline grades single foods by ratio.</td><td><span class="st part">Partly</span></td></tr>
-          <tr><td>Food values</td><td>08:05</td><td>All 156 entries from the China Food Composition Tables checked against the online table on 20 Nov 2026: 155 match. USDA entries: see notes.</td><td><span class="st ok">Checked</span></td></tr>
-          <tr><td>600 · 1,500 · 1,200 mg · 60 g</td><td>12:00</td><td>Per-serving caps in the build's check.</td><td><span class="st ok">From the build</span></td></tr>
-          <tr><td>674 · 1,371 · 1,662 mg · 63.4 g</td><td>17:30, bars</td><td>The build's table for the demo sheet. Offline run, 20 Nov 2026.</td><td><span class="st ok">From the build</span></td></tr>
-          <tr><td>679 · 1,300 · 1,619 mg · 66.5 g</td><td>17:30</td><td>The same run with potassium set to 5.9 mmol/L.</td><td><span class="st ok">From the build</span></td></tr>
-          <tr><td>12 of 30 days</td><td>21:00</td><td>Sample month in the build, with the weekly figures on the one-page summary.</td><td><span class="st ok">From the build</span></td></tr>
+          <tr><td>800 · 2,200 · 1,900 mg · 70 g</td><td>07:10</td><td>The build's limit table applied to the demo sheet, at a dry weight of 58 kg.</td></tr>
+          <tr><td>800 and 1,000 mg phosphorus, 1.0 and 1.2 g/kg protein</td><td>07:10</td><td>WS/T 557-2017, China’s 2021 nutrition guideline, Blood Purification SOP 2021.</td></tr>
+          <tr><td>429 and 294 mg</td><td>12:00</td><td>Recipe R-206 in the build, one of two servings. The blanched figure is the food table’s: pork 278 and pepper 114 mg per 100 g.</td></tr>
+          <tr><td>Art. 13 and 21</td><td>07:10</td><td>Detailed Rules for the Supervision of Internet Diagnosis and Treatment (Trial), NHC, 8 Feb 2022. Read on nhc.gov.cn.</td></tr>
+          <tr><td>243 foods, 54 recipes</td><td>12:00, The rest</td><td>Counted in the build's data on 20 Nov 2026. 57 recipes with the three counter-examples.</td></tr>
+          <tr><td>75 foods</td><td>08:05</td><td>Computed on this page from the food table.</td></tr>
+          <tr><td>600 mg sodium</td><td>08:05</td><td>UK front-of-pack guidance, red for salt above 1.5 g per 100 g. China's 2019 salt-reduction messages use the same 600 mg.</td></tr>
+          <tr><td>Food values</td><td>08:05</td><td>All 156 entries from the China Food Composition Tables checked against the online table on 20 Nov 2026: 155 match.</td></tr>
+          <tr><td>674 · 1,371 · 1,662 mg · 63.4 g</td><td>17:30</td><td>The build's table for the demo sheet. Offline run, 20 Nov 2026.</td></tr>
+          <tr><td>679 · 1,300 · 1,619 mg · 66.5 g</td><td>17:30</td><td>The same run with potassium set to 5.9 mmol/L.</td></tr>
+          <tr><td>12 of 30 days</td><td>21:00</td><td>Sample month in the build, with the weekly figures on the one-page summary.</td></tr>
         </tbody>
       </table>
       </div>
@@ -2021,72 +1969,6 @@ function pick(f){
   box.appendChild(h('b', '', f.n + '. '));
   box.appendChild(document.createTextNode(fmt(f.ph) + ' mg phosphorus ÷ ' + fmt(f.p) + ' g protein (per 100 g) = ' + f.r.toFixed(1) + '. Grade ' + f.g + ': ' + ACTION[f.g].toLowerCase() + '. ' + (f.exc ? f.why + ' ' : '') + 'Source: ' + f.s + ', entry ' + f.id + '.'));
 }
-
-/* ---------- 12:00 质检单 ----------
-   三张测试卡的判定和理由，是 2026-11-23 断网运行原型里的 aiCheck() 得到的原样结果（译成英文）。
-   卡片正文里用数组表示一段话：嵌套数组是被质检点到的词。 */
-const CHECKS = [
-  ['Is the card complete?', 'Ingredients, steps and all four numbers.'],
-  ['Can someone follow it?', 'Every amount in grams or spoons.'],
-  ['Does it fit her day?', 'Compared with the limits from her own lab report.'],
-  ['Anything on the never list?', 'Ham, pickles, long-simmered stock and more.']
-];
-const CARDS = [
-  {tab: 'Potato beef stew', name: 'Potato beef stew',
-   ing: ['Beef brisket 100 g, ', ['potato 200 g'], '.'],
-   steps: [['Start the beef in cold water, boil 2 minutes, rinse.'], ['Add water, simmer 50 minutes.'], ['Add the potato, 15 minutes more. Salt, 1 g.']],
-   sea: ['Salt, 1 g'], nums: [['Phosphorus 300 mg'], ['Potassium 1,100 mg', 1], ['Sodium 460 mg'], ['Protein 24 g']],
-   vars: [
-    {t: 'Her potassium: 4.2', k: '2,200', res: [['ok'], ['fix', 'Potato is high in potassium, so a step is added: cut small, blanch 1 minute.'], ['ok', 'Uses 50% of her potassium for the day.'], ['ok']], verdict: ['fix', 'Fixed', 'Shown with the extra step.']},
-    {t: 'If it were 5.9', k: '1,800', res: [['ok'], ['fix', 'Potato is high in potassium, so a step is added: cut small, blanch 1 minute.'], ['fix', 'Uses 61% of her potassium. Halve the portion, or keep the other two meals light.'], ['ok']], verdict: ['fix', 'Fixed', 'Same dish, with a portion warning for this report.']}]},
-  {tab: 'Braised pork', name: 'Home-style braised pork',
-   ing: ['Pork belly 80 g, ', ['salt to taste'], ', ', ['a little oil'], '.'],
-   steps: [['Cut the pork and stir-fry it.'], ['Cover with water, simmer 40 minutes.'], ['Season before serving.']],
-   sea: [['Salt to taste']], nums: [['Phosphorus 140 mg'], ['Potassium 180 mg'], ['Sodium 820 mg'], ['Protein 11 g']],
-   vars: [{k: '2,200', res: [['ok'], ['fix', '“To taste” becomes salt 1 g or less, oil 5 g or less.'], ['ok', 'Uses 43% of her sodium for the day.'], ['ok']], verdict: ['fix', 'Fixed', 'Shown with exact amounts.']}]},
-  {tab: 'Ham fried rice', name: 'Ham fried rice',
-   ing: ['Cooked rice 150 g, ', ['ham 50 g'], ', one egg.'],
-   steps: [['Dice the ham.'], ['Stir-fry over medium heat, 3 minutes.'], ['Add 1 small spoon of soy sauce, 2 minutes more.']],
-   sea: ['Soy sauce, 1 small spoon'], nums: [['Phosphorus 290 mg'], ['Potassium 330 mg'], ['Sodium 1,000 mg'], ['Protein 19 g']],
-   vars: [{k: '2,200', res: [['ok'], ['ok'], ['ok', 'Uses 53% of her sodium for the day.'], ['block', 'Ham is processed meat. Its phosphate additives are hidden phosphorus.']], verdict: ['block', 'Blocked', 'She sees why, not the recipe.']}]}
-];
-(function(){
-  const tabs = $('#gate-tabs'), rc = $('#rcard'), slip = $('#slip');
-  const para = (parent, segs) => segs.forEach(x => parent.appendChild(Array.isArray(x) ? h('mark', '', x[0]) : document.createTextNode(x)));
-  const sym = kind => { const v = el('svg', {width: 16, height: 16, viewBox: '-8 -8 16 16', 'aria-hidden': 'true'});
-    if (kind === 'ok') v.appendChild(el('path', {d: 'M-5.5 0.5 L-1.5 4.5 L5.5 -4', fill: 'none', stroke: 'var(--ink)', 'stroke-width': 2.4, 'stroke-linecap': 'round', 'stroke-linejoin': 'round'}));
-    else if (kind === 'fix') v.appendChild(el('rect', {x: -5, y: -5, width: 10, height: 10, transform: 'rotate(45)', fill: 'var(--deep)'}));
-    else { v.appendChild(el('rect', {x: -7, y: -7, width: 14, height: 14, rx: 2, fill: 'var(--ink)'})); v.appendChild(el('path', {d: 'M-3.5 -3.5 L3.5 3.5 M3.5 -3.5 L-3.5 3.5', stroke: 'var(--card)', 'stroke-width': 2.2, 'stroke-linecap': 'round'})); }
-    return v; };
-  const WORD = {ok: 'OK', fix: 'Changed', block: 'Stopped'};
-  function show(i, vi){
-    const c = CARDS[i], V = c.vars[vi || 0];
-    $$('.chip', tabs).forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
-    rc.replaceChildren();
-    rc.appendChild(h('p', 'label', 'Model draft · test input'));
-    rc.appendChild(h('h3', '', c.name));
-    rc.appendChild(h('p', 'forher', 'Her day, up to: phosphorus 800 · potassium ' + V.k + ' · sodium 1,900 mg'));
-    const dl = h('dl');
-    const row = (k, node) => { dl.appendChild(h('dt', '', k)); const dd = h('dd'); dd.appendChild(node); dl.appendChild(dd); };
-    const ing = h('span'); para(ing, c.ing); row('Ingredients', ing);
-    const ol = h('ol'); c.steps.forEach(st => { const li = h('li'); para(li, st); ol.appendChild(li); }); row('Steps', ol);
-    const sea = h('span'); para(sea, c.sea); row('Seasoning', sea);
-    rc.appendChild(dl);
-    const nums = h('div', 'nums'); c.nums.forEach(n => nums.appendChild(h('span', n[1] ? 'hit' : '', n[0]))); rc.appendChild(nums);
-
-    slip.replaceChildren();
-    slip.appendChild(h('p', 'slip-h', 'Check before showing'));
-    if (c.vars.length > 1){ const sw = h('div', 'slip-sw'); c.vars.forEach((x, j) => { const b = h('button', '', x.t); b.type = 'button'; b.setAttribute('aria-pressed', String(j === (vi || 0))); b.addEventListener('click', () => show(i, j)); sw.appendChild(b); }); slip.appendChild(sw); }
-    const ul = h('ul');
-    CHECKS.forEach((ck, j) => { const r = V.res[j], li = h('li', r[0] === 'ok' ? '' : 'hit');
-      li.appendChild(sym(r[0])); li.appendChild(h('span', 'q', ck[0])); li.appendChild(h('span', 'st', WORD[r[0]]));
-      li.appendChild(h('span', 'm', r[1] || ck[1])); ul.appendChild(li); });
-    slip.appendChild(ul);
-    const sr = h('div', 'stamp-row'); sr.appendChild(h('span', 'stamp ' + V.verdict[0], V.verdict[1])); sr.appendChild(h('p', '', V.verdict[2])); slip.appendChild(sr);
-  }
-  CARDS.forEach((c, i) => { const b = h('button', 'chip', c.tab); b.type = 'button'; b.addEventListener('click', () => show(i)); tabs.appendChild(b); });
-  show(0);
-})();
 
 /* ---------- 17:30 同一天画两遍 ----------
    两桌菜都是原型 seedMenu(0) 的原样输出：左边是演示化验单（血钾 4.2），
