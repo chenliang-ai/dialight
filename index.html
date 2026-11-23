@@ -1527,7 +1527,7 @@ body,body.w0,body.w1,body.w2,body.w3,body.w4{background-color:var(--bg)!importan
         <h3 class="q3">The lab report is back. What does it say?</h3>
         <p class="answer">It copies what is printed and stops there.</p>
         <div class="read">
-        <div class="paper" role="group" aria-label="Demo lab report with five numbered notes">
+        <div class="paper" role="group" aria-label="Demo lab report with three numbered notes">
           <div class="paper-head">
             <div><strong>Renal panel</strong><small>Demo sample. Not a real patient.</small></div>
             <div class="paper-date" data-n="1"><span class="mark">1</span>Collected 24 Oct 2026</div>
@@ -1535,30 +1535,28 @@ body,body.w0,body.w1,body.w2,body.w3,body.w4{background-color:var(--bg)!importan
           <table>
             <thead><tr><th>Test</th><th style="text-align:right">Result</th><th></th><th>Unit</th><th>Reference</th><th></th></tr></thead>
             <tbody>
-              <tr data-n="2"><td>Potassium</td><td class="num">4.2</td><td class="flag"></td><td>mmol/L</td><td class="ref">3.5–5.5</td><td class="mk"><span class="mark">2</span></td></tr>
-              <tr data-n="3"><td>Phosphorus</td><td class="num">2.25</td><td class="flag">H</td><td>mmol/L</td><td class="ref">1.13–1.78</td><td class="mk"><span class="mark">3</span></td></tr>
+              <tr><td>Potassium</td><td class="num">4.2</td><td class="flag"></td><td>mmol/L</td><td class="ref">3.5–5.5</td><td class="mk"></td></tr>
+              <tr data-n="2"><td>Phosphorus</td><td class="num">2.25</td><td class="flag">H</td><td>mmol/L</td><td class="ref">1.13–1.78</td><td class="mk"><span class="mark">2</span></td></tr>
               <tr><td>Calcium</td><td class="num">2.31</td><td class="flag"></td><td>mmol/L</td><td class="ref">2.10–2.50</td><td class="mk"></td></tr>
               <tr><td>Sodium</td><td class="num">138</td><td class="flag"></td><td>mmol/L</td><td class="ref">135–145</td><td class="mk"></td></tr>
               <tr><td>Albumin</td><td class="num">33</td><td class="flag">L</td><td>g/L</td><td class="ref">38–55</td><td class="mk"></td></tr>
               <tr><td>Triglycerides</td><td class="num">1.8</td><td class="flag">H</td><td>mmol/L</td><td class="ref">0.45–1.70</td><td class="mk"></td></tr>
-              <tr data-n="4"><td>Fasting glucose</td><td class="num"><span class="smudge" aria-label="unreadable">6.1</span></td><td class="flag"></td><td>mmol/L</td><td class="ref">4.4–7.0</td><td class="mk"><span class="mark">4</span></td></tr>
+              <tr data-n="3"><td>Fasting glucose</td><td class="num"><span class="smudge" aria-label="unreadable">6.1</span></td><td class="flag"></td><td>mmol/L</td><td class="ref">4.4–7.0</td><td class="mk"><span class="mark">3</span></td></tr>
             </tbody>
           </table>
-          <div class="paper-foot" data-n="5"><span>End of report</span><span class="mark">5</span></div>
+          <div class="paper-foot"><span>End of report</span></div>
         </div>
 
         <ol class="anno" id="anno">
-          <li data-n="1" tabindex="0"><span class="mark">1</span><div><b>The date travels with the numbers.</b><span>This sheet is 26 days old on the day we follow. Past 21 days the app shows the age next to every result. Past 45 it says a retest is due.</span></div></li>
-          <li data-n="2" tabindex="0"><span class="mark">2</span><div><b>Number and unit, as printed.</b><span>A sheet in mg/dL is converted to mmol/L, and the screen says it was converted.</span></div></li>
-          <li data-n="3" tabindex="0"><span class="mark">3</span><div><b>The H belongs to the lab.</b><span>It is copied along with the value. The model adds no reading of its own.</span></div></li>
-          <li data-n="4" tabindex="0"><span class="mark">4</span><div><b>Smudged, so skipped.</b><span>An unreadable field is left empty and the app asks for it to be typed. It does not guess.</span></div></li>
-          <li data-n="5" tabindex="0"><span class="mark">5</span><div><b>Limits come from a table, not from the model.</b><span>Phosphorus is flagged high, so today's limit is 800 mg, not 1,000. Albumin is flagged low, so the protein target is 1.2 g per kg, which is 70 g at 58 kg. The bars on the right get their tops here.</span></div></li>
+          <li data-n="1" tabindex="0"><span class="mark">1</span><div><b>The date stays with it.</b><span>An old report shows its age.</span></div></li>
+          <li data-n="2" tabindex="0"><span class="mark">2</span><div><b>The table decides.</b><span>High phosphorus cuts the limit to 800 mg.</span></div></li>
+          <li data-n="3" tabindex="0"><span class="mark">3</span><div><b>The model only reads.</b><span>Smudged? It leaves a blank and asks.</span></div></li>
         </ol>
       </div>
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <p>The model has one job here, which is transcription: the number, the unit, and the lab's own flag. It does not explain what a high phosphorus means. Turning the sheet into today's limits is a separate step, done by a short fixed table in the code that the model cannot change.</p>
+            <p>The model has one job here, which is transcription: the numbers and the date. It does not explain what a high phosphorus means. Turning the sheet into today's limits is a separate step, done by a short fixed table in the code that the model cannot change.</p>
             <p><b>The fixed table.</b> Phosphorus 800, 1,000 or 1,100 mg for a high, in-range or low result. Potassium 1,800 mg if high, otherwise 2,200. Sodium 1,500 mg if high, otherwise 1,900. Protein 1.2 g per kg of dry weight if albumin is low, otherwise 1.0. Phosphorus 800 to 1,000 mg and protein 1.0 to 1.2 g/kg match Chinese dialysis guidance. The other figures, and setting limits by lab result at all, are the team's own.</p>
             <p><b>Why it only transcribes.</b> China's Detailed Rules for the Supervision of Internet Diagnosis and Treatment (Trial), 2022, say AI software may not stand in for a physician (Art. 13) and may not generate prescriptions (Art. 21). The rules bind hospitals offering care online; we drew our own line from them.</p>
           </div>
