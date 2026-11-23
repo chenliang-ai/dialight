@@ -1240,7 +1240,8 @@ body,body.w0,body.w1,body.w2,body.w3,body.w4{background-color:var(--bg)!importan
 .wcard.go .mc-cal span i,.mcard.go .mc-cal span i,html.still .mc-cal span i{opacity:1;transform:none}
 .mc-cal li.v{background:#E3E9E6;box-shadow:inset 0 0 0 1.5px #7F948C}
 .mc-cal li.v em{position:absolute;right:7px;top:4px;font:600 15px/1 var(--f-label);font-style:normal;color:#5E736C}
-@media (max-width:900px){ .mcard{grid-template-columns:1fr;padding:28px 22px;gap:26px} }
+@media (max-width:900px){ .mcard{grid-template-columns:minmax(0,1fr);padding:28px 22px;gap:26px} }
+@media (max-width:520px){ .mcard{padding:26px 16px} .mc-cal{padding:16px 12px 18px} .mc-cal ol{grid-template-columns:repeat(7,minmax(0,1fr));gap:4px} .mc-cal li{padding:5px 4px;border-radius:8px} .mc-cal span{gap:2px} .mc-cal span i{width:5px;height:5px} .mc-cal li.v em{right:4px;font-size:12px} }
 /* v26：只居中标题和一行副标题，长段落一律左对齐 */
 .fsub{max-width:none}
 .sec > .intro,.role .intro{text-align:left;max-width:38em;margin-left:auto;margin-right:auto}
@@ -1263,6 +1264,10 @@ body,body.w0,body.w1,body.w2,body.w3,body.w4{background-color:var(--bg)!importan
 @media(max-width:1180px){.duo.l,.duo.r{grid-template-columns:minmax(0,1fr)}}@media(min-width:1181px){.duo .lr>ul,.duo .lr .rl{align-content:center}.duo .lr>ul{align-items:start}}
 @media(max-width:1180px) and (min-width:700px){.duo .ev{grid-template:auto/1fr 1.4fr}}
 .b-steps small.tr{display:block;margin-top:8px;font:400 13.5px/1.4 var(--f-label);color:var(--faint)}
+@media (max-width:900px){.fn3{grid-template-columns:minmax(0,1fr)!important}.fn3>li,.fn3 .fv{min-width:0}}
+.todo{max-width:100%;white-space:normal;overflow-wrap:anywhere}
+.anno .mark{color:var(--card)}
+.anno li.is-on .mark{color:var(--ink)}
 .todo{display:none!important}
 </style>
 </head>
