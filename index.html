@@ -1287,6 +1287,11 @@ html.still #anno .av-ask i::before{animation:none}
 @media (max-width:520px){#anno>li{padding:20px 18px}#anno .av{grid-column:1/-1}}
 #anno .av-life i{display:block;height:10px;border-radius:9px;background:#E9DACB;margin:10px 0 7px;overflow:hidden}#anno .av-life u{display:block;height:100%;width:86.7%;border-radius:9px;background:var(--brand2)}#anno .av-life .e{justify-content:space-between;font-size:13.5px}
 #chart .tag-l{font:700 13px var(--f-label);fill:#fff;pointer-events:none}#chart .better{font:italic 400 22px var(--f-display);fill:var(--deep)}
+.how3{list-style:none;counter-reset:h;margin:0 0 14px;padding:0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;column-span:all}.how3 li{counter-increment:h;background:var(--card);border-radius:20px;padding:18px 20px}.how3 b{display:block;font:600 17px/1.3 var(--f-label);margin-bottom:4px}.how3 b::before{content:counter(h) "  ";color:var(--deep);white-space:pre}.how3 span{font:400 16px/1.45 var(--f-label);color:var(--sub)}details.more .more-in:has(.how3){columns:auto}details.more .more-in>.how3n{font-size:14.5px;color:var(--sub);margin:0}
+.pb-head,.pfr{display:grid;grid-template-columns:190px minmax(0,1fr);gap:18px;align-items:center}.pbars{position:relative}.pb-scale{position:relative;height:60px}.pb-scale span{position:absolute;top:0;bottom:0;padding-left:10px;border-left:1.5px solid #DCCAB9}.pb-scale b{display:block;font:500 28px/1 var(--f-display)}.pb-scale small{display:block;font:400 13px/1.2 var(--f-label);color:var(--sub);margin-top:5px}
+.pfr{width:100%;border:0;background:none;padding:0;text-align:left;cursor:pointer;color:inherit;border-radius:10px}.pfr:hover,.pfr[aria-pressed=true]{background:#F1E3D4}.pb-n{font:400 16px/1.2 var(--f-label);padding:0 0 0 4px}.pb-n small{font:400 13px/1.2 var(--f-label);color:var(--deep);margin-left:8px;white-space:nowrap}.pb-t{position:relative;height:36px;background:linear-gradient(#DCCAB9,#DCCAB9) 0 0/1.5px 100% no-repeat,linear-gradient(#DCCAB9,#DCCAB9) 41.67% 0/1.5px 100% no-repeat,linear-gradient(#DCCAB9,#DCCAB9) 62.5% 0/1.5px 100% no-repeat,linear-gradient(#DCCAB9,#DCCAB9) 83.33% 0/1.5px 100% no-repeat}.pb-t i{position:absolute;left:0;top:9px;height:18px;background:#E3B98F;border-radius:0 9px 9px 0}.pfr.today i{background:var(--brand2)}.pfr.exc i{background:repeating-linear-gradient(135deg,#E3B98F 0 4px,#F3E1CE 4px 8px)}.pb-t em{position:absolute;top:8px;padding-left:8px;font:500 14px/20px var(--f-mono);color:var(--sub);white-space:nowrap}.pfr.exc em{color:var(--deep)}.pb-cut{font:600 13.5px/1 var(--f-label);color:var(--sub);margin:16px 0 6px 4px}.pb-axis{font:400 13px/1.4 var(--f-label);color:var(--sub);text-align:right;margin:10px 0 0}.plot-title{margin-bottom:16px}
+.forher{font:400 15px/1.4 var(--f-label);color:var(--deep);margin:-8px 0 18px}.slip-sw{display:flex;gap:8px;margin:12px 0 0;flex-wrap:wrap}.slip-sw button{border:1.5px solid var(--line2);background:none;border-radius:999px;padding:7px 14px;font:500 14.5px/1.2 var(--f-label);cursor:pointer;color:inherit}.slip-sw button[aria-pressed=true]{background:var(--ink);color:#fff;border-color:var(--ink)}
+@media (max-width:700px){.how3{grid-template-columns:1fr;gap:10px}.pb-head,.pfr{grid-template-columns:98px minmax(0,1fr);gap:8px}.pb-n{font-size:14px}.pb-n small{display:block;margin:2px 0 0;font-size:12px;white-space:normal}.pb-scale{height:34px}.pb-scale small{display:none}.pb-scale span{padding-left:5px}.pb-t em{font-size:12px;padding-left:5px}}
 .todo{display:none!important}
 </style>
 </head>
@@ -1592,13 +1597,11 @@ html.still #anno .av-ask i::before{animation:none}
         <div class="plot">
         <div class="plot-bar" id="chips" role="group" aria-label="Filter by food group"></div>
         <div class="plot-card" id="plot-card">
-          <p class="plot-title">More protein, less phosphorus is the better pick.</p>
-          <p class="plot-sub">Color is the grade. Lettered foods moved down for salt or potassium. <span id="n-off"></span> dried foods run off the scale; see the table.</p>
-          <div class="legend" id="legend"></div>
-          <svg id="chart" role="img" aria-label="Scatter plot of protein foods by protein and phosphorus content, divided into four grade zones"></svg>
-          <div class="tip" id="tip" role="status"></div>
+          <p class="plot-title">How much phosphorus comes with 1 g of protein? Less is better.</p>
+          <div id="chart" class="pbars"></div>
+          
         </div>
-        <p class="picked empty" id="picked">Click a mark to see where its numbers come from.</p>
+        <p class="picked empty" id="picked">Click a food to see where its numbers come from.</p>
         <details class="tbl">
           <summary>See all <span id="n-all2">–</span> foods as a table</summary>
           <div class="tbl-scroll"><table id="tbl"></table></div>
@@ -1607,15 +1610,15 @@ html.still #anno .av-ask i::before{animation:none}
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <p>The rule is phosphorus per gram of protein: <b>A</b> under 10 mg, <b>B</b> 10–15, <b>C</b> 15–20, <b>D</b> over 20. <b id="n-fit">–</b> of <b id="n-all">–</b> foods follow it. <b id="n-exc">–</b> move down for salt, potassium or soaking.</p>
-            <p>Values: China Food Composition Tables, China’s 2024 dietary guide, USDA. The cut-offs are our team’s.</p>
+            <ol class="how3"><li><b>Divide</b><span>Phosphorus ÷ protein gives one number for each food.</span></li><li><b>Grade</b><span>Under 10 is A, 10–15 is B, 15–20 is C, over 20 is D.</span></li><li><b>Check</b><span>Too much salt or potassium, or needs soaking? The grade drops.</span></li></ol>
+            <p class="how3n">A 2010 review suggests keeping the diet under 10. The 15 and 20 steps are ours, and we found no guideline that grades single foods this way. All <span id="n-all">–</span> values: China Food Composition Tables, China’s 2024 dietary guide, USDA.</p>
           </div>
         </details>
   </section>
   <section class="stop2" id="p2" data-rail="3">
     <p class="when"><time>12:00</time><span>Lunch</span></p>
-        <h3 class="q3">Can we have braised pork today?</h3>
-        <p class="answer">The model writes the card. A fixed checklist decides whether you see it.</p>
+        <h3 class="q3">Can we cook something new today?</h3>
+        <p class="answer">The model drafts it for her limits. Code checks it before she sees it.</p>
         <div class="gate">
         <div class="plot-bar" id="gate-tabs" role="group" aria-label="Choose a test card"></div>
         <div class="gate-grid">
@@ -1626,8 +1629,8 @@ html.still #anno .av-ask i::before{animation:none}
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <p>Braised pork is not among the 54 recipes, so this is the one place the model writes something new: a one-person version with grams and steps. A checklist in the code then goes through it line by line. Per-serving caps: phosphorus 600 mg, potassium 1,500 mg, sodium 1,200 mg, protein 60 g.</p>
-            <p>The three test cards were written for this page and run through the prototype's own check, offline, on 20 Nov 2026. <span class="todo">定稿前你自己重跑一遍</span></p>
+            <ol class="how3"><li><b>Ask</b><span>If a dish is not in our 54 recipes, the model drafts one.</span></li><li><b>Fit</b><span>The draft is written for her daily limits and one portion.</span></li><li><b>Check</b><span>Code fixes or blocks it before she sees it.</span></li></ol>
+            <p class="how3n">The three drafts are test inputs written for this page. The results come from the prototype’s own check, run offline on 23 Nov 2026.</p>
           </div>
         </details>
   </section>
@@ -1639,8 +1642,8 @@ html.still #anno .av-ask i::before{animation:none}
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <p>The meals are picked by rule from recipes graded A or B: a staple and a protein at breakfast, a staple, a protein and a vegetable at lunch and dinner, with the day's sodium kept under the limit. Above, the only difference is the potassium result: 4.2 as printed, and 5.9. A result above 5.5 mmol/L moves the limit from 2,200 to 1,800 mg.</p>
-            <p>Not built yet: re-planning dinner after a lunch that went over.</p>
+            <ol class="how3"><li><b>Limit</b><span>Her potassium result sets the day’s limit: 2,200 mg, or 1,800 mg above 5.5 mmol/L.</span></li><li><b>Filter</b><span>Only recipes graded A or B can be picked.</span></li><li><b>Build</b><span>Every meal has a staple and a protein. Lunch and dinner add a vegetable.</span></li></ol>
+            <p class="how3n">Not built yet: changing dinner after a heavy lunch.</p>
           </div>
         </details>
   </section>
@@ -1688,7 +1691,8 @@ html.still #anno .av-ask i::before{animation:none}
         <details class="more">
           <summary>How it works</summary>
           <div class="more-in">
-            <p>Each day with a record fills a column. The page gives each nutrient by week as a multiple of its limit, lists the high-phosphorus foods that kept coming back, and leaves the bottom third for the patient's measurements and the doctor's handwriting. Month and page both run on the prototype's invented sample.</p>
+            <ol class="how3"><li><b>Log</b><span>Each meal she records counts toward the month.</span></li><li><b>Sum up</b><span>The page compares every week with her limits.</span></li><li><b>Hand over</b><span>Space is left for her readings and the doctor’s notes.</span></li></ol>
+            <p class="how3n">The month shown is made-up demo data.</p>
           </div>
         </details>
     <figure class="dayend">
@@ -1771,7 +1775,7 @@ html.still #anno .av-ask i::before{animation:none}
         <img src="media/ll_rest.png" width="320" height="291" alt="Liangliang resting">
       </div>
       <div class="stk-q"><span>What to eat today</span></div>
-      <ul class="gstk"><li class="ga"><b>A</b>Eat freely</li><li class="gb"><b>B</b>Watch the portion</li><li class="gc"><b>C</b>Blanch 2 min</li><li class="gd"><b>D</b>Swap it out</li></ul>
+      <ul class="gstk"><li class="ga"><b>A</b>Good choice</li><li class="gb"><b>B</b>Watch the portion</li><li class="gc"><b>C</b>Blanch 2 min</li><li class="gd"><b>D</b>Swap it out</li></ul>
       <ul class="strip"><li style="--c:#FB9E4B">Warm orange</li><li style="--c:#F08C2E">Stove orange</li><li style="--c:#FDF5F1;--t:#161514">Rice white</li><li style="--c:#B292ED">Liangliang</li><li style="--c:#161514">Ink</li></ul>
     </figure>
     <ol class="three">
@@ -1956,7 +1960,7 @@ const GCOL = {A: '#5E8272', B: '#D9962E', C: '#B9541A', D: '#6E3A22'};
 
 (function fillText(){
   const all = FOODS.length, exc = FOODS.filter(f => f.exc).length;
-  $('#n-all').textContent = all; $('#n-all2').textContent = all; $('#n-exc').textContent = exc; $('#n-fit').textContent = all - exc;
+  $('#n-all').textContent = all; $('#n-all2').textContent = all;
   const chips = $('#chips');
   ['All'].concat(GROUPS).forEach(g => {
     const b = h('button', 'chip'); b.type = 'button'; b.setAttribute('aria-pressed', String(g === 'All'));
@@ -1965,11 +1969,6 @@ const GCOL = {A: '#5E8272', B: '#D9962E', C: '#B9541A', D: '#6E3A22'};
     b.addEventListener('click', () => { filter = g; $$('.chip', chips).forEach(x => x.setAttribute('aria-pressed', String(x === b))); applyFilter(); });
     chips.appendChild(b);
   });
-
-  const lg = $('#legend');
-  ['A', 'B', 'C', 'D'].forEach(k => { const s = h('span'), v = el('svg', {width: 16, height: 16, viewBox: '-8 -8 16 16', 'aria-hidden': 'true'});
-    v.appendChild(el('circle', {r: 5.5, fill: GCOL[k]})); s.appendChild(v); s.appendChild(document.createTextNode(k + ' · ' + FOODS.filter(f => f.g === k).length)); lg.appendChild(s); });
-  $('#n-off').textContent = FOODS.filter(f => f.p > 33 || f.ph > 330).length;
 
   const tb = $('#tbl'); const hd = h('tr');
   [['Food', ''], ['Group', ''], ['Protein g', 'r'], ['Phosphorus mg', 'r'], ['mg per g', 'r'], ['Grade', ''], ['Source', '']].forEach(c => { const th = h('th', c[1], c[0]); hd.appendChild(th); });
@@ -1981,130 +1980,75 @@ const GCOL = {A: '#5E8272', B: '#D9962E', C: '#B9541A', D: '#6E3A22'};
   tb.appendChild(body);
 })();
 
-function applyFilter(){
-  $$('#chart .pt').forEach(g => g.classList.toggle('dim', filter !== 'All' && g.dataset.c !== filter));
-}
-
+const PICKS = ['Egg white', 'Duck', 'Tilapia', 'Chicken breast', 'Beef brisket', 'Salmon', 'Firm tofu', 'Egg', 'Crayfish', 'Pork liver', 'Oysters', 'Ham', 'Sausage'];
+const MOVED = f => f.na > 600 ? 'too salty' : SOAK.has(f.n) ? 'soak first' : 'high potassium';
+const RMAX = 24;
+function applyFilter(){ drawChart(); }
+/* 一条横条一种食物，长度 = 每克蛋白带来多少磷；三条竖线是 10、15、20 */
 function drawChart(){
-  const svg = $('#chart'), card = $('#plot-card');
-  const W = Math.max(300, Math.round(card.clientWidth - 44)), narrow = W < 620;
-  const H = narrow ? Math.round(W * 1.15) : Math.round(Math.min(600, W * 0.6));
-  const R = narrow ? 3.6 : 5, DM = narrow ? 8 : 11, RING = narrow ? 1.4 : 2;
-  const m = {l: narrow ? 40 : 46, r: 16, t: 34, b: 46};
-  const XMAX = 33, YMAX = 330, pw = W - m.l - m.r, ph = H - m.t - m.b;
-  const x = v => m.l + v / XMAX * pw, y = v => m.t + ph - v / YMAX * ph;
-  svg.setAttribute('viewBox', '0 0 ' + W + ' ' + H); svg.replaceChildren();
-
-  /* 四个区：产品里四级的浅底色，区与区之间留 3px 底色缝，不画线 */
-  const O = [x(0), y(0)], TL = [x(0), y(YMAX)], TR = [x(XMAX), y(YMAX)], BR = [x(XMAX), y(0)];
-  const top = r => [x(YMAX / r), y(YMAX)];
-  const poly = (pts, fill) => svg.appendChild(el('polygon', {points: pts.map(p => p.join(',')).join(' '), fill: fill, stroke: 'var(--card)', 'stroke-width': 3, 'stroke-linejoin': 'round'}));
-  poly([O, TL, top(20)], '#F1E4DA');
-  poly([O, top(20), top(15)], '#F8E2C8');
-  poly([O, top(15), top(10)], '#FCF0DF');
-  poly([O, TR, BR], '#EAF0EA');
-
-  /* 轴 */
-  for (let v = 0; v <= XMAX; v += 10){ svg.appendChild(el('text', {x: x(v), y: H - m.b + 20, 'text-anchor': 'middle', class: 'tick'}, v)); }
-  for (let v = 0; v <= YMAX; v += 100){ if (v) svg.appendChild(el('text', {x: m.l - 9, y: y(v) + 4, 'text-anchor': 'end', class: 'tick'}, v)); }
-  svg.appendChild(el('text', {x: m.l + pw, y: H - 6, 'text-anchor': 'end', class: 'axis-t'}, 'Protein, g per 100 g →'));
-  svg.appendChild(el('text', {x: 4, y: 16, class: 'axis-t'}, '↑ Phosphorus, mg per 100 g'));
-
-  if (!narrow) svg.appendChild(el('text', {x: x(XMAX) - 12, y: y(10), 'text-anchor': 'end', class: 'better'}, 'Better ↘'));
-  /* 区的名字直接写在区里 */
-  const zone = (L, px, py, anchor) => {
-    svg.appendChild(el('text', {x: px, y: py, class: 'zone-l', 'text-anchor': anchor || 'start', style: narrow ? 'font-size:24px' : ''}, L));
-    if (!narrow || L === 'D') svg.appendChild(el('text', {x: px + (anchor === 'end' ? 0 : 0), y: py + 20, class: 'zone-s', 'text-anchor': anchor || 'start'}, ACTION[L]));
-  };
-  const zy = y(YMAX) + (narrow ? 30 : 40);
-  zone('D', x(.9), zy);
-  zone('C', x(narrow ? 16.6 : 17.2), zy);
-  zone('B', x(narrow ? 24.2 : 22.8), zy);
-  zone('A', x(XMAX) - 12, y(narrow ? 110 : 95), 'end');
-
-  /* 点：按比值判的用墨色圆点，被前面规则截住的用深橙菱形 */
-  const LABELS = narrow ? {} :
-{'Sausage': [4, -14, 'start', 'Sausage'], 'Fermented black beans': [14, 5, 'start', 'Fermented black beans'], 'Egg white': [0, -16, 'middle', 'Egg white, today’s breakfast']};
-  const order = FOODS.filter(f => f.p <= XMAX && f.ph <= YMAX).sort((a, b) => (a.exc - b.exc));
-  order.forEach(f => {
-    const g = el('g', {class: 'pt', transform: 'translate(' + x(f.p).toFixed(1) + ',' + y(f.ph).toFixed(1) + ')', tabindex: f.exc ? 0 : -1, role: 'img', 'aria-label': f.n + ', grade ' + f.g + ', ' + f.r.toFixed(1) + ' milligrams of phosphorus per gram of protein'});
-    g.dataset.c = f.c; g.dataset.id = f.id;
-    g.appendChild(el('circle', {r: 13, fill: 'transparent'}));
-    g.appendChild(el('circle', {class: 'sel', r: 11, fill: 'none', stroke: 'var(--lilac)', 'stroke-width': 4, opacity: picked === f.id ? 1 : 0}));
-    if (f.exc){ const S = narrow ? 14 : 17;
-      g.appendChild(el('rect', {x: -S / 2, y: -S / 2, width: S, height: S, rx: 5, fill: GCOL[f.g], stroke: 'var(--card)', 'stroke-width': 1.5}));
-      g.appendChild(el('text', {y: narrow ? 3.6 : 4, 'text-anchor': 'middle', class: 'tag-l', style: 'font-size:' + (narrow ? 10 : 11.5) + 'px'}, f.g)); }
-    else if (f.n === 'Egg white') g.appendChild(el('circle', {r: R + 4, fill: GCOL.A, stroke: 'var(--ink)', 'stroke-width': 2}));
-    else g.appendChild(el('circle', {r: R, fill: GCOL[f.g], stroke: 'var(--card)', 'stroke-width': RING}));
-    const L = LABELS[f.n];
-    if (L) g.appendChild(el('text', {x: L[0], y: L[1], 'text-anchor': L[2], class: 'dl', 'paint-order': 'stroke', stroke: 'var(--card)', 'stroke-width': 4, 'stroke-linejoin': 'round'}, L[3] || f.n));
-    g.addEventListener('pointerenter', () => showTip(f, g));
-    g.addEventListener('pointerleave', hideTip);
-    g.addEventListener('focus', () => showTip(f, g));
-    g.addEventListener('blur', hideTip);
-    g.addEventListener('click', () => pick(f));
-    g.addEventListener('keydown', e => { if (e.key === 'Enter' || e.key === ' '){ e.preventDefault(); pick(f); } });
-    g.style.cursor = 'pointer';
-    svg.appendChild(g);
+  const box = $('#chart'); box.replaceChildren();
+  let list;
+  if (filter === 'All') list = FOODS.filter(f => PICKS.includes(f.n));
+  else { const all = FOODS.filter(f => f.c === filter).sort((a, b) => a.r - b.r), n = Math.min(12, all.length);
+    list = all.filter((f, i) => Array.from({length: n}, (_, k) => Math.round(k * (all.length - 1) / Math.max(1, n - 1))).includes(i)); }
+  const gOrder = {A: 0, B: 1, C: 2, D: 3};
+  list.sort((a, b) => a.exc - b.exc || a.r - b.r);
+  const head = h('div', 'pb-head'); head.appendChild(h('span'));
+  const scale = h('div', 'pb-scale');
+  [['A', 'Good choice', 0, 10], ['B', 'Watch the portion', 10, 15], ['C', 'Prep first', 15, 20], ['D', 'Swap it out', 20, RMAX]].forEach(z => {
+    const s = h('span', 'z' + z[0]); s.style.left = z[2] / RMAX * 100 + '%'; s.style.width = (z[3] - z[2]) / RMAX * 100 + '%';
+    s.appendChild(h('b', '', z[0])); s.appendChild(h('small', '', z[1])); scale.appendChild(s); });
+  head.appendChild(scale); box.appendChild(head);
+  let split = false;
+  list.forEach(f => {
+    if (f.exc && !split){ split = true; box.appendChild(h('p', 'pb-cut', 'Low number, but graded down')); }
+    const b = h('button', 'pfr' + (f.exc ? ' exc' : '') + (f.n === 'Egg white' ? ' today' : '')); b.type = 'button'; b.dataset.id = f.id;
+    b.setAttribute('aria-pressed', String(picked === f.id));
+    b.setAttribute('aria-label', f.n + ', ' + f.r.toFixed(1) + ' milligrams of phosphorus per gram of protein, grade ' + f.g);
+    const n = h('span', 'pb-n', f.n); if (f.n === 'Egg white') n.appendChild(h('small', '', 'today’s breakfast')); if (f.exc) n.appendChild(h('small', '', MOVED(f)));
+    const t = h('span', 'pb-t'), i = h('i'); i.style.width = Math.min(100, f.r / RMAX * 100) + '%'; t.appendChild(i);
+    const v = h('em', '', f.r.toFixed(1) + (f.exc ? ' → ' + f.g : '')); v.style.left = Math.min(100, f.r / RMAX * 100) + '%'; t.appendChild(v);
+    b.appendChild(n); b.appendChild(t); b.addEventListener('click', () => pick(f)); box.appendChild(b);
   });
-  applyFilter();
+  box.appendChild(h('p', 'pb-axis', 'mg of phosphorus per 1 g of protein · ' + list.length + ' of ' + (filter === 'All' ? FOODS.length : FOODS.filter(f => f.c === filter).length) + ' shown'));
 }
-
-const tip = $('#tip');
-function showTip(f, g){
-  tip.replaceChildren();
-  tip.appendChild(h('strong', '', f.n));
-  const l1 = h('span'); l1.appendChild(h('span', 'v', fmt(f.ph) + ' mg')); l1.appendChild(document.createTextNode(' phosphorus · ')); l1.appendChild(h('span', 'v', fmt(f.p) + ' g')); l1.appendChild(document.createTextNode(' protein'));
-  tip.appendChild(l1); tip.appendChild(document.createElement('br'));
-  const l2 = h('span'); l2.appendChild(h('span', 'v', f.r.toFixed(1) + ' mg/g')); l2.appendChild(document.createTextNode(' · Grade ' + f.g + ', ' + ACTION[f.g].toLowerCase()));
-  tip.appendChild(l2);
-  if (f.exc) tip.appendChild(h('span', 'why', f.why));
-  const card = $('#plot-card').getBoundingClientRect(), r = g.getBoundingClientRect();
-  tip.classList.add('show');
-  const tw = tip.offsetWidth, th = tip.offsetHeight;
-  let left = r.left + r.width / 2 - card.left + 16, topv = r.top + r.height / 2 - card.top - th - 12;
-  if (left + tw > card.width - 8) left = r.left + r.width / 2 - card.left - tw - 16;
-  if (topv < 8) topv = r.top + r.height / 2 - card.top + 16;
-  tip.style.left = Math.max(8, left) + 'px'; tip.style.top = topv + 'px';
-}
-function hideTip(){ tip.classList.remove('show'); }
 function pick(f){
   picked = picked === f.id ? null : f.id;
-  $$('#chart .pt').forEach(g => $('.sel', g).setAttribute('opacity', g.dataset.id === picked ? 1 : 0));
+  $$('#chart .pfr').forEach(g => g.setAttribute('aria-pressed', String(g.dataset.id === picked)));
   const box = $('#picked'); box.replaceChildren();
-  if (!picked){ box.classList.add('empty'); box.textContent = 'Click a mark to see where its numbers come from.'; return; }
+  if (!picked){ box.classList.add('empty'); box.textContent = 'Click a food to see where its numbers come from.'; return; }
   box.classList.remove('empty');
-  box.appendChild(h('b', '', 'You picked ' + f.n + '. '));
-  box.appendChild(document.createTextNode(fmt(f.ph) + ' mg phosphorus and ' + fmt(f.p) + ' g protein per 100 g, which is ' + f.r.toFixed(1) + ' mg/g. Grade ' + f.g + ': ' + ACTION[f.g].toLowerCase() + '. ' + (f.exc ? f.why + ' ' : '') + 'Values from ' + f.s + ', entry ' + f.id + '.'));
+  box.appendChild(h('b', '', f.n + '. '));
+  box.appendChild(document.createTextNode(fmt(f.ph) + ' mg phosphorus ÷ ' + fmt(f.p) + ' g protein (per 100 g) = ' + f.r.toFixed(1) + '. Grade ' + f.g + ': ' + ACTION[f.g].toLowerCase() + '. ' + (f.exc ? f.why + ' ' : '') + 'Source: ' + f.s + ', entry ' + f.id + '.'));
 }
 
 /* ---------- 12:00 质检单 ----------
-   三张测试卡的判定和理由，是 2026-11-20 断网运行原型里的 aiCheck() 得到的原样结果（译成英文）。
+   三张测试卡的判定和理由，是 2026-11-23 断网运行原型里的 aiCheck() 得到的原样结果（译成英文）。
    卡片正文里用数组表示一段话：嵌套数组是被质检点到的词。 */
 const CHECKS = [
-  ['Is the card complete?', 'Name, ingredients, steps and all four numbers.'],
-  ['Is it one serving?', 'Caps per dish: phosphorus 600 mg, potassium 1,500 mg, sodium 1,200 mg, protein 60 g.'],
-  ['Can someone follow it?', 'Every amount in grams or spoons. No "to taste".'],
-  ['Anything on the never list?', 'Ten groups, among them long-simmered stock, processed meat, pickles and potassium salt substitutes.']
+  ['Is the card complete?', 'Ingredients, steps and all four numbers.'],
+  ['Can someone follow it?', 'Every amount in grams or spoons.'],
+  ['Does it fit her day?', 'Compared with the limits from her own lab report.'],
+  ['Anything on the never list?', 'Ham, pickles, long-simmered stock and more.']
 ];
 const CARDS = [
-  {tab: 'Card 1 · plain stew', name: 'Home-style braised pork',
-   ing: ['Pork belly 80 g, blanched first. Ginger 5 g.'],
-   steps: [['Cut the pork, start it in cold water and skim.'], ['Add the ginger and water, simmer 40 minutes.'], ['Add 1 g of salt before serving.']],
-   sea: ['Salt, 1 g or less'], nums: [['Phosphorus 140 mg'], ['Potassium 180 mg'], ['Sodium 420 mg'], ['Protein 11 g']],
-   res: [['ok'], ['ok'], ['ok'], ['ok']], verdict: ['pass', 'Pass', 'Shown as written.']},
-  {tab: 'Card 2 · "salt to taste"', name: 'Home-style braised pork',
+  {tab: 'Potato beef stew', name: 'Potato beef stew',
+   ing: ['Beef brisket 100 g, ', ['potato 200 g'], '.'],
+   steps: [['Start the beef in cold water, boil 2 minutes, rinse.'], ['Add water, simmer 50 minutes.'], ['Add the potato, 15 minutes more. Salt, 1 g.']],
+   sea: ['Salt, 1 g'], nums: [['Phosphorus 300 mg'], ['Potassium 1,100 mg', 1], ['Sodium 460 mg'], ['Protein 24 g']],
+   vars: [
+    {t: 'Her potassium: 4.2', k: '2,200', res: [['ok'], ['fix', 'Potato is high in potassium, so a step is added: cut small, blanch 1 minute.'], ['ok', 'Uses 50% of her potassium for the day.'], ['ok']], verdict: ['fix', 'Fixed', 'Shown with the extra step.']},
+    {t: 'If it were 5.9', k: '1,800', res: [['ok'], ['fix', 'Potato is high in potassium, so a step is added: cut small, blanch 1 minute.'], ['fix', 'Uses 61% of her potassium. Halve the portion, or keep the other two meals light.'], ['ok']], verdict: ['fix', 'Fixed', 'Same dish, with a portion warning for this report.']}]},
+  {tab: 'Braised pork', name: 'Home-style braised pork',
    ing: ['Pork belly 80 g, ', ['salt to taste'], ', ', ['a little oil'], '.'],
    steps: [['Cut the pork and stir-fry it.'], ['Cover with water, simmer 40 minutes.'], ['Season before serving.']],
    sea: [['Salt to taste']], nums: [['Phosphorus 140 mg'], ['Potassium 180 mg'], ['Sodium 820 mg'], ['Protein 11 g']],
-   res: [['ok'], ['ok'], ['fix', 'Rewritten as "salt, 1 g or less" and "oil, 5 g or less". The card says it was changed.'], ['ok']],
-   verdict: ['fix', 'Fixed', 'Shown with the changes listed on the card.']},
-  {tab: 'Card 3 · ham and stock', name: 'Braised pork with ham and stock',
-   ing: ['Pork belly 300 g, ', ['ham'], ' 50 g, ', ['stock'], ' 500 ml.'],
-   steps: [['Cut the pork and the ham.'], ['Add the stock and bring to a boil.'], ['Simmer for an hour and serve with the broth.']],
-   sea: ['Soy sauce, 2 spoons'], nums: [['Phosphorus 640 mg', 1], ['Potassium 980 mg'], ['Sodium 2,400 mg', 1], ['Protein 42 g']],
-   res: [['ok'], ['block', 'Phosphorus 640 mg and sodium 2,400 mg are not one person\'s meal. On its own this dish would take most of today\'s phosphorus and sodium.'], ['ok'], ['block', 'Long-simmered stock holds the most potassium and phosphorus. Eat the meat, leave the soup.']],
-   verdict: ['block', 'Blocked', 'The model\'s card is not shown. The app shows a plain version worked out from the food table, and says why.']}
+   vars: [{k: '2,200', res: [['ok'], ['fix', '“To taste” becomes salt 1 g or less, oil 5 g or less.'], ['ok', 'Uses 43% of her sodium for the day.'], ['ok']], verdict: ['fix', 'Fixed', 'Shown with exact amounts.']}]},
+  {tab: 'Ham fried rice', name: 'Ham fried rice',
+   ing: ['Cooked rice 150 g, ', ['ham 50 g'], ', one egg.'],
+   steps: [['Dice the ham.'], ['Stir-fry over medium heat, 3 minutes.'], ['Add 1 small spoon of soy sauce, 2 minutes more.']],
+   sea: ['Soy sauce, 1 small spoon'], nums: [['Phosphorus 290 mg'], ['Potassium 330 mg'], ['Sodium 1,000 mg'], ['Protein 19 g']],
+   vars: [{k: '2,200', res: [['ok'], ['ok'], ['ok', 'Uses 53% of her sodium for the day.'], ['block', 'Ham is processed meat. Its phosphate additives are hidden phosphorus.']], verdict: ['block', 'Blocked', 'She sees why, not the recipe.']}]}
 ];
 (function(){
   const tabs = $('#gate-tabs'), rc = $('#rcard'), slip = $('#slip');
@@ -2115,12 +2059,13 @@ const CARDS = [
     else { v.appendChild(el('rect', {x: -7, y: -7, width: 14, height: 14, rx: 2, fill: 'var(--ink)'})); v.appendChild(el('path', {d: 'M-3.5 -3.5 L3.5 3.5 M3.5 -3.5 L-3.5 3.5', stroke: 'var(--card)', 'stroke-width': 2.2, 'stroke-linecap': 'round'})); }
     return v; };
   const WORD = {ok: 'OK', fix: 'Changed', block: 'Stopped'};
-  function show(i){
-    const c = CARDS[i];
+  function show(i, vi){
+    const c = CARDS[i], V = c.vars[vi || 0];
     $$('.chip', tabs).forEach((b, j) => b.setAttribute('aria-pressed', String(j === i)));
     rc.replaceChildren();
-    rc.appendChild(h('p', 'label', 'As the model wrote it · test input'));
+    rc.appendChild(h('p', 'label', 'Model draft · test input'));
     rc.appendChild(h('h3', '', c.name));
+    rc.appendChild(h('p', 'forher', 'Her day, up to: phosphorus 800 · potassium ' + V.k + ' · sodium 1,900 mg'));
     const dl = h('dl');
     const row = (k, node) => { dl.appendChild(h('dt', '', k)); const dd = h('dd'); dd.appendChild(node); dl.appendChild(dd); };
     const ing = h('span'); para(ing, c.ing); row('Ingredients', ing);
@@ -2131,15 +2076,16 @@ const CARDS = [
 
     slip.replaceChildren();
     slip.appendChild(h('p', 'slip-h', 'Check before showing'));
+    if (c.vars.length > 1){ const sw = h('div', 'slip-sw'); c.vars.forEach((x, j) => { const b = h('button', '', x.t); b.type = 'button'; b.setAttribute('aria-pressed', String(j === (vi || 0))); b.addEventListener('click', () => show(i, j)); sw.appendChild(b); }); slip.appendChild(sw); }
     const ul = h('ul');
-    CHECKS.forEach((ck, j) => { const r = c.res[j], li = h('li', r[0] === 'ok' ? '' : 'hit');
+    CHECKS.forEach((ck, j) => { const r = V.res[j], li = h('li', r[0] === 'ok' ? '' : 'hit');
       li.appendChild(sym(r[0])); li.appendChild(h('span', 'q', ck[0])); li.appendChild(h('span', 'st', WORD[r[0]]));
       li.appendChild(h('span', 'm', r[1] || ck[1])); ul.appendChild(li); });
     slip.appendChild(ul);
-    const sr = h('div', 'stamp-row'); sr.appendChild(h('span', 'stamp ' + c.verdict[0], c.verdict[1])); sr.appendChild(h('p', '', c.verdict[2])); slip.appendChild(sr);
+    const sr = h('div', 'stamp-row'); sr.appendChild(h('span', 'stamp ' + V.verdict[0], V.verdict[1])); sr.appendChild(h('p', '', V.verdict[2])); slip.appendChild(sr);
   }
   CARDS.forEach((c, i) => { const b = h('button', 'chip', c.tab); b.type = 'button'; b.addEventListener('click', () => show(i)); tabs.appendChild(b); });
-  show(1);
+  show(0);
 })();
 
 /* ---------- 17:30 同一天画两遍 ----------
@@ -2256,7 +2202,7 @@ const CARDS = [
 })();
 
 let rz = 0;
-addEventListener('resize', () => { clearTimeout(rz); rz = setTimeout(() => { drawChart(); }, 120); });
+
 if (document.fonts && document.fonts.ready) document.fonts.ready.then(() => { drawChart(); });
 drawChart();
 })();
