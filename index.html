@@ -1286,6 +1286,10 @@ html.still #anno .av-ask i::before{animation:none}
 @media (max-width:700px){.pzin{display:block;padding:26px 20px}.pz2{margin-top:16px!important}.pz2 b{font-size:21px}.lead dl{grid-template-columns:1fr 1fr;gap:0 20px}.lead dl div{padding:12px 0!important}.lead>p{text-align:left}.fn5 li{font-size:14.5px;gap:8px;padding:10px 14px!important}.fn5 li b{font-size:17px!important}.fn5 li:nth-child(2){--k:96%}.fn5 li:nth-child(3){--k:92%}.fn5 li:nth-child(4){--k:88%}.fn5 li:nth-child(5){--k:84%}#day + .stop2{padding-top:44px}}
 @media (min-width:981px){.qc{display:flex;flex-direction:column}.qc .chk{flex:1;display:flex;flex-direction:column}.qc .chk li:not(.chk-h){flex:1;align-items:center}}
 .fn5 li strong{display:block;font:600 17px/1.25 var(--f-label);color:var(--ink)}.fn5 li.last strong{color:#fff}.fn5 li span{font-size:15px}.fn5 li{min-height:72px;padding:9px 20px!important}@media (max-width:700px){.fn5 li strong{font-size:15.5px}.fn5 li span{font-size:14px}}
+.sksvg{display:block;width:100%;height:100%}.sksvg text{font-family:"Caveat",cursive;font-weight:600}.sk-ph.full{padding:0}.skf{padding:0!important}.sk3.en{align-items:start;gap:16px}.sk3.en li,.b-steps .sk3.en li{min-height:0!important;padding:0!important;max-width:none;display:block}.skf{aspect-ratio:4/5}.sk3.en li b{font-size:17px;margin-top:12px}.sk3.en li span{display:block;font:400 15px/1.4 var(--f-label);color:var(--sub);margin-top:3px}
+@media (max-width:900px){.b-steps .b-img.sk-ph.full{height:auto;aspect-ratio:468/684;width:min(100%,420px)!important}}
+@media (max-width:560px){.sk3.en{grid-template-columns:1fr!important;gap:18px}.sk3.en li{display:grid!important;grid-template-columns:56% 1fr;grid-template-rows:auto 1fr;column-gap:16px}.sk3.en .skf{grid-row:1/3}}
+.b-phone .skimg,.b-img .skimg,.skf .skimg{position:static;width:100%;height:100%;object-fit:contain;opacity:1;padding:0;border:0;border-radius:0}.sk-ph.full{padding:16px 18px!important}.skf{padding:10px!important;aspect-ratio:1/1.12!important;box-sizing:border-box}
 .todo{display:none!important}
 </style>
 </head>
@@ -1472,7 +1476,7 @@ html.still #anno .av-ask i::before{animation:none}
         </div>
         <div class="b-phone">
           <img data-i="0" src="media/v2-1024-en.jpg" width="468" height="680" alt="">
-          <div data-i="1" class="sk-ph"><span class="todo">待重画：英文版手绘稿</span><p>Three ways in → one card for this patient → ranked by rules</p></div>
+          <div data-i="1" class="sk-ph full"><img class="skimg" src="media/paper-flow.png" width="789" height="1016" loading="lazy" alt=""></div>
           <img data-i="2" src="media/v4-1119-en.jpg" width="468" height="680" alt="">
           <img class="b-ll" src="media/ll_eat.png" width="269" height="320" alt="">
         </div>
@@ -1485,14 +1489,14 @@ html.still #anno .av-ask i::before{animation:none}
           <p>V1 judged one food at a time. V2 added the four sections and sorted every food, safest first. Both answered the question we assumed families had. <span class="todo">待确认：截图里的化验值是否来自真实报告</span></p>
         </li>
         <li data-w="2">
-          <div class="b-img sk-ph" aria-hidden="true"><span class="todo">待重画：英文版手绘稿</span></div>
+          <div class="b-img sk-ph full"><img class="skimg" src="media/paper-flow.png" width="789" height="1016" loading="lazy" alt="My handwritten flow. Two situations lead to one prompt for this patient, then a checked recipe, step cards and a rescue card if cooking goes wrong."></div>
           <p class="b-when"><time>Nov</time>Back to paper</p>
           <h3>What does a day need?</h3>
           <p>After the interviews we stopped adding screens and drew the day instead.</p>
-          <ol class="sk3">
-            <li><div class="skf"><span class="todo">待画 ①</span><p>lab report → 3 ways in → rules rank → 1 recipe card</p></div><b>One day, one path</b></li>
-            <li><div class="skf"><span class="todo">待画 ②</span><p>fridge first → grade A/B → lighter on today</p></div><b>The ranking ladder</b></li>
-            <li><div class="skf"><span class="todo">待画 ③</span><p>5 boxes → 3 things</p></div><b>The first screen</b></li>
+          <ol class="sk3 en">
+            <li><div class="skf"><img class="skimg" src="media/paper-1.png" width="564" height="454" loading="lazy" alt="I want ribs, or no idea what to eat: both lead to one dinner."></div><b>Start from dinner</b><span>Two situations, not one food.</span></li>
+            <li><div class="skf"><img class="skimg" src="media/paper-2.png" width="530" height="681" loading="lazy" alt="Ranked by what is in the fridge, then grade, then the worst number."></div><b>Rank by rules</b><span>What she has comes first.</span></li>
+            <li><div class="skf"><img class="skimg" src="media/paper-3.png" width="598" height="553" loading="lazy" alt="Buy, prep, cook. If it goes wrong, speak to the agent, save it and make another card."></div><b>Plan for mistakes</b><span>A dish gone wrong gets help too.</span></li>
           </ol>
         </li>
         <li data-w="3">
